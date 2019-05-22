@@ -1,11 +1,12 @@
 #include "Game.h"
 
-Game::Game() {
-	init("Test", false);
-
+Game::Game(std::string title, bool fullscreen) {
+	display = new Display(title, 1280, 720, fullscreen);
+	init();
+	loop();
 }
 
-void Game::init(std::string title, bool fullscreen) {
+void Game::init() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		printf("SDL Failed to initalize everything! SDL Error: %s\n", SDL_GetError());
 	}
@@ -18,7 +19,7 @@ void Game::render() {
 }
 
 void Game::clean() {
-	SDL_DestroyWindow(window);
+	display->free();
 }
 
 void Game::loop() {

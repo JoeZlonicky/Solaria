@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Game.h"
 int main(int argc, char* argv[]) {
-	Game game = Game();
+	Game game = Game("Solaria", false);
+	game.loop();
 	return 0;
 }

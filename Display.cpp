@@ -30,7 +30,6 @@ void Display::update() {
 	SDL_RenderPresent(renderer);
 }
 
-
 void Display::free() {
 	SDL_DestroyWindow(window);
 }
