@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <string>
-class Game{
+class Game {
 public:
 	Game();
 
