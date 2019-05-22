@@ -9,6 +9,7 @@ public:
 	void update();
 	void free();
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
+
 private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
