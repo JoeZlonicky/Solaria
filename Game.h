@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <SDL_image.h>
 #include <stdio.h>
 #include <string>
 #include "Display.h"
@@ -20,5 +21,6 @@ public:
 private:
 	Display* display;
 	bool isRunning = true;
+	SDL_Texture* player;
 };
 

@@ -3,11 +3,12 @@
 #include <SDL_image.h>
 #include <string>
 
-class TextureManager{
-public:
+namespace TextureManager {
+
 	SDL_Texture* LoadTexture(std::string path);
 
-	void Draw(SDL_Texture* texture, SDL_Rect srcRect, SDL_Rect destRect);
+	void Draw(SDL_Texture* texture, SDL_Rect *srcRect, SDL_Rect *destRect);
 
-};
+
+}
 

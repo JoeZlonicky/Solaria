@@ -10,7 +10,7 @@ Display::Display(std::string title, int width, int height, bool fullscreen) : wi
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if (window == NULL) {
+	if (renderer == NULL) {
 		printf("Failed to create renderer. Error: %s\n", SDL_GetError());
 	}
 }
@@ -32,4 +32,6 @@ void Display::update() {
 
 void Display::free() {
 	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
+	SDL_Quit();
 }
