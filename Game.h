@@ -10,6 +10,7 @@ public:
 	Game(std::string title, bool fullscreen);
 
 	void init();
+	void initTextureLoader();
 
 	void handleEvents();
 	void update();

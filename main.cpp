@@ -4,6 +4,5 @@
 
 int main(int argc, char* argv[]) {
 	Game game = Game("Test", false);
-	game.loop();
 	return 0;
 }

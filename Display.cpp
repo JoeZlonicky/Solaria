@@ -26,6 +26,10 @@ void Display::setClearColor(Uint8 r, Uint8 g, Uint8 b) {
 	clearB = b;
 }
 
+SDL_Renderer* Display::getRenderer() {
+	return renderer;
+}
+
 void Display::update() {
 	SDL_RenderPresent(renderer);
 }
