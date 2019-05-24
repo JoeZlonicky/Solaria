@@ -24,5 +24,6 @@ private:
 	bool running = true;
 	std::string title;
 	Sprite* player = nullptr;
+	Map* map = nullptr;
 };
 

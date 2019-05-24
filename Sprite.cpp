@@ -21,6 +21,11 @@ void Sprite::moveY(double movement) {
 	y += movement;
 }
 
+void Sprite::free() {
+	SDL_DestroyTexture(texture);
+	texture = nullptr;
+}
+
 double Sprite::getX() {
 	return x;
 }

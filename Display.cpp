@@ -2,19 +2,22 @@
 
 Display::Display(std::string title, bool fullscreen) {
 	int* dimensions = getScreenDimensions();
+	width = dimensions[0];
+	height = dimensions[1];
+
 	int fullscreenFlag = 0;
 	if (fullscreen) {
 		fullscreenFlag = SDL_WINDOW_FULLSCREEN;
 	}
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		dimensions[0], dimensions[1], SDL_WINDOW_SHOWN | fullscreenFlag);
+		width, height, SDL_WINDOW_SHOWN | fullscreenFlag);
 	if (window == NULL) {
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
 	createRenderer();
 }
 
-Display::Display(std::string title, int width, int height) {
+Display::Display(std::string title, int width, int height) : width(width), height(height) {
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		width, height, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
@@ -58,8 +61,20 @@ void Display::draw(Sprite* sprite) {
 	SDL_RenderCopy(renderer, sprite->getTexture(), NULL, &sprite->getRect());
 }
 
+void Display::draw(Map* map) {
+	SDL_RenderCopy(renderer, map->getTexture(), NULL, NULL);
+}
+
 SDL_Renderer* Display::getRenderer() {
 	return renderer;
+}
+
+int Display::getWidth() {
+	return width;
+}
+
+int Display::getHeight() {
+	return height;
 }
 
 void Display::update() {

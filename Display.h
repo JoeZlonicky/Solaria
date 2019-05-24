@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <string>
 #include "Sprite.h"
+#include "Map.h"
 
 class Display {
 public:
@@ -13,7 +14,10 @@ public:
 	void free();
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void draw(Sprite* sprite);
+	void draw(Map* map);
 	SDL_Renderer* getRenderer();
+	int getWidth();
+	int getHeight();
 
 private:
 	void createRenderer();
@@ -24,4 +28,6 @@ private:
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;
 	Uint8 clearB = 0;
+	int width = 0;
+	int height = 0;
 };

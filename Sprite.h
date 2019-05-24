@@ -9,6 +9,7 @@ public:
 
 	void moveX(double movement);
 	void moveY(double movement);
+	void free();
 	double getX();
 	double getY();
 	int getWidth();

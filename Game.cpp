@@ -6,6 +6,7 @@ Game::Game(std::string title, int displayWidth, int displayHeight) {
 	display = new Display(title, displayWidth, displayHeight);
 	TextureManager::init(display->getRenderer());
 	player = new Sprite("assets/grass.png", 32, 32);
+	map = new Map(1000, 1000, display->getWidth(), display->getHeight());
 }
 
 Game::Game(std::string title, bool fullscreen){
@@ -13,6 +14,7 @@ Game::Game(std::string title, bool fullscreen){
 	display = new Display(title, fullscreen);
 	TextureManager::init(display->getRenderer());
 	player = new Sprite("assets/grass.png", 32, 32);
+	map = new Map(1000, 1000, display->getWidth(), display->getHeight());
 }
 
 void Game::init() {
@@ -40,12 +42,15 @@ void Game::update() {
 
 void Game::render() {
 	display->clear();
+	display->draw(map);
 	display->draw(player);
 	display->update();
 }
 
 void Game::free() {
 	display->free();
+	player->free();
+	map->free();
 	SDL_Quit();
 }
 
