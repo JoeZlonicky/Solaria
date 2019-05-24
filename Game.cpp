@@ -5,14 +5,14 @@ Game::Game(std::string title, int displayWidth, int displayHeight) {
 	init();
 	display = new Display(title, displayWidth, displayHeight);
 	TextureManager::init(display->getRenderer());
-	player = new Sprite("grass.png", 32, 32);
+	player = new Sprite("assets/grass.png", 32, 32);
 }
 
 Game::Game(std::string title, bool fullscreen){
 	init();
 	display = new Display(title, fullscreen);
 	TextureManager::init(display->getRenderer());
-	player = new Sprite("grass.png", 32, 32);
+	player = new Sprite("assets/grass.png", 32, 32);
 }
 
 void Game::init() {
