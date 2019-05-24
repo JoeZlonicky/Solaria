@@ -13,11 +13,19 @@ Sprite::Sprite(SDL_Texture* texture, int x, int y) {
 Sprite::Sprite(std::string filePath, int x, int y) : Sprite(TextureManager::Load(filePath), x, y) {
 }
 
-int Sprite::getX() {
+void Sprite::moveX(double movement) {
+	x += movement;
+}
+
+void Sprite::moveY(double movement) {
+	y += movement;
+}
+
+double Sprite::getX() {
 	return x;
 }
 
-int Sprite::getY() {
+double Sprite::getY() {
 	return y;
 }
 

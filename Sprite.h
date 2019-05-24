@@ -7,8 +7,10 @@ public:
 	Sprite(SDL_Texture* texture, int x = 0, int y = 0);
 	Sprite(std::string filePath, int x = 0, int y = 0);
 
-	int getX();
-	int getY();
+	void moveX(double movement);
+	void moveY(double movement);
+	double getX();
+	double getY();
 	int getWidth();
 	int getHeight();
 	SDL_Rect getRect();
@@ -18,7 +20,7 @@ private:
 	SDL_Texture* texture = nullptr;
 	int width = 0;
 	int height = 0;
-	int x = 0;
-	int y = 0;
+	double x = 0;
+	double y = 0;
 };
 

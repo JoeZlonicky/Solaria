@@ -35,6 +35,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+	player->moveX(1.5);
 }
 
 void Game::render() {
