@@ -23,6 +23,6 @@ private:
 	Display* display = nullptr;
 	bool running = true;
 	std::string title;
-	SDL_Texture* player = nullptr;
+	Sprite* player = nullptr;
 };
 

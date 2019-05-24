@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include "Sprite.h"
 
 class Display {
 public:
@@ -11,6 +12,7 @@ public:
 	void update();
 	void free();
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
+	void draw(Sprite* sprite);
 	SDL_Renderer* getRenderer();
 
 private:

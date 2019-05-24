@@ -54,6 +54,10 @@ void Display::setClearColor(Uint8 r, Uint8 g, Uint8 b) {
 	clearB = b;
 }
 
+void Display::draw(Sprite* sprite) {
+	SDL_RenderCopy(renderer, sprite->getTexture(), NULL, &sprite->getRect());
+}
+
 SDL_Renderer* Display::getRenderer() {
 	return renderer;
 }
