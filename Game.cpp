@@ -6,7 +6,7 @@ Game::Game(std::string title, int displayWidth, int displayHeight) {
 	display = new Display(title, displayWidth, displayHeight);
 	TextureManager::init(display->getRenderer());
 	player = new Sprite("assets/grass.png", 32, 32);
-	map = new Map(1000, 1000, display->getWidth(), display->getHeight());
+	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
 }
@@ -41,7 +41,8 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->moveX(1.5);
+	player->moveX(0.5);
+	player->moveY(0.5);
 }
 
 void Game::render() {

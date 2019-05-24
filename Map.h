@@ -9,9 +9,13 @@ public:
 	SDL_Texture* getTexture();
 	int getWidth();
 	int getHeight();
+	int getTextureWidth();
+	int getTextureHeight();
 	
 private:
 	SDL_Texture* texture = nullptr;
+	int textureWidth = 0;
+	int textureHeight = 0;
 	int width;
 	int height;
 	int displayWidth;
