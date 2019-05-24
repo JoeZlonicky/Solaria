@@ -7,6 +7,8 @@ public:
 
 	void free();
 	SDL_Texture* getTexture();
+	int getWidth();
+	int getHeight();
 	
 private:
 	SDL_Texture* texture = nullptr;

@@ -57,12 +57,15 @@ void Display::setClearColor(Uint8 r, Uint8 g, Uint8 b) {
 	clearB = b;
 }
 
-void Display::draw(Sprite* sprite) {
-	SDL_RenderCopy(renderer, sprite->getTexture(), NULL, &sprite->getRect());
+void Display::draw(Sprite* sprite, Camera* camera) {
+	SDL_Rect rect = camera->apply(sprite->getRect());
+	SDL_RenderCopy(renderer, sprite->getTexture(), NULL, &rect);
 }
 
-void Display::draw(Map* map) {
-	SDL_RenderCopy(renderer, map->getTexture(), NULL, NULL);
+void Display::draw(Map* map, Camera* camera) {
+	SDL_Rect mapRect = { 0, 0, map->getWidth(), map->getHeight() };
+	SDL_Rect rect = camera->apply(mapRect);
+	SDL_RenderCopy(renderer, map->getTexture(), NULL, &rect);
 }
 
 SDL_Renderer* Display::getRenderer() {

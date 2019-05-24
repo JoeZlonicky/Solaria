@@ -3,6 +3,7 @@
 #include <string>
 #include "Sprite.h"
 #include "Map.h"
+#include "Camera.h"
 
 class Display {
 public:
@@ -13,8 +14,8 @@ public:
 	void update();
 	void free();
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
-	void draw(Sprite* sprite);
-	void draw(Map* map);
+	void draw(Sprite* sprite, Camera* camera);
+	void draw(Map* map, Camera* camera);
 	SDL_Renderer* getRenderer();
 	int getWidth();
 	int getHeight();

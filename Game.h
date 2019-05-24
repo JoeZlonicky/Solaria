@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <string>
 #include "Display.h"
+#include "Map.h"
+#include "Sprite.h"
+#include "Camera.h"
 
 class Game {
 public:
@@ -25,5 +28,6 @@ private:
 	std::string title;
 	Sprite* player = nullptr;
 	Map* map = nullptr;
+	Camera* camera = nullptr;
 };
 

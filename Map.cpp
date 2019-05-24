@@ -15,3 +15,11 @@ void Map::free() {
 SDL_Texture* Map::getTexture() {
 	return texture;
 }
+
+int Map::getWidth() {
+	return width;
+}
+
+int Map::getHeight() {
+	return height;
+}
