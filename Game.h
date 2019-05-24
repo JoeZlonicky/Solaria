@@ -7,21 +7,22 @@
 
 class Game {
 public:
+	Game(std::string title, int width, int height);
 	Game(std::string title, bool fullscreen);
 
 	void init();
-	void initTextureLoader();
 
 	void handleEvents();
 	void update();
 	void render();
-	void clean();
+	void free();
 
-	void loop();
+	bool isRunning();
 
 private:
-	Display* display;
-	bool isRunning = true;
-	SDL_Texture* player;
+	Display* display = nullptr;
+	bool running = true;
+	std::string title;
+	SDL_Texture* player = nullptr;
 };
 

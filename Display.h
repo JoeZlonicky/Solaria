@@ -4,7 +4,9 @@
 
 class Display {
 public:
-	Display(std::string title, int width, int height, bool fullscreen);
+	Display(std::string title, bool fullscreen);
+	Display(std::string title, int width, int height);
+
 	void clear();
 	void update();
 	void free();
@@ -12,10 +14,10 @@ public:
 	SDL_Renderer* getRenderer();
 
 private:
+	void createRenderer();
+	int* getScreenDimensions();
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	int width;
-	int height;
 	bool fullscreen = false;
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;

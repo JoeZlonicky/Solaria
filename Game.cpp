@@ -1,11 +1,18 @@
 #include "Game.h"
 #include "TextureManager.h"
 
-Game::Game(std::string title, bool fullscreen) {
+Game::Game(std::string title, int displayWidth, int displayHeight) {
 	init();
-	display = new Display(title, 1280, 720, fullscreen);
-	initTextureLoader();
-	loop();
+	display = new Display(title, displayWidth, displayHeight);
+	TextureManager::init(display->getRenderer());
+	player = TextureManager::Load("grass.png");
+}
+
+Game::Game(std::string title, bool fullscreen){
+	init();
+	display = new Display(title, fullscreen);
+	TextureManager::init(display->getRenderer());
+	player = TextureManager::Load("grass.png");
 }
 
 void Game::init() {
@@ -14,21 +21,14 @@ void Game::init() {
 	}
 }
 
-void Game::initTextureLoader() {
-	TextureManager::init(display->getRenderer());
-	player = TextureManager::Load("grass.png");
-	if (player == NULL) {
-		printf("Texture is null");
-	}
-	
-}
-
 void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
 		switch (event.type) {
 		case(SDL_QUIT):
-			isRunning = false;
+			running = false;
+			break;
+		default:
 			break;
 		}
 	}
@@ -38,19 +38,16 @@ void Game::update() {
 }
 
 void Game::render() {
+	display->clear();
 	TextureManager::Draw(player, NULL, NULL);
+	display->update();
 }
 
-void Game::clean() {
+void Game::free() {
 	display->free();
+	SDL_Quit();
 }
 
-void Game::loop() {
-	while (isRunning) {
-		handleEvents();
-		update();
-		display->clear();
-		render();
-		display->update();
-	}
+bool Game::isRunning() {
+	return running;
 }
