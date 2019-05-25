@@ -34,7 +34,6 @@ private:
 	Planet* earth = nullptr;
 	Map* map = nullptr;
 	Camera* camera = nullptr;
-	int xMouse, yMouse;
-	double angle_deg;
+	Label* xLabelPosition = nullptr;
+	Label* zLabelPosition = nullptr;
 };
-

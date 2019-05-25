@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <string>
 #include "Sprite.h"
+#include "Label.h"
 #include "Map.h"
 #include "Camera.h"
 
@@ -17,6 +18,7 @@ public:
 	void draw(Sprite* sprite, Camera* camera);
 	void draw(Sprite* sprite, Camera* camera, double angle, SDL_RendererFlip flip);
 	void draw(Map* map, Camera* camera);
+	void draw(Label* label);
 	void setIcon();
 	SDL_Renderer* getRenderer();
 	int getWidth();
