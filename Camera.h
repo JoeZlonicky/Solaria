@@ -8,13 +8,13 @@ public:
 	void update(Sprite* target);
 	SDL_Rect apply(SDL_Rect rect);
 	void updateMap(Map* newMap);
-	int getX();
-	int getY();
+	double getX();
+	double getY();
 
 private:
 	Map* map = nullptr;
-	int x = 0;
-	int y = 0;
+	double x = 0;
+	double y = 0;
 	int displayWidth;
 	int displayHeight;
 

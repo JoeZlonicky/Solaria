@@ -68,9 +68,11 @@ void Display::draw(Sprite* sprite, Camera* camera) {
 void Display::draw(Map* map, Camera* camera) {
 	int textureWidth = map->getTextureWidth();
 	int textureHeight = map->getTextureHeight();
+	int cameraX = (int)camera->getX();
+	int cameraY = (int)camera->getY();
 	SDL_Rect rect;
-	for(int x = -(camera->getX() % textureWidth); x < width; x += textureWidth) {
-		for (int y = -(camera->getY() % textureHeight); y < height; y += textureHeight) {
+	for(int x = -(cameraX % textureWidth); x < width; x += textureWidth) {
+		for (int y = -(cameraY % textureHeight); y < height; y += textureHeight) {
 			rect = { x, y, textureWidth, textureHeight };
 			SDL_RenderCopy(renderer, map->getTexture(), NULL, &rect);
 		}

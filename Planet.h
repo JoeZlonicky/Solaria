@@ -4,9 +4,12 @@
 
 class Planet : public Sprite {
 public:
-	Planet(std::string name, std::string imagePath, int x, int y);
+	Planet(std::string imagePath, double orbitRate, double distanceFromSun);
+	void update();
 
 private:
-	std::string name;
+	double orbitRotation = 0.0;
+	double orbitRate;
+	double distanceFromSun;
 };
 

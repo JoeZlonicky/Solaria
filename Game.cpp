@@ -6,28 +6,31 @@ Game::Game(std::string title, int displayWidth, int displayHeight) {
 	init();
 	display = new Display(title, displayWidth, displayHeight);
 	TextureManager::init(display->getRenderer());
-	player = new Player("assets/player.png", 32, 32);
-	planet = new Planet("Earth", "assets/planet.png", 600, 300);
-	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
-	camera = new Camera(display->getWidth(), display->getHeight());
-	camera->updateMap(map);
+	loadObjects();
 }
 
 Game::Game(std::string title, bool fullscreen){
 	init();
 	display = new Display(title, fullscreen);
 	TextureManager::init(display->getRenderer());
-	player = new Player("assets/player.png", 32, 32);
-	planet = new Planet("Earth", "assets/planet.png", 32, 32);
-	map = new Map(1000, 1000, display->getWidth(), display->getHeight());
-	camera = new Camera(display->getWidth(), display->getHeight());
-	camera->updateMap(map);
+	loadObjects();
 }
 
 void Game::init() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		printf("SDL Failed to initalize everything! SDL Error: %s\n", SDL_GetError());
 	}
+}
+
+void Game::loadObjects() {
+	player = new Player("assets/player.png");
+	player->setCenter(0, 0);
+	sun = new Planet("assets/sun.png", 0, 0);
+	sun->setCenter(0, 0);
+	earth = new Planet("assets/planet.png", 0.0001, 400);
+	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
+	camera = new Camera(display->getWidth(), display->getHeight());
+	camera->updateMap(map);
 }
 
 void Game::handleEvents() {
@@ -45,20 +48,23 @@ void Game::handleEvents() {
 
 void Game::update() {
 	player->update();
+	earth->update();
 }
 
 void Game::render() {
 	display->clear();
 	camera->update(player);
 	display->draw(map, camera);
-	display->draw(planet, camera);
+	display->draw(earth, camera);
+	display->draw(sun, camera);
 	display->draw(player, camera);
 	display->update();
 }
 
 void Game::free() {
 	display->free();
-	planet->free();
+	earth->free();
+	sun->free();
 	player->free();
 	map->free();
 	SDL_Quit();

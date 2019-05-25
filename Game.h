@@ -16,6 +16,7 @@ public:
 	Game(std::string title, bool fullscreen);
 
 	void init();
+	void loadObjects();
 
 	void handleEvents();
 	void update();
@@ -29,7 +30,8 @@ private:
 	bool running = true;
 	std::string title;
 	Player* player = nullptr;
-	Planet* planet = nullptr;
+	Planet* sun = nullptr;
+	Planet* earth = nullptr;
 	Map* map = nullptr;
 	Camera* camera = nullptr;
 };

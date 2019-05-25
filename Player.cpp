@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(std::string filePath, int x, int y) : Sprite(filePath, x, y) {
+Player::Player(std::string filePath, double x, double y) : Sprite(filePath, x, y) {
 	speed = 0.5;
 
 }

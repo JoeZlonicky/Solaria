@@ -1,5 +1,12 @@
 #include "Planet.h"
+#include <math.h>
 
+Planet::Planet(std::string imagePath, double orbitRate, double distanceFromSun) : Sprite(imagePath), orbitRate(orbitRate), distanceFromSun(distanceFromSun) {
+}
 
-Planet::Planet(std::string name, std::string imagePath, int x, int y) : Sprite(imagePath, x, y), name(name) {
+void Planet::update() {
+	orbitRotation += orbitRate;
+	double newX = cos(orbitRotation) * distanceFromSun;
+	double newY = sin(orbitRotation) * distanceFromSun;
+	setCenter(newX, newY);
 }
