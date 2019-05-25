@@ -3,7 +3,7 @@
 #include "Game.h"
 
 int main(int argc, char* argv[]) {
-	Game game = Game("Test", 1280, 720);
+	Game game = Game("Solaria", 1280, 720);
 	while (game.isRunning()) {
 		game.handleEvents();
 		game.update();

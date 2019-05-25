@@ -16,6 +16,7 @@ public:
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void draw(Sprite* sprite, Camera* camera);
 	void draw(Map* map, Camera* camera);
+	void setIcon();
 	SDL_Renderer* getRenderer();
 	int getWidth();
 	int getHeight();

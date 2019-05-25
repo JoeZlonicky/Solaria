@@ -1,4 +1,5 @@
 #include "Display.h"
+#include <SDL_image.h>
 
 Display::Display(std::string title, bool fullscreen) {
 	int* dimensions = getScreenDimensions();
@@ -14,6 +15,7 @@ Display::Display(std::string title, bool fullscreen) {
 	if (window == NULL) {
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
+	setIcon();
 	createRenderer();
 }
 
@@ -23,6 +25,7 @@ Display::Display(std::string title, int width, int height) : width(width), heigh
 	if (window == NULL) {
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
+	setIcon();
 	createRenderer();
 }
 
@@ -73,6 +76,14 @@ void Display::draw(Map* map, Camera* camera) {
 		}
 	}
 	
+}
+
+void Display::setIcon() {
+	SDL_Surface* image = IMG_Load("assets/icon.png");
+	if (image == NULL) {
+		printf("Failed to load icon. Error: %s\n", IMG_GetError());
+	}
+	SDL_SetWindowIcon(window, image);
 }
 
 SDL_Renderer* Display::getRenderer() {

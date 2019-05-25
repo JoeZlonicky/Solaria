@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "Camera.h"
 #include "Player.h"
+#include "Planet.h"
 
 class Game {
 public:
@@ -28,7 +29,7 @@ private:
 	bool running = true;
 	std::string title;
 	Player* player = nullptr;
-	Player* player2 = nullptr;
+	Planet* planet = nullptr;
 	Map* map = nullptr;
 	Camera* camera = nullptr;
 };

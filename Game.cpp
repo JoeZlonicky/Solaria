@@ -7,7 +7,7 @@ Game::Game(std::string title, int displayWidth, int displayHeight) {
 	display = new Display(title, displayWidth, displayHeight);
 	TextureManager::init(display->getRenderer());
 	player = new Player("assets/grass.png", 32, 32);
-	player2 = new Player("assets/enemy.png", 32, 32);
+	planet = new Planet("Earth", "assets/planet.png", 32, 32);
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
@@ -18,7 +18,7 @@ Game::Game(std::string title, bool fullscreen){
 	display = new Display(title, fullscreen);
 	TextureManager::init(display->getRenderer());
 	player = new Player("assets/grass.png", 32, 32);
-	player2 = new Player("assets/enemy.png", 32, 32);
+	planet = new Planet("Earth", "assets/planet.png", 32, 32);
 	map = new Map(1000, 1000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
@@ -51,13 +51,14 @@ void Game::render() {
 	display->clear();
 	camera->update(player);
 	display->draw(map, camera);
+	display->draw(planet, camera);
 	display->draw(player, camera);
-	display->draw(player2, camera);
 	display->update();
 }
 
 void Game::free() {
 	display->free();
+	planet->free();
 	player->free();
 	map->free();
 	SDL_Quit();
