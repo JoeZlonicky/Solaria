@@ -1,11 +1,16 @@
 #include "Game.h"
 #include "TextureManager.h"
 
+SDL_Event Game::event;
+
+Player *player2 = new Player("assets/enemy.png", 32, 32);
+
 Game::Game(std::string title, int displayWidth, int displayHeight) {
 	init();
 	display = new Display(title, displayWidth, displayHeight);
 	TextureManager::init(display->getRenderer());
-	player = new Sprite("assets/grass.png", 32, 32);
+	player = new Player("assets/grass.png", 32, 32);
+	player2 = new Player("assets/enemy.png", 32, 32);
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
@@ -15,7 +20,8 @@ Game::Game(std::string title, bool fullscreen){
 	init();
 	display = new Display(title, fullscreen);
 	TextureManager::init(display->getRenderer());
-	player = new Sprite("assets/grass.png", 32, 32);
+	player = new Player("assets/grass.png", 32, 32);
+	player2 = new Player("assets/enemy.png", 32, 32);
 	map = new Map(1000, 1000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
@@ -28,7 +34,6 @@ void Game::init() {
 }
 
 void Game::handleEvents() {
-	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
 		switch (event.type) {
 		case(SDL_QUIT):
@@ -41,8 +46,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->moveX(0.5);
-	player->moveY(0.5);
+	player->update();
 }
 
 void Game::render() {
@@ -50,6 +54,7 @@ void Game::render() {
 	camera->update(player);
 	display->draw(map, camera);
 	display->draw(player, camera);
+	display->draw(player2, camera);
 	display->update();
 }
 

@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "Sprite.h"
 #include "Camera.h"
+#include "Player.h"
 
 class Game {
 public:
@@ -22,11 +23,14 @@ public:
 
 	bool isRunning();
 
+	static SDL_Event event;
+
 private:
 	Display* display = nullptr;
 	bool running = true;
 	std::string title;
-	Sprite* player = nullptr;
+	Player* player = nullptr;
+	Player* player2 = nullptr;
 	Map* map = nullptr;
 	Camera* camera = nullptr;
 };
