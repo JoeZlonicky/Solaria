@@ -25,10 +25,14 @@ void Game::init() {
 void Game::loadObjects() {
 	player = new Player("assets/player.png");
 	player->setCenter(0, 0);
+
 	sun = new Planet("assets/sun.png", 0, 0);
 	sun->setCenter(0, 0);
+
 	earth = new Planet("assets/planet.png", 0.0001, 400);
+
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
+
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
 }
@@ -40,6 +44,8 @@ void Game::handleEvents() {
 		case(SDL_QUIT):
 			running = false;
 			break;
+		case(SDL_MOUSEMOTION):
+			SDL_GetMouseState(&xMouse, &yMouse);
 		default:
 			break;
 		}
@@ -49,6 +55,10 @@ void Game::handleEvents() {
 void Game::update() {
 	player->update();
 	earth->update();
+	double delta_y = player->getCenterY() - yMouse;
+	double delta_x = player->getCenterX() - xMouse;
+	angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416;
+	printf("player x: %f player y: %f\n", player->getX(), player->getY());
 }
 
 void Game::render() {
@@ -57,7 +67,7 @@ void Game::render() {
 	display->draw(map, camera);
 	display->draw(earth, camera);
 	display->draw(sun, camera);
-	display->draw(player, camera);
+	display->draw(player, camera, angle_deg, SDL_FLIP_NONE);
 	display->update();
 }
 

@@ -15,6 +15,7 @@ public:
 	void free();
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void draw(Sprite* sprite, Camera* camera);
+	void draw(Sprite* sprite, Camera* camera, double angle, SDL_RendererFlip flip);
 	void draw(Map* map, Camera* camera);
 	void setIcon();
 	SDL_Renderer* getRenderer();
