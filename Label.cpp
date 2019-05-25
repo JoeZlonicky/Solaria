@@ -52,10 +52,13 @@ int Label::getHeight() {
 
 void Label::free() {
 	SDL_DestroyTexture(texture);
+	texture = NULL;
 	TTF_CloseFont(font);
+	font = NULL;
 }
 
 void Label::updateFont() {
+	TTF_CloseFont(font);
 	font = TTF_OpenFont(fontPath.c_str(), fontSize);
 	if (font == NULL) {
 		printf("Failed to open font from %s. Error: %s\n", fontPath.c_str(), TTF_GetError());
@@ -63,6 +66,7 @@ void Label::updateFont() {
 }
 
 void Label::updateTexture() {
+	SDL_DestroyTexture(texture);
 	SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), color);
 	if (surface == NULL) {
 		printf("Failed to create texture from %s. Error: %s\n", fontPath.c_str(), TTF_GetError());
