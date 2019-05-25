@@ -30,7 +30,7 @@ void Game::loadObjects() {
 	player->setCenter(0, 0);
 	sun = new Planet("assets/sun.png", 0, 0);
 	sun->setCenter(0, 0);
-	earth = new Planet("assets/planet.png", 0.000005, 5000);
+	earth = new Planet("assets/planet.png", 0.000005, 1000);
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
