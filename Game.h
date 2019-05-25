@@ -9,7 +9,6 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Planet.h"
-
 class Game {
 public:
 	Game(std::string title, int width, int height);
@@ -36,4 +35,7 @@ private:
 	Camera* camera = nullptr;
 	Label* xLabelPosition = nullptr;
 	Label* zLabelPosition = nullptr;
+	int xMouse, yMouse;
+	double angle_deg;
+
 };
