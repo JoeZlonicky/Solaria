@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <string>
 #include "Sprite.h"
+#include "Label.h"
 #include "Map.h"
 #include "Camera.h"
 
@@ -16,6 +17,7 @@ public:
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void draw(Sprite* sprite, Camera* camera);
 	void draw(Map* map, Camera* camera);
+	void draw(Label* label);
 	void setIcon();
 	SDL_Renderer* getRenderer();
 	int getWidth();

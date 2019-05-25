@@ -80,6 +80,10 @@ void Display::draw(Map* map, Camera* camera) {
 	
 }
 
+void Display::draw(Label* label) {
+	SDL_RenderCopy(renderer, label->getTexture(), NULL, &label->getRect());
+}
+
 void Display::setIcon() {
 	SDL_Surface* image = IMG_Load("assets/icon.png");
 	if (image == NULL) {

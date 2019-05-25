@@ -64,7 +64,7 @@ int Sprite::getHeight() {
 }
 
 SDL_Rect Sprite::getRect() {
-	SDL_Rect rect = { x, y, width, height };
+	SDL_Rect rect = { (int)x, (int)y, width, height };
 	return rect;
 }
 
