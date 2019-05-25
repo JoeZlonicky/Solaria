@@ -1,9 +1,6 @@
 #include "Game.h"
 #include "TextureManager.h"
 
-SDL_Event Game::event;
-
-Player *player2 = new Player("assets/enemy.png", 32, 32);
 
 Game::Game(std::string title, int displayWidth, int displayHeight) {
 	init();
@@ -34,6 +31,7 @@ void Game::init() {
 }
 
 void Game::handleEvents() {
+	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
 		switch (event.type) {
 		case(SDL_QUIT):

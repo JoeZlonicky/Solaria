@@ -23,8 +23,6 @@ public:
 
 	bool isRunning();
 
-	static SDL_Event event;
-
 private:
 	Display* display = nullptr;
 	bool running = true;
