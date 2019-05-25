@@ -20,21 +20,22 @@ void Game::init() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		printf("SDL Failed to initalize everything! SDL Error: %s\n", SDL_GetError());
 	}
+	if (TTF_Init() == -1) {
+		printf("Failed to initialize TTF. Error: %s\n", TTF_GetError());
+	}
 }
 
 void Game::loadObjects() {
 	player = new Player("assets/player.png");
 	player->setCenter(0, 0);
-
 	sun = new Planet("assets/sun.png", 0, 0);
 	sun->setCenter(0, 0);
-
 	earth = new Planet("assets/planet.png", 0.0001, 400);
-
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
-
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
+	xLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0);
+	zLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30);
 }
 
 void Game::handleEvents() {
@@ -55,6 +56,8 @@ void Game::handleEvents() {
 void Game::update() {
 	player->update();
 	earth->update();
+	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
+	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
 	double delta_y = player->getCenterY() - yMouse;
 	double delta_x = player->getCenterX() - xMouse;
 	angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416;
@@ -68,6 +71,8 @@ void Game::render() {
 	display->draw(earth, camera);
 	display->draw(sun, camera);
 	display->draw(player, camera, angle_deg, SDL_FLIP_NONE);
+	display->draw(xLabelPosition);
+	display->draw(zLabelPosition);
 	display->update();
 }
 
