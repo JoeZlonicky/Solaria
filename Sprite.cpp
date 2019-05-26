@@ -35,8 +35,13 @@ void Sprite::setCenter(double x, double y) {
 }
 
 void Sprite::setVelocity(double _xVelocity, double _yVelocity){
-	xVelocity += _xVelocity;
-	yVelocity += _yVelocity;
+	xVelocity = _xVelocity;
+	yVelocity = _yVelocity;
+}
+
+void Sprite::reduceVelocity(double _xVelocity, double _yVelocity){
+	xVelocity -= _xVelocity;
+	yVelocity -= _yVelocity;
 }
 
 void Sprite::free() {

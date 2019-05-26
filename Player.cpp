@@ -23,7 +23,7 @@ void Player::update(){
 		move(x, y);
 	}
 	else if(getXVelocity() >= 0 && getYVelocity() >= 0.01){
-		setVelocity(-0.02, -0.02);
+		reduceVelocity(0.0002, 0.0002);
 		double x, y;
 		x = getXVelocity() * (cos((angle_deg - 90) * 0.0174532925));
 		y = getYVelocity() * (sin((angle_deg - 90) * 0.0174532925));

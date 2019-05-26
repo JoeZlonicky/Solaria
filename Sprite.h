@@ -13,6 +13,7 @@ public:
 	void setCenterY(double y);
 	void setCenter(double x, double y);
 	void setVelocity(double _xVelocity, double _yVelocity);
+	void reduceVelocity(double _xVelocity, double _yVelocity);
 	void free();
 	double getX();
 	double getCenterX();
