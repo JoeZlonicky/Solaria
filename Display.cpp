@@ -1,5 +1,6 @@
 #include "Display.h"
 #include <SDL_image.h>
+#include "TextureManager.h"
 
 Display::Display(std::string title, bool fullscreen) {
 	int* dimensions = getScreenDimensions();
@@ -16,7 +17,9 @@ Display::Display(std::string title, bool fullscreen) {
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
 	setIcon();
+	SDL_ShowCursor(SDL_DISABLE);
 	createRenderer();
+	cursorTexture = TextureManager::Load("assets/crosshair.png");
 }
 
 Display::Display(std::string title, int width, int height) : width(width), height(height) {
@@ -26,7 +29,9 @@ Display::Display(std::string title, int width, int height) : width(width), heigh
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
 	setIcon();
+	SDL_ShowCursor(SDL_DISABLE);
 	createRenderer();
+	cursorTexture = TextureManager::Load("assets/crosshair.png");
 }
 
 void Display::createRenderer() {
@@ -34,6 +39,7 @@ void Display::createRenderer() {
 	if (renderer == NULL) {
 		printf("Failed to create renderer. Error: %s\n", SDL_GetError());
 	}
+	TextureManager::init(renderer);
 }
 
 int* Display::getScreenDimensions() {
@@ -87,6 +93,13 @@ void Display::draw(Map* map, Camera* camera) {
 
 void Display::draw(Label* label) {
 	SDL_RenderCopy(renderer, label->getTexture(), NULL, &label->getRect());
+}
+
+void Display::drawCursor() {
+	int mouseX, mouseY;
+	SDL_GetMouseState(&mouseX, &mouseY);
+	SDL_Rect rect = { mouseX - cursorSize / 2, mouseY - cursorSize / 2, cursorSize, cursorSize };
+	SDL_RenderCopy(renderer, cursorTexture, NULL, &rect);
 }
 
 void Display::setIcon() {

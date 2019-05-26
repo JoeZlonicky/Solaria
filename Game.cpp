@@ -5,14 +5,12 @@
 Game::Game(std::string title, int displayWidth, int displayHeight) {
 	init();
 	display = new Display(title, displayWidth, displayHeight);
-	TextureManager::init(display->getRenderer());
 	loadObjects();
 }
 
 Game::Game(std::string title, bool fullscreen){
 	init();
 	display = new Display(title, fullscreen);
-	TextureManager::init(display->getRenderer());
 	loadObjects();
 }
 
@@ -80,6 +78,7 @@ void Game::render() {
 	display->draw(player, camera, player->getAngle(), SDL_FLIP_NONE);
 	display->draw(xLabelPosition);
 	display->draw(zLabelPosition);
+	display->drawCursor();
 	display->update();
 }
 

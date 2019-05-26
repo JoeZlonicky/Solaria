@@ -19,6 +19,7 @@ public:
 	void draw(Sprite* sprite, Camera* camera, double angle, SDL_RendererFlip flip);
 	void draw(Map* map, Camera* camera);
 	void draw(Label* label);
+	void drawCursor();
 	void setIcon();
 	SDL_Renderer* getRenderer();
 	SDL_Window* getWindow();
@@ -30,6 +31,8 @@ private:
 	int* getScreenDimensions();
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	SDL_Texture* cursorTexture = nullptr;
+	int cursorSize = 16;
 	bool fullscreen = false;
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;

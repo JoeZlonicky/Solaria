@@ -33,9 +33,6 @@ void Player::update(){
 	else{
 		setVelocity(0.0, 0.0);
 	}
-
-	printf("X Velocity: %f Y Velocity: %f \n", getXVelocity(), getYVelocity());
-	
 }
 
 void Player::calculateRotation(Display* display){
