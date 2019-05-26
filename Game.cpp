@@ -33,12 +33,14 @@ void Game::loadObjects() {
 	greenPlanet = new Planet("assets/greenPlanet.png", 0.0001, 800);
 	redPlanet = new Planet("assets/redPlanet.png", -0.000075, 1200);
 	rockPlanet = new Planet("assets/rockPlanet.png", -0.00005, 400);
+	projectile = new Projectile("assets/enemy.png", player->getRotation(), player->getX(), player->getY());
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
 	xLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0);
 	zLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30);
 	asteroids.push_back(new Asteroid(0, 0));
+	projectiles.push_back(projectile);
 }
 
 void Game::handleEvents() {
@@ -69,6 +71,11 @@ void Game::update() {
 	for (Asteroid* asteroid : asteroids) {
 		asteroid->update();
 	}
+	if (projectiles.empty() == false) {
+		for (Projectile* projectile : projectiles) {
+			projectile->update();
+		}
+	}
 	greenPlanet->update();
 	redPlanet->update();
 	rockPlanet->update();
@@ -91,6 +98,11 @@ void Game::render() {
 	for (Asteroid* asteroid : asteroids) {
 		display->draw(asteroid, camera);
 	}
+	if (projectiles.empty() == false) {
+		for (Projectile* projectile : projectiles) {
+			display->draw(projectile, camera);
+		}
+	}
 	display->draw(xLabelPosition);
 	display->draw(zLabelPosition);
 	display->drawCursor();
@@ -108,8 +120,15 @@ void Game::free() {
 	for (Asteroid* asteroid : asteroids) {
 		asteroid->free();
 	}
+	for (Projectile* projectile : projectiles) {
+		projectile->free();
+	}
 	map->free();
 	SDL_Quit();
+}
+
+void Game::addProjectile(Projectile projectileToAdd) {
+	projectiles.push_back(&projectileToAdd);
 }
 
 bool Game::isRunning() {

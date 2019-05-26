@@ -21,6 +21,11 @@ void Sprite::moveY(double movement) {
 	y += movement;
 }
 
+void Sprite::move(double moveX, double moveY){
+	x += moveX;
+	y += moveY;
+}
+
 void Sprite::setCenterX(double x) {
 	this->x = x - width / 2;
 }
