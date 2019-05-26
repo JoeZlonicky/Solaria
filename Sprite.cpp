@@ -34,6 +34,11 @@ void Sprite::setCenter(double x, double y) {
 	setCenterY(y);
 }
 
+void Sprite::setVelocity(double _xVelocity, double _yVelocity){
+	xVelocity += _xVelocity;
+	yVelocity += _yVelocity;
+}
+
 void Sprite::free() {
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
@@ -53,6 +58,16 @@ double Sprite::getY() {
 
 double Sprite::getCenterY() {
 	return y + height / 2;
+}
+
+double Sprite::getXVelocity()
+{
+	return xVelocity;
+}
+
+double Sprite::getYVelocity()
+{
+	return yVelocity;
 }
 
 int Sprite::getWidth() {

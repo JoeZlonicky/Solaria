@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Player::Player(std::string filePath, double x, double y) : Sprite(filePath, x, y) {
-	speed = 0.25;
+	maxSpeed = 0.25;
 
 }
 
@@ -16,11 +16,26 @@ void Player::update(){
 
 	if (currentKeyStates[SDL_SCANCODE_W]) {
 		double x, y;
-		x = speed * (cos((angle_deg - 90) * 0.0174532925));
-		y = speed * (sin((angle_deg - 90) * 0.0174532925));
+		setVelocity(maxSpeed, maxSpeed);
+		x = maxSpeed * (cos((angle_deg - 90) * 0.0174532925));
+		y = maxSpeed * (sin((angle_deg - 90) * 0.0174532925));
 
 		move(x, y);
 	}
+	else if(getXVelocity() >= 0 && getYVelocity() >= 0.01){
+		setVelocity(-0.00000000002, -0.00000000002);
+		double x, y;
+		x = getXVelocity() * (cos((angle_deg - 90) * 0.0174532925));
+		y = getXVelocity() * (sin((angle_deg - 90) * 0.0174532925));
+
+		move(x, y);
+	}
+	else{
+		setVelocity(0.0, 0.0);
+	}
+
+	printf("X Velocity: %f Y Velocity: %f \n", getXVelocity(), getYVelocity());
+	
 }
 
 void Player::calculateRotation(Display* display){

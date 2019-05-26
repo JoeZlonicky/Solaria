@@ -15,7 +15,7 @@ public:
 	double getAngle();
 
 private:
-	double speed;
+	double maxSpeed;
 	int xMouse, yMouse = 0;
 	double angle_deg = 0.0;
 
