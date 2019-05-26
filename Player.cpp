@@ -50,4 +50,3 @@ double Player::getAngle()
 {
 	return angle_deg;
 }
-
