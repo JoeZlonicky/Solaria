@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Player::Player(std::string filePath, double x, double y) : Sprite(filePath, x, y) {
-	maxSpeed = 0.25;
+	maxSpeed = 5;
 
 }
 
@@ -23,7 +23,7 @@ void Player::update(){
 		move(x, y);
 	}
 	else if(getXVelocity() >= 0 && getYVelocity() >= 0.01){
-		reduceVelocity(0.0002, 0.0002);
+		reduceVelocity(0.05, 0.05);
 		double x, y;
 		x = getXVelocity() * (cos((angle_deg - 90) * 0.0174532925));
 		y = getYVelocity() * (sin((angle_deg - 90) * 0.0174532925));
