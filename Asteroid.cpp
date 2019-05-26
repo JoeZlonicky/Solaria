@@ -22,18 +22,19 @@ const AsteroidSize Asteroid::randomSize() {
 }
 
 const std::string Asteroid::getFilePath(int size) {
+	int type = RandomGenerator::randint(1, 3);
 	switch (size) {
 		case SMALL:
-			return "assets/asteroidSmall1.png";
+			return "assets/asteroidSmall" + std::to_string(type) + ".png";
 			break;
 		case MEDIUM:
-			return "assets/asteroidMedium1.png";
+			return "assets/asteroidMedium" + std::to_string(type) + ".png";
 			break;
 		case LARGE:
-			return "assets/asteroidLarge1.png";
+			return "assets/asteroidLarge" + std::to_string(type) + ".png";
 			break;
 		default:
-			return "assets/asteroidSmall1.png";
+			return "assets/asteroidSmall" + std::to_string(type) + ".png";
 			break;
 	}
 }
