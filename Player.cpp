@@ -36,8 +36,8 @@ void Player::update(){
 }
 
 void Player::calculateRotation(Display* display){
-	double delta_y = (display->getHeight() / 2) - Player::yMouse;
-	double delta_x = (display->getWidth() / 2) - Player::xMouse;
+	double delta_y = ((double)display->getHeight() / 2) - yMouse;
+	double delta_x = ((double)display->getWidth() / 2) - xMouse;
 	angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416 - 90;
 }
 

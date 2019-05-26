@@ -1,5 +1,5 @@
 #include "Label.h"
-#include "TextureManager.h"
+#include "AssetLoader.h"
 
 Label::Label(std::string text, std::string fontPath, int fontSize, Uint8 r, Uint8 g, Uint8 b, int x, int y) : text(text), fontPath(fontPath), fontSize(fontSize), color({ r, g, b }), x(x), y(y) {
 	updateFont();
@@ -71,7 +71,7 @@ void Label::updateTexture() {
 	if (surface == NULL) {
 		printf("Failed to create texture from %s. Error: %s\n", fontPath.c_str(), TTF_GetError());
 	}
-	texture = TextureManager::CreateTexture(surface);
+	texture = AssetLoader::LoadTexture(surface);
 	if (texture == NULL) {
 		printf("Failed to create texture from surface. Error: %s\n", SDL_GetError());
 	}

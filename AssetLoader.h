@@ -4,10 +4,10 @@
 #include <string>
 
 
-namespace TextureManager {
+namespace AssetLoader {
 	extern SDL_Renderer* renderer;
 	void init(SDL_Renderer* renderer);
-	SDL_Texture* Load(std::string path);
-	SDL_Texture* CreateTexture(SDL_Surface* surface);
+	SDL_Texture* LoadTexture(std::string path);
+	SDL_Texture* LoadTexture(SDL_Surface* surface);
 }
 

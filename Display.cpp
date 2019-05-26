@@ -1,6 +1,6 @@
 #include "Display.h"
 #include <SDL_image.h>
-#include "TextureManager.h"
+#include "AssetLoader.h"
 
 Display::Display(std::string title, bool fullscreen) {
 	int* dimensions = getScreenDimensions();
@@ -19,7 +19,7 @@ Display::Display(std::string title, bool fullscreen) {
 	setIcon();
 	SDL_ShowCursor(SDL_DISABLE);
 	createRenderer();
-	cursorTexture = TextureManager::Load("assets/crosshair.png");
+	cursorTexture = AssetLoader::LoadTexture("assets/crosshair.png");
 }
 
 Display::Display(std::string title, int width, int height) : width(width), height(height) {
@@ -31,7 +31,7 @@ Display::Display(std::string title, int width, int height) : width(width), heigh
 	setIcon();
 	SDL_ShowCursor(SDL_DISABLE);
 	createRenderer();
-	cursorTexture = TextureManager::Load("assets/crosshair.png");
+	cursorTexture = AssetLoader::LoadTexture("assets/crosshair.png");
 }
 
 void Display::createRenderer() {
@@ -39,7 +39,7 @@ void Display::createRenderer() {
 	if (renderer == NULL) {
 		printf("Failed to create renderer. Error: %s\n", SDL_GetError());
 	}
-	TextureManager::init(renderer);
+	AssetLoader::init(renderer);
 }
 
 int* Display::getScreenDimensions() {

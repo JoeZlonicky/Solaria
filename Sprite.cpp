@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include "Sprite.h"
-#include "TextureManager.h"
+#include "AssetLoader.h"
 
 
 Sprite::Sprite(SDL_Texture* texture, double x, double y) {
@@ -10,7 +10,7 @@ Sprite::Sprite(SDL_Texture* texture, double x, double y) {
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 }
 
-Sprite::Sprite(std::string filePath, double x, double y) : Sprite(TextureManager::Load(filePath), x, y) {
+Sprite::Sprite(std::string filePath, double x, double y) : Sprite(AssetLoader::LoadTexture(filePath), x, y) {
 }
 
 void Sprite::moveX(double movement) {

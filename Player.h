@@ -16,7 +16,7 @@ public:
 
 private:
 	double maxSpeed;
-	int xMouse, yMouse = 0;
+	int xMouse = 0, yMouse = 0;
 	double angle_deg = 0.0;
 
 };
