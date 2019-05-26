@@ -46,7 +46,9 @@ void Game::handleEvents() {
 			running = false;
 			break;
 		case(SDL_MOUSEMOTION):
-			SDL_GetMouseState(&xMouse, &yMouse);
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			player->setMouseCoords(x, y);
 		default:
 			break;
 		}
@@ -58,10 +60,9 @@ void Game::update() {
 	earth->update();
 	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
 	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
-	double delta_y = player->getCenterY() - yMouse;
-	double delta_x = player->getCenterX() - xMouse;
-	angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416;
-	printf("player x: %f player y: %f\n", player->getX(), player->getY());
+	player->calculateRotation(display);
+
+	
 }
 
 void Game::render() {
@@ -70,7 +71,7 @@ void Game::render() {
 	display->draw(map, camera);
 	display->draw(earth, camera);
 	display->draw(sun, camera);
-	display->draw(player, camera, angle_deg, SDL_FLIP_NONE);
+	display->draw(player, camera, player->getAngle(), SDL_FLIP_NONE);
 	display->draw(xLabelPosition);
 	display->draw(zLabelPosition);
 	display->update();

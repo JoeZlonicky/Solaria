@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h"
+#include "Display.h"
 
 class Player : public Sprite {
 
@@ -9,9 +10,14 @@ public:
 	void move(double movementX, double movementY);
 	void update();
 
+	void calculateRotation(Display* display);
+	void setMouseCoords(int _xMouse, int _yMouse);
+	double getAngle();
 
 private:
 	double speed;
+	int xMouse, yMouse = 0;
+	double angle_deg = 0.0;
 
 };
 

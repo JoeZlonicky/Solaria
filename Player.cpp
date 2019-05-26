@@ -15,16 +15,27 @@ void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 	if (currentKeyStates[SDL_SCANCODE_W]) {
-		move(0, -speed);
-	}
-	if (currentKeyStates[SDL_SCANCODE_A]) {
-		move(-speed, 0);
-	}
-	if (currentKeyStates[SDL_SCANCODE_S]) {
-		move(0, speed);
-	}
-	if (currentKeyStates[SDL_SCANCODE_D]) {
-		move(speed, 0);
-	}
+		double x, y;
+		x = speed * (cos((angle_deg - 90) * 0.0174532925));
+		y = speed * (sin((angle_deg - 90) * 0.0174532925));
 
+		move(x, y);
+	}
 }
+
+void Player::calculateRotation(Display* display){
+	double delta_y = (display->getHeight() / 2) - Player::yMouse;
+	double delta_x = (display->getWidth() / 2) - Player::xMouse;
+	angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416 - 90;
+}
+
+void Player::setMouseCoords(int _xMouse, int _yMouse){
+	yMouse = _yMouse;
+	xMouse = _xMouse;
+}
+
+double Player::getAngle()
+{
+	return angle_deg;
+}
+

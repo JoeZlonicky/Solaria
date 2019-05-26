@@ -35,7 +35,5 @@ private:
 	Camera* camera = nullptr;
 	Label* xLabelPosition = nullptr;
 	Label* zLabelPosition = nullptr;
-	int xMouse, yMouse;
-	double angle_deg;
 
 };

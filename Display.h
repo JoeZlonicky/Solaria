@@ -21,6 +21,7 @@ public:
 	void draw(Label* label);
 	void setIcon();
 	SDL_Renderer* getRenderer();
+	SDL_Window* getWindow();
 	int getWidth();
 	int getHeight();
 

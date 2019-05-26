@@ -101,6 +101,11 @@ SDL_Renderer* Display::getRenderer() {
 	return renderer;
 }
 
+SDL_Window* Display::getWindow()
+{
+	return window;
+}
+
 int Display::getWidth() {
 	return width;
 }
