@@ -59,10 +59,7 @@ void Label::free() {
 
 void Label::updateFont() {
 	TTF_CloseFont(font);
-	font = TTF_OpenFont(fontPath.c_str(), fontSize);
-	if (font == NULL) {
-		printf("Failed to open font from %s. Error: %s\n", fontPath.c_str(), TTF_GetError());
-	}
+	font = AssetLoader::loadFont(fontPath, fontSize);
 }
 
 void Label::updateTexture() {

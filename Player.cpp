@@ -17,16 +17,16 @@ void Player::update(){
 	if (currentKeyStates[SDL_SCANCODE_W]) {
 		double x, y;
 		setVelocity(maxSpeed, maxSpeed);
-		x = getXVelocity() * (cos((angle_deg - 90) * 0.0174532925));
-		y = getYVelocity() * (sin((angle_deg - 90) * 0.0174532925));
+		x = getXVelocity() * (cos((rotation - 90) * 0.0174532925));
+		y = getYVelocity() * (sin((rotation - 90) * 0.0174532925));
 
 		move(x, y);
 	}
 	else if(getXVelocity() >= 0 && getYVelocity() >= 0.01){
 		reduceVelocity(0.05, 0.05);
 		double x, y;
-		x = getXVelocity() * (cos((angle_deg - 90) * 0.0174532925));
-		y = getYVelocity() * (sin((angle_deg - 90) * 0.0174532925));
+		x = getXVelocity() * (cos((rotation - 90) * 0.0174532925));
+		y = getYVelocity() * (sin((rotation - 90) * 0.0174532925));
 
 		move(x, y);
 	}
@@ -38,7 +38,7 @@ void Player::update(){
 void Player::calculateRotation(Display* display){
 	double delta_y = ((double)display->getHeight() / 2) - yMouse;
 	double delta_x = ((double)display->getWidth() / 2) - xMouse;
-	angle_deg = (atan2(delta_y, delta_x) * 180.0000) / 3.1416 - 90;
+	rotation = (atan2(delta_y, delta_x) * 180.0000) / 3.1416 - 90;
 }
 
 void Player::setMouseCoords(int _xMouse, int _yMouse){

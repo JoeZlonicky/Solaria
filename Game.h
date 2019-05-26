@@ -3,12 +3,15 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
+#include <vector>
 #include "Display.h"
 #include "Map.h"
 #include "Sprite.h"
 #include "Camera.h"
 #include "Player.h"
 #include "Planet.h"
+#include "Asteroid.h"
+
 class Game {
 public:
 	Game(std::string title, int width, int height);
@@ -37,5 +40,5 @@ private:
 	Camera* camera = nullptr;
 	Label* xLabelPosition = nullptr;
 	Label* zLabelPosition = nullptr;
-
+	std::vector<Asteroid*> asteroids = std::vector<Asteroid*>();
 };

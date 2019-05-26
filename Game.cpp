@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "AssetLoader.h"
+#include "RandomGenerator.h"
 
 
 Game::Game(std::string title, int displayWidth, int displayHeight) {
@@ -21,6 +22,7 @@ void Game::init() {
 	if (TTF_Init() == -1) {
 		printf("Failed to initialize TTF. Error: %s\n", TTF_GetError());
 	}
+	RandomGenerator::init();
 }
 
 void Game::loadObjects() {
@@ -36,6 +38,7 @@ void Game::loadObjects() {
 	camera->updateMap(map);
 	xLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0);
 	zLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30);
+	asteroids.push_back(new Asteroid(0, 0));
 }
 
 void Game::handleEvents() {
@@ -49,6 +52,10 @@ void Game::handleEvents() {
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			player->setMouseCoords(x, y);
+		case(SDL_KEYDOWN):
+			if (event.key.keysym.sym == SDLK_ESCAPE) {
+				running = false;
+			}
 		default:
 			break;
 		}
@@ -57,28 +64,36 @@ void Game::handleEvents() {
 
 void Game::update() {
 	player->update();
+	player->calculateRotation(display);
+	for (Asteroid* asteroid : asteroids) {
+		asteroid->update();
+	}
 	greenPlanet->update();
 	redPlanet->update();
 	rockPlanet->update();
 	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
 	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
-	player->calculateRotation(display);
-
 	
 }
 
 void Game::render() {
 	display->clear();
 	camera->update(player);
+
 	display->draw(map, camera);
+
 	display->draw(greenPlanet, camera);
 	display->draw(redPlanet, camera);
 	display->draw(rockPlanet, camera);
 	display->draw(sun, camera);
-	display->draw(player, camera, player->getAngle(), SDL_FLIP_NONE);
+	display->draw(player, camera);
+	for (Asteroid* asteroid : asteroids) {
+		display->draw(asteroid, camera);
+	}
 	display->draw(xLabelPosition);
 	display->draw(zLabelPosition);
 	display->drawCursor();
+
 	display->update();
 }
 

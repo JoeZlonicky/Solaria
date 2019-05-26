@@ -1,7 +1,6 @@
 #include "AssetLoader.h"
 #include "Game.h"
 
-
 SDL_Renderer* AssetLoader::renderer = nullptr;
 
 void AssetLoader::init(SDL_Renderer* _renderer) {
@@ -20,5 +19,16 @@ SDL_Texture* AssetLoader::LoadTexture(std::string path) {
 
 SDL_Texture* AssetLoader::LoadTexture(SDL_Surface* surface) {
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+	if (texture == NULL) {
+		printf("Failed to create texture from surface. Error: %s\n", SDL_GetError());
+	}
 	return texture;
+}
+
+TTF_Font* AssetLoader::loadFont(std::string path, int size) {
+	TTF_Font* font = TTF_OpenFont(path.c_str(), size);
+	if (font == NULL) {
+		printf("Failed to open font from %s. Error: %s\n", path.c_str(), TTF_GetError());
+	}
+	return font;
 }

@@ -68,12 +68,7 @@ void Display::setClearColor(Uint8 r, Uint8 g, Uint8 b) {
 
 void Display::draw(Sprite* sprite, Camera* camera) {
 	SDL_Rect rect = camera->apply(sprite->getRect());
-	SDL_RenderCopy(renderer, sprite->getTexture(), NULL, &rect);
-}
-
-void Display::draw(Sprite* sprite, Camera* camera, double angle, SDL_RendererFlip flip) {
-	SDL_Rect rect = camera->apply(sprite->getRect());
-	SDL_RenderCopyEx(renderer, sprite->getTexture(), NULL, &rect, angle, NULL, flip);
+	SDL_RenderCopyEx(renderer, sprite->getTexture(), NULL, &rect, sprite->getRotation(), NULL, sprite->getFlip());
 }
 
 void Display::draw(Map* map, Camera* camera) {

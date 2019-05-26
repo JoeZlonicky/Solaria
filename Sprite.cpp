@@ -39,6 +39,18 @@ void Sprite::setVelocity(double _xVelocity, double _yVelocity){
 	yVelocity = _yVelocity;
 }
 
+void Sprite::setRotation(double rotation) {
+	this->rotation = rotation;
+}
+
+void Sprite::setFlip(SDL_RendererFlip flip) {
+	this->flip = flip;
+}
+
+void Sprite::rotate(double rotation) {
+	this->rotation += rotation;
+}
+
 void Sprite::reduceVelocity(double _xVelocity, double _yVelocity){
 	xVelocity -= _xVelocity;
 	yVelocity -= _yVelocity;
@@ -75,6 +87,10 @@ double Sprite::getYVelocity()
 	return yVelocity;
 }
 
+double Sprite::getRotation() {
+	return rotation;
+}
+
 int Sprite::getWidth() {
 	return width;
 }
@@ -90,4 +106,8 @@ SDL_Rect Sprite::getRect() {
 
 SDL_Texture* Sprite::getTexture() {
 	return texture;
+}
+
+SDL_RendererFlip Sprite::getFlip() {
+	return flip;
 }
