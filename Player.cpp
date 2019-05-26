@@ -17,16 +17,16 @@ void Player::update(){
 	if (currentKeyStates[SDL_SCANCODE_W]) {
 		double x, y;
 		setVelocity(maxSpeed, maxSpeed);
-		x = maxSpeed * (cos((angle_deg - 90) * 0.0174532925));
-		y = maxSpeed * (sin((angle_deg - 90) * 0.0174532925));
+		x = getXVelocity() * (cos((angle_deg - 90) * 0.0174532925));
+		y = getYVelocity() * (sin((angle_deg - 90) * 0.0174532925));
 
 		move(x, y);
 	}
 	else if(getXVelocity() >= 0 && getYVelocity() >= 0.01){
-		setVelocity(-0.00000000002, -0.00000000002);
+		setVelocity(-0.02, -0.02);
 		double x, y;
 		x = getXVelocity() * (cos((angle_deg - 90) * 0.0174532925));
-		y = getXVelocity() * (sin((angle_deg - 90) * 0.0174532925));
+		y = getYVelocity() * (sin((angle_deg - 90) * 0.0174532925));
 
 		move(x, y);
 	}
