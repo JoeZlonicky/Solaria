@@ -30,7 +30,9 @@ private:
 	std::string title;
 	Player* player = nullptr;
 	Planet* sun = nullptr;
-	Planet* earth = nullptr;
+	Planet* greenPlanet = nullptr;
+	Planet* redPlanet = nullptr;
+	Planet* rockPlanet = nullptr;
 	Map* map = nullptr;
 	Camera* camera = nullptr;
 	Label* xLabelPosition = nullptr;
