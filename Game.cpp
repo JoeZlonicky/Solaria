@@ -30,7 +30,9 @@ void Game::loadObjects() {
 	player->setCenter(0, 0);
 	sun = new Planet("assets/sun.png", 0, 0);
 	sun->setCenter(0, 0);
-	earth = new Planet("assets/planet.png", 0.0001, 400);
+	greenPlanet = new Planet("assets/greenPlanet.png", 0.0001, 800);
+	redPlanet = new Planet("assets/redPlanet.png", -0.000075, 1200);
+	rockPlanet = new Planet("assets/rockPlanet.png", -0.00005, 400);
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
@@ -57,7 +59,9 @@ void Game::handleEvents() {
 
 void Game::update() {
 	player->update();
-	earth->update();
+	greenPlanet->update();
+	redPlanet->update();
+	rockPlanet->update();
 	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
 	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
 	player->calculateRotation(display);
@@ -69,7 +73,9 @@ void Game::render() {
 	display->clear();
 	camera->update(player);
 	display->draw(map, camera);
-	display->draw(earth, camera);
+	display->draw(greenPlanet, camera);
+	display->draw(redPlanet, camera);
+	display->draw(rockPlanet, camera);
 	display->draw(sun, camera);
 	display->draw(player, camera, player->getAngle(), SDL_FLIP_NONE);
 	display->draw(xLabelPosition);
@@ -79,7 +85,9 @@ void Game::render() {
 
 void Game::free() {
 	display->free();
-	earth->free();
+	greenPlanet->free();
+	redPlanet->free();
+	rockPlanet->free();
 	sun->free();
 	player->free();
 	map->free();
