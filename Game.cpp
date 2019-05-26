@@ -65,6 +65,7 @@ void Game::handleEvents() {
 void Game::update() {
 	player->update();
 	player->calculateRotation(display);
+	asteroids.push_back(new Asteroid(0, 0));
 	for (Asteroid* asteroid : asteroids) {
 		asteroid->update();
 	}
@@ -104,6 +105,9 @@ void Game::free() {
 	rockPlanet->free();
 	sun->free();
 	player->free();
+	for (Asteroid* asteroid : asteroids) {
+		asteroid->free();
+	}
 	map->free();
 	SDL_Quit();
 }
