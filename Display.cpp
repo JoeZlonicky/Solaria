@@ -124,6 +124,10 @@ int Display::getHeight() {
 
 void Display::update() {
 	SDL_RenderPresent(renderer);
+	if ((1000 / fps) > SDL_GetTicks() - starting_tick) {
+		SDL_Delay(1000 / fps - (SDL_GetTicks() - starting_tick));
+	}
+	starting_tick = SDL_GetTicks();
 }
 
 void Display::free() {

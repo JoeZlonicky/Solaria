@@ -16,7 +16,6 @@ public:
 	void free();
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void draw(Sprite* sprite, Camera* camera);
-	void draw(Sprite* sprite, Camera* camera, double angle, SDL_RendererFlip flip);
 	void draw(Map* map, Camera* camera);
 	void draw(Label* label);
 	void drawCursor();
@@ -29,10 +28,12 @@ public:
 private:
 	void createRenderer();
 	int* getScreenDimensions();
+	Uint32 starting_tick;
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* cursorTexture = nullptr;
 	int cursorSize = 16;
+	int fps = 60;
 	bool fullscreen = false;
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;
