@@ -79,10 +79,8 @@ void Game::update() {
 	rockPlanet->update();
 	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
 	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
-	if (projectiles->empty() == false) {
-		for (Projectile projectile : *projectiles) {
-			projectile.update();
-		}
+	for (Projectile& projectile : *projectiles) {
+		projectile.update();
 	}
 
 }

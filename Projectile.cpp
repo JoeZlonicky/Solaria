@@ -7,10 +7,10 @@ Projectile::Projectile(std::string filePath, double rot, double x, double y) : S
 
 void Projectile::update()
 {
-	double x, y;
+	double moveX, moveY;
 	setVelocity(maxSpeed, maxSpeed);
-	x = getXVelocity() * (cos((playerRotation - 90) * 0.0174532925));
-	y = getYVelocity() * (sin((playerRotation - 90) * 0.0174532925));
+	moveX = getXVelocity() * (cos((playerRotation - 90) * 0.0174532925));
+	moveY = getYVelocity() * (sin((playerRotation - 90) * 0.0174532925));
 
-	move(x, y);
+	move(moveX, moveY);
 }
