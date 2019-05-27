@@ -26,8 +26,6 @@ public:
 	void render();
 	void free();
 
-	void addProjectile(Projectile projectileToAdd);
-
 	bool isRunning();
 
 private:
