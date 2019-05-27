@@ -51,6 +51,7 @@
     <ClCompile Include="RandomGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AsteroidHandler.cpp">
     <ClCompile Include="Projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -89,6 +90,7 @@
     <ClInclude Include="RandomGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AsteroidHandler.h">
     <ClInclude Include="Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>

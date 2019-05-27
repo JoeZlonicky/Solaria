@@ -10,7 +10,7 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Planet.h"
-#include "Asteroid.h"
+#include "AsteroidHandler.h"
 #include "Projectile.h"
 
 class Game {
@@ -44,6 +44,6 @@ private:
 	Camera* camera = nullptr;
 	Label* xLabelPosition = nullptr;
 	Label* zLabelPosition = nullptr;
-	std::vector<Asteroid*> asteroids = std::vector<Asteroid*>();
+	AsteroidHandler* asteroidHandler = nullptr;
 	std::vector<Projectile*> projectiles = std::vector<Projectile*>();
 };

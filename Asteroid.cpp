@@ -1,12 +1,13 @@
 #include "Asteroid.h"
 #include "RandomGenerator.h"
 #include <math.h>
+#include <algorithm>
 
 Asteroid::Asteroid(int x, int y) : Asteroid(randomSize(), x ,y) {
-	rotation = RandomGenerator::randint(0, 359);
-	int speed = RandomGenerator::randint(MIN_SPEED, MAX_SPEED);
-	xVelocity = sin(rotation) * speed;
-	yVelocity = cos(rotation) * speed;
+}
+
+void Asteroid::hit() {
+	destory = true;
 }
 
 void Asteroid::update() {
@@ -14,11 +15,27 @@ void Asteroid::update() {
 	y += yVelocity;
 }
 
-Asteroid::Asteroid(AsteroidSize size, int x, int y) : Sprite(getFilePath(size), x, y) {
+AsteroidSize Asteroid::getSize() {
+	return size;
+}
+
+bool Asteroid::shouldDestroy() {
+	return destory;
+}
+
+bool Asteroid::breaksSmaller() {
+	return size > SMALL;
+}
+
+Asteroid::Asteroid(AsteroidSize size, int x, int y) : size(size), Sprite(getFilePath(size), (double)x, (double)y) {
+	rotation = RandomGenerator::randint(0, 359);
+	double speed = RandomGenerator::randint(MIN_SPEED, MAX_SPEED);
+	xVelocity = sin(rotation) * speed;
+	yVelocity = cos(rotation) * speed;
 }
 
 const AsteroidSize Asteroid::randomSize() {
-	return AsteroidSize(RandomGenerator::randint(0, AsteroidSize::NUMBER_OF_SIZES));
+	return AsteroidSize(RandomGenerator::randint(SMALL, LARGE));
 }
 
 const std::string Asteroid::getFilePath(int size) {

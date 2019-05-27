@@ -39,8 +39,8 @@ void Game::loadObjects() {
 	camera->updateMap(map);
 	xLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0);
 	zLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30);
-	asteroids.push_back(new Asteroid(0, 0));
-	projectiles.push_back(projectile);
+	asteroidHandler = new AsteroidHandler();
+	asteroidHandler->addAsteroid(0, 0);
 }
 
 void Game::handleEvents() {
@@ -58,6 +58,11 @@ void Game::handleEvents() {
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
 			}
+			else if (event.key.keysym.sym == SDLK_SPACE) {
+				for (Asteroid* asteroid : asteroidHandler->getAsteroids()) {
+					asteroid->hit();
+				}
+			}
 		default:
 			break;
 		}
@@ -67,21 +72,14 @@ void Game::handleEvents() {
 void Game::update() {
 	player->update();
 	player->calculateRotation(display);
-	asteroids.push_back(new Asteroid(0, 0));
-	for (Asteroid* asteroid : asteroids) {
-		asteroid->update();
-	}
-	if (projectiles.empty() == false) {
-		for (Projectile* projectile : projectiles) {
-			projectile->update();
-		}
-	}
+	asteroidHandler->addAsteroid(0, 0);
+	asteroidHandler->update();
 	greenPlanet->update();
 	redPlanet->update();
 	rockPlanet->update();
 	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
 	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
-	
+
 }
 
 void Game::render() {
@@ -95,9 +93,7 @@ void Game::render() {
 	display->draw(rockPlanet, camera);
 	display->draw(sun, camera);
 	display->draw(player, camera);
-	for (Asteroid* asteroid : asteroids) {
-		display->draw(asteroid, camera);
-	}
+	asteroidHandler->drawAsteroids(display, camera);
 	if (projectiles.empty() == false) {
 		for (Projectile* projectile : projectiles) {
 			display->draw(projectile, camera);
@@ -117,9 +113,7 @@ void Game::free() {
 	rockPlanet->free();
 	sun->free();
 	player->free();
-	for (Asteroid* asteroid : asteroids) {
-		asteroid->free();
-	}
+	asteroidHandler->freeAsteroids();
 	for (Projectile* projectile : projectiles) {
 		projectile->free();
 	}
