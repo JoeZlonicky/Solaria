@@ -2,7 +2,6 @@
 
 Projectile::Projectile(std::string filePath, double rot, double x, double y) : Sprite(filePath, x, y){
 	maxSpeed = 15.0;
-	this->player = player;
 	playerRotation = rot;
 }
 

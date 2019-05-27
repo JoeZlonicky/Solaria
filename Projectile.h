@@ -1,6 +1,5 @@
 #pragma once
 #include "Sprite.h"
-#include "Player.h"
 
 class Projectile : public Sprite
 {
@@ -11,7 +10,6 @@ public:
 
 private:
 	double maxSpeed = 0.0;
-	Player* player = nullptr;
 	double playerRotation;
 };
 
