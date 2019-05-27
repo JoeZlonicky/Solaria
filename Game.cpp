@@ -55,6 +55,11 @@ void Game::handleEvents() {
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			player->setMouseCoords(x, y);
+		case(SDL_MOUSEBUTTONUP):
+			if (event.button.button == SDL_BUTTON_LEFT) {
+				player->fireProjectile(*projectiles);
+			}
+			
 		case(SDL_KEYDOWN):
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
@@ -71,7 +76,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->update(*projectiles);
+	player->update();
 	player->calculateRotation(display);
 	asteroidHandler->update();
 	greenPlanet->update();

@@ -10,7 +10,9 @@ class Player : public Sprite {
 public:
 	Player(std::string filePath, double x = 0, double y = 0);
 
-	void update(std::vector<Projectile> &projectiles);
+	void update();
+
+	void fireProjectile(std::vector<Projectile>& projectiles);
 
 	void calculateRotation(Display* display);
 	void setMouseCoords(int _xMouse, int _yMouse);

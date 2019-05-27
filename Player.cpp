@@ -5,8 +5,10 @@ Player::Player(std::string filePath, double x, double y) : Sprite(filePath, x, y
 	maxSpeed = 5;
 }
 
-void Player::update(std::vector<Projectile> &projectiles){
+void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+	SDL_Event test_event;
+
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
 		double x, y;
 		setVelocity(maxSpeed, maxSpeed);
@@ -26,15 +28,12 @@ void Player::update(std::vector<Projectile> &projectiles){
 	else{
 		setVelocity(0.0, 0.0);
 	}
-
-	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT)) {
-		Projectile projectile = Projectile("assets/enemy.png", rotation, x, y);
-		projectiles.push_back(projectile);
-
-	}
 }
 
-
+void Player::fireProjectile(std::vector<Projectile>& projectiles){
+	Projectile projectile = Projectile("assets/enemy.png", rotation, x, y);
+	projectiles.push_back(projectile);
+}
 
 void Player::calculateRotation(Display* display){
 	double delta_y = ((double)display->getHeight() / 2) - yMouse;
