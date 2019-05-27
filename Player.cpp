@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(std::string filePath, double x, double y) : Sprite(filePath, x, y) {
+Player::Player(std::string filePath, 
+	double x, double y) : Sprite(filePath, x, y) {
 	maxSpeed = 5;
 }
 
@@ -29,7 +30,8 @@ void Player::update(){
 
 	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT)) {
 		Projectile* projectile = new Projectile("assets/enemy.png", rotation, x, y);
-		
+		//Call addProjectile
+
 	}
 }
 

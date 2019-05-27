@@ -1,6 +1,7 @@
 #pragma once
 #include "Sprite.h"
 #include "Display.h"
+#include <vector>
 
 class Player : public Sprite {
 

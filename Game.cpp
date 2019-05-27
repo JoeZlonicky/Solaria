@@ -127,10 +127,6 @@ void Game::free() {
 	SDL_Quit();
 }
 
-void Game::addProjectile(Projectile projectileToAdd) {
-	projectiles.push_back(&projectileToAdd);
-}
-
 bool Game::isRunning() {
 	return running;
 }
