@@ -4,19 +4,21 @@
 
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
-		camera(&display), xLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0),
-		zLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30) {
+		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
+		zPositionLabel("0", "assets/upheavtt.ttf", 28) {
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
-		camera(&display), xLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0),
-		zLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30) {
+		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
+		zPositionLabel("0", "assets/upheavtt.ttf", 28) {
 	setup();
 }
 
 void Game::setup() {
 	player.setCenter(0, 0);
+	xPositionLabel.setPosition(10, 6);
+	zPositionLabel.setPosition(10, 32);
 	planets.push_back(Planet("assets/sun.png", 0, 0));
 	planets.push_back(Planet("assets/rockPlanet.png", 0.00005, 400));
 	planets.push_back(Planet("assets/greenPlanet.png", 0.0001, 800));
@@ -55,8 +57,8 @@ void Game::update() {
 	for (Planet &planet : planets) {
 		planet.update();
 	}
-	xLabelPosition.updateText("x: " + std::to_string(player.getCenterX()));
-	zLabelPosition.updateText("z: " + std::to_string(player.getCenterY()));
+	xPositionLabel.updateText("x: " + std::to_string(player.getCenterX()));
+	zPositionLabel.updateText("z: " + std::to_string(player.getCenterY()));
 	for (Projectile& projectile : projectiles) {
 		projectile.update();
 	}
@@ -78,8 +80,8 @@ void Game::render() {
 	for (Projectile projectile : projectiles) {
 		display.draw(&projectile, &camera);
 	}
-	display.draw(&xLabelPosition);
-	display.draw(&zLabelPosition);
+	display.draw(&xPositionLabel);
+	display.draw(&zPositionLabel);
 	display.drawCursor();
 
 	display.update();

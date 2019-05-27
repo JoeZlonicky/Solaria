@@ -1,17 +1,14 @@
 #pragma once
-#include <SDL.h>
-#include <SDL_image.h>
-#include <stdio.h>
 #include <string>
 #include <vector>
 #include "Display.h"
-#include "Map.h"
-#include "Sprite.h"
-#include "Camera.h"
 #include "Player.h"
+#include "Map.h"
+#include "Camera.h"
+#include "Label.h"
 #include "Planet.h"
-#include "AsteroidHandler.h"
 #include "Projectile.h"
+#include "Asteroid.h"
 
 class Game {
 public:
@@ -31,11 +28,11 @@ private:
 	Player player;
 	Map map;
 	Camera camera;
-	Label xLabelPosition;
-	Label zLabelPosition;
+	Label xPositionLabel;
+	Label zPositionLabel;
 	std::vector<Planet> planets;
 	std::vector<Projectile> projectiles;
 	std::vector<Asteroid> asteroids;
 	bool running = true;
-	
+
 };
