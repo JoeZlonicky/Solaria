@@ -6,6 +6,8 @@
 #include "Map.h"
 #include "Camera.h"
 
+class Camera;
+
 class Display {
 public:
 	Display(std::string title, bool fullscreen);

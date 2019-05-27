@@ -18,7 +18,6 @@ public:
 	Game(std::string title, int width, int height);
 	Game(std::string title, bool fullscreen);
 
-	void init();
 	void setup();
 	bool isRunning();
 

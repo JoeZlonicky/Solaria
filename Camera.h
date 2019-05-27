@@ -3,6 +3,8 @@
 #include "Display.h"
 #include "Map.h"
 
+class Display;
+
 class Camera {
 public:
 	Camera(Display* display);

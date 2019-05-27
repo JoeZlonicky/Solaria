@@ -6,25 +6,13 @@
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
 		camera(&display), xLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0),
 		zLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30) {
-	init();
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
 		camera(&display), xLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0),
 		zLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30) {
-	init();
 	setup();
-}
-
-void Game::init() {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		printf("SDL Failed to initalize everything! SDL Error: %s\n", SDL_GetError());
-	}
-	if (TTF_Init() == -1) {
-		printf("Failed to initialize TTF. Error: %s\n", TTF_GetError());
-	}
-	RandomGenerator::init();
 }
 
 void Game::setup() {
