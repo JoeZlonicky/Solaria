@@ -52,6 +52,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AsteroidHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -91,6 +93,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AsteroidHandler.h">
+       <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
