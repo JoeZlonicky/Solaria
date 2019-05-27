@@ -8,7 +8,7 @@
 class Player : public Sprite {
 
 public:
-	Player(std::string filePath, double x = 0, double y = 0);
+	Player();
 
 	void update();
 

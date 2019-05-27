@@ -1,22 +1,22 @@
 #pragma once
 #include "Sprite.h"
+#include "Display.h"
 #include "Map.h"
 
 class Camera {
 public:
-	Camera(int displayWidth, int displayHeight);
+	Camera(Display* display);
+
 	void update(Sprite* target);
 	SDL_Rect apply(SDL_Rect rect);
-	void updateMap(Map* newMap);
+	void setMap(Map* map);
 	double getX();
 	double getY();
 
 private:
 	Map* map = nullptr;
+	Display* display = nullptr;
 	double x = 0;
 	double y = 0;
-	int displayWidth;
-	int displayHeight;
-
 };
 

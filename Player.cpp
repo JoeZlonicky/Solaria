@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(std::string filePath, double x, double y) : Sprite(filePath, x, y) {
+Player::Player() : Sprite("assets/player.png", x, y) {
 	maxSpeed = 5;
 }
 

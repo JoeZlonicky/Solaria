@@ -1,7 +1,7 @@
 #include "Camera.h"
-#include <algorithm>
 
-Camera::Camera(int displayWidth, int displayHeight) : displayWidth(displayWidth), displayHeight(displayHeight) {
+Camera::Camera(Display* display) {
+	this->display = display;
 }
 
 void Camera::update(Sprite* target) {
@@ -10,14 +10,14 @@ void Camera::update(Sprite* target) {
 }
 
 SDL_Rect Camera::apply(SDL_Rect rect) {
-	int newX = displayWidth / 2 + rect.x - x;
-	int newY = displayHeight / 2 + rect.y - y;
+	int newX = display->getWidth() / 2 + rect.x - x;
+	int newY = display->getHeight() / 2 + rect.y - y;
 	SDL_Rect newRect = { newX, newY, rect.w, rect.h };
 	return newRect;
 }
 
-void Camera::updateMap(Map* newMap) {
-	map = newMap;
+void Camera::setMap(Map* map) {
+	this->map = map;
 }
 
 double Camera::getX() {

@@ -3,16 +3,18 @@
 #include "RandomGenerator.h"
 
 
-Game::Game(std::string title, int displayWidth, int displayHeight) {
+Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
+		camera(&display), xLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0),
+		zLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30) {
 	init();
-	display = new Display(title, displayWidth, displayHeight);
-	loadObjects();
+	setup();
 }
 
-Game::Game(std::string title, bool fullscreen){
+Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
+		camera(&display), xLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0),
+		zLabelPosition("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30) {
 	init();
-	display = new Display(title, fullscreen);
-	loadObjects();
+	setup();
 }
 
 void Game::init() {
@@ -25,23 +27,13 @@ void Game::init() {
 	RandomGenerator::init();
 }
 
-void Game::loadObjects() {
-	player = new Player("assets/player.png");
-	player->setCenter(0, 0);
-	sun = new Planet("assets/sun.png", 0, 0);
-	sun->setCenter(0, 0);
-	greenPlanet = new Planet("assets/greenPlanet.png", 0.0001, 800);
-	redPlanet = new Planet("assets/redPlanet.png", -0.000075, 1200);
-	rockPlanet = new Planet("assets/rockPlanet.png", -0.00005, 400);
-	projectile = new Projectile("assets/enemy.png", player->getRotation(), player->getX(), player->getY());
-	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
-	camera = new Camera(display->getWidth(), display->getHeight());
-	camera->updateMap(map);
-	xLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 0);
-	zLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30);
-	asteroidHandler = new AsteroidHandler();
-	asteroidHandler->addAsteroid(0, 0);
-	projectiles = new std::vector<Projectile>();
+void Game::setup() {
+	player.setCenter(0, 0);
+	planets.push_back(Planet("assets/sun.png", 0, 0));
+	planets.push_back(Planet("assets/rockPlanet.png", 0.00005, 400));
+	planets.push_back(Planet("assets/greenPlanet.png", 0.0001, 800));
+	planets.push_back(Planet("assets/redPlanet.png", 0.000075, 1200));
+	camera.setMap(&map);
 }
 
 void Game::handleEvents() {
@@ -54,20 +46,14 @@ void Game::handleEvents() {
 		case(SDL_MOUSEMOTION):
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			player->setMouseCoords(x, y);
+			player.setMouseCoords(x, y);
 		case(SDL_MOUSEBUTTONUP):
 			if (event.button.button == SDL_BUTTON_LEFT) {
-				player->fireProjectile(*projectiles);
+				player.fireProjectile(projectiles);
 			}
-			
 		case(SDL_KEYDOWN):
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
-			}
-			else if (event.key.keysym.sym == SDLK_SPACE) {
-				for (Asteroid* asteroid : asteroidHandler->getAsteroids()) {
-					asteroid->hit();
-				}
 			}
 		default:
 			break;
@@ -76,56 +62,54 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->update();
-	player->calculateRotation(display);
-	asteroidHandler->update();
-	greenPlanet->update();
-	redPlanet->update();
-	rockPlanet->update();
-	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
-	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
-	for (Projectile& projectile : *projectiles) {
+	player.update();
+	player.calculateRotation(&display);
+	for (Planet &planet : planets) {
+		planet.update();
+	}
+	xLabelPosition.updateText("x: " + std::to_string(player.getCenterX()));
+	zLabelPosition.updateText("z: " + std::to_string(player.getCenterY()));
+	for (Projectile& projectile : projectiles) {
 		projectile.update();
 	}
 
 }
 
 void Game::render() {
-	display->clear();
-	camera->update(player);
+	display.clear();
+	camera.update(&player);
 
-	display->draw(map, camera);
-
-	display->draw(greenPlanet, camera);
-	display->draw(redPlanet, camera);
-	display->draw(rockPlanet, camera);
-	display->draw(sun, camera);
-	display->draw(player, camera);
-	asteroidHandler->drawAsteroids(display, camera);
-	if (projectiles->empty() == false) {
-		for (Projectile projectile : *projectiles) {
-			display->draw(&projectile, camera);
-		}
+	display.draw(&map, &camera);
+	for (Planet planet : planets) {
+		display.draw(&planet, &camera);
 	}
-	display->draw(xLabelPosition);
-	display->draw(zLabelPosition);
-	display->drawCursor();
+	display.draw(&player, &camera);
+	for (Asteroid asteroid : asteroids) {
+		display.draw(&asteroid, &camera);
+	}
+	for (Projectile projectile : projectiles) {
+		display.draw(&projectile, &camera);
+	}
+	display.draw(&xLabelPosition);
+	display.draw(&zLabelPosition);
+	display.drawCursor();
 
-	display->update();
+	display.update();
 }
 
 void Game::free() {
-	display->free();
-	greenPlanet->free();
-	redPlanet->free();
-	rockPlanet->free();
-	sun->free();
-	player->free();
-	asteroidHandler->freeAsteroids();
-	for (Projectile projectile : *projectiles) {
+	for (Asteroid& asteroid : asteroids) {
+		asteroid.free();
+	}
+	for (Planet &planet : planets) {
+		planet.free();
+	}
+	for (Projectile &projectile : projectiles) {
 		projectile.free();
 	}
-	map->free();
+	player.free();
+	map.free();
+	display.free();
 	SDL_Quit();
 }
 

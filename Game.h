@@ -19,29 +19,24 @@ public:
 	Game(std::string title, bool fullscreen);
 
 	void init();
-	void loadObjects();
+	void setup();
+	bool isRunning();
 
 	void handleEvents();
 	void update();
 	void render();
 	void free();
 
-	bool isRunning();
-
 private:
-	Display* display = nullptr;
+	Display display;
+	Player player;
+	Map map;
+	Camera camera;
+	Label xLabelPosition;
+	Label zLabelPosition;
+	std::vector<Planet> planets;
+	std::vector<Projectile> projectiles;
+	std::vector<Asteroid> asteroids;
 	bool running = true;
-	std::string title;
-	Player* player = nullptr;
-	Planet* sun = nullptr;
-	Planet* greenPlanet = nullptr;
-	Planet* redPlanet = nullptr;
-	Planet* rockPlanet = nullptr;
-	Projectile* projectile = nullptr;
-	Map* map = nullptr;
-	Camera* camera = nullptr;
-	Label* xLabelPosition = nullptr;
-	Label* zLabelPosition = nullptr;
-	AsteroidHandler* asteroidHandler = nullptr;
-	std::vector<Projectile>* projectiles;
+	
 };
