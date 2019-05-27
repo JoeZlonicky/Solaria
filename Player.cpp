@@ -1,12 +1,11 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(std::string filePath, 
-	double x, double y) : Sprite(filePath, x, y) {
+Player::Player(std::string filePath, double x, double y) : Sprite(filePath, x, y) {
 	maxSpeed = 5;
 }
 
-void Player::update(){
+void Player::update(std::vector<Projectile> projectiles){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
 		double x, y;
