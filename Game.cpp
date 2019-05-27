@@ -41,6 +41,7 @@ void Game::loadObjects() {
 	zLabelPosition = new Label("0", "assets/upheavtt.ttf", 28, 255, 255, 255, 10, 30);
 	asteroidHandler = new AsteroidHandler();
 	asteroidHandler->addAsteroid(0, 0);
+	projectiles = new std::vector<Projectile>();
 }
 
 void Game::handleEvents() {
@@ -70,7 +71,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->update();
+	player->update(*projectiles);
 	player->calculateRotation(display);
 	asteroidHandler->update();
 	greenPlanet->update();
@@ -78,6 +79,11 @@ void Game::update() {
 	rockPlanet->update();
 	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
 	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
+	if (projectiles->empty() == false) {
+		for (Projectile projectile : *projectiles) {
+			projectile.update();
+		}
+	}
 
 }
 
@@ -93,9 +99,9 @@ void Game::render() {
 	display->draw(sun, camera);
 	display->draw(player, camera);
 	asteroidHandler->drawAsteroids(display, camera);
-	if (projectiles.empty() == false) {
-		for (Projectile* projectile : projectiles) {
-			display->draw(projectile, camera);
+	if (projectiles->empty() == false) {
+		for (Projectile projectile : *projectiles) {
+			display->draw(&projectile, camera);
 		}
 	}
 	display->draw(xLabelPosition);
@@ -113,8 +119,8 @@ void Game::free() {
 	sun->free();
 	player->free();
 	asteroidHandler->freeAsteroids();
-	for (Projectile* projectile : projectiles) {
-		projectile->free();
+	for (Projectile projectile : *projectiles) {
+		projectile.free();
 	}
 	map->free();
 	SDL_Quit();

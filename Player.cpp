@@ -28,8 +28,8 @@ void Player::update(std::vector<Projectile> projectiles){
 	}
 
 	if (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT)) {
-		Projectile* projectile = new Projectile("assets/enemy.png", rotation, x, y);
-		//Call addProjectile
+		Projectile projectile = Projectile("assets/enemy.png", rotation, x, y);
+		projectiles.push_back(projectile);
 
 	}
 }

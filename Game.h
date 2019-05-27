@@ -45,5 +45,5 @@ private:
 	Label* xLabelPosition = nullptr;
 	Label* zLabelPosition = nullptr;
 	AsteroidHandler* asteroidHandler = nullptr;
-	std::vector<Projectile*> projectiles = std::vector<Projectile*>();
+	std::vector<Projectile>* projectiles;
 };
