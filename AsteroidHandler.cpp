@@ -10,6 +10,7 @@ void AsteroidHandler::update() {
 				asteroids.push_back(new Asteroid(AsteroidSize(asteroids.at(i)->getSize() - 1), asteroids.at(i)->getX(), asteroids.at(i)->getY()));
 				asteroids.push_back(new Asteroid(AsteroidSize(asteroids.at(i)->getSize() - 1), asteroids.at(i)->getX(), asteroids.at(i)->getY()));
 			}
+			asteroids.at(i)->free();
 			asteroids.erase(asteroids.begin() + i);
 		}
 	}

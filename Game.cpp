@@ -72,7 +72,7 @@ void Game::handleEvents() {
 void Game::update() {
 	player->update();
 	player->calculateRotation(display);
-	//asteroids.push_back(Asteroid(0, 0));
+	asteroidHandler->addAsteroid(0, 0);
 	asteroidHandler->update();
 	greenPlanet->update();
 	redPlanet->update();
