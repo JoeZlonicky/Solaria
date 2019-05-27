@@ -33,6 +33,7 @@ void Game::loadObjects() {
 	greenPlanet = new Planet("assets/greenPlanet.png", 0.0001, 800);
 	redPlanet = new Planet("assets/redPlanet.png", -0.000075, 1200);
 	rockPlanet = new Planet("assets/rockPlanet.png", -0.00005, 400);
+	projectile = new Projectile("assets/enemy.png", player->getRotation(), player->getX(), player->getY());
 	map = new Map(10000, 10000, display->getWidth(), display->getHeight());
 	camera = new Camera(display->getWidth(), display->getHeight());
 	camera->updateMap(map);
@@ -78,7 +79,7 @@ void Game::update() {
 	rockPlanet->update();
 	xLabelPosition->updateText("x: " + std::to_string(player->getCenterX()));
 	zLabelPosition->updateText("z: " + std::to_string(player->getCenterY()));
-	
+
 }
 
 void Game::render() {
@@ -93,7 +94,11 @@ void Game::render() {
 	display->draw(sun, camera);
 	display->draw(player, camera);
 	asteroidHandler->drawAsteroids(display, camera);
-
+	if (projectiles.empty() == false) {
+		for (Projectile* projectile : projectiles) {
+			display->draw(projectile, camera);
+		}
+	}
 	display->draw(xLabelPosition);
 	display->draw(zLabelPosition);
 	display->drawCursor();
@@ -109,8 +114,15 @@ void Game::free() {
 	sun->free();
 	player->free();
 	asteroidHandler->freeAsteroids();
+	for (Projectile* projectile : projectiles) {
+		projectile->free();
+	}
 	map->free();
 	SDL_Quit();
+}
+
+void Game::addProjectile(Projectile projectileToAdd) {
+	projectiles.push_back(&projectileToAdd);
 }
 
 bool Game::isRunning() {

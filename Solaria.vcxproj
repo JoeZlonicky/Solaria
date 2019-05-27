@@ -136,6 +136,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="AssetLoader.h" />

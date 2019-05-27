@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "Planet.h"
 #include "AsteroidHandler.h"
+#include "Projectile.h"
 
 class Game {
 public:
@@ -25,6 +26,8 @@ public:
 	void render();
 	void free();
 
+	void addProjectile(Projectile projectileToAdd);
+
 	bool isRunning();
 
 private:
@@ -36,9 +39,11 @@ private:
 	Planet* greenPlanet = nullptr;
 	Planet* redPlanet = nullptr;
 	Planet* rockPlanet = nullptr;
+	Projectile* projectile = nullptr;
 	Map* map = nullptr;
 	Camera* camera = nullptr;
 	Label* xLabelPosition = nullptr;
 	Label* zLabelPosition = nullptr;
 	AsteroidHandler* asteroidHandler = nullptr;
+	std::vector<Projectile*> projectiles = std::vector<Projectile*>();
 };

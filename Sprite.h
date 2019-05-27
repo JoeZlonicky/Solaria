@@ -9,6 +9,7 @@ public:
 
 	void moveX(double movement);
 	void moveY(double movement);
+	void move(double moveX, double moveY);
 	void setCenterX(double x);
 	void setCenterY(double y);
 	void setCenter(double x, double y);
