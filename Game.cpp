@@ -26,24 +26,26 @@ void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
 		switch (event.type) {
-		case(SDL_QUIT):
-			running = false;
-			break;
-		case(SDL_MOUSEMOTION):
-			int x, y;
-			SDL_GetMouseState(&x, &y);
-			player.setMouseCoords(x, y);
-		case(SDL_MOUSEBUTTONUP):
-			if (event.button.button == SDL_BUTTON_LEFT) {
-				player.fireProjectile(projectiles);
-			}
-		case(SDL_KEYDOWN):
-			if (event.key.keysym.sym == SDLK_ESCAPE) {
+			case(SDL_QUIT):
 				running = false;
+				break;
+			case(SDL_MOUSEMOTION):
+				int x, y;
+				SDL_GetMouseState(&x, &y);
+				player.setMouseCoords(x, y);
+				break;
+			case(SDL_MOUSEBUTTONUP):
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					player.fireProjectile(projectiles);
+					break;
+				}
+			case(SDL_KEYDOWN):
+				if (event.key.keysym.sym == SDLK_ESCAPE) {
+					running = false;
+				}
+			default:
+				break;
 			}
-		default:
-			break;
-		}
 	}
 }
 
