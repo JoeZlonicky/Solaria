@@ -36,6 +36,7 @@ void Map::update() {
 			double dx = asteroids.at(i).getCenterX() - player->getCenterX();
 			double dy = asteroids.at(i).getCenterY() - player->getCenterY();
 			if (sqrt(dx * dx + dy * dy) > asteroidDespawnDistance) {
+				asteroids.at(i).free();
 				asteroids.erase(asteroids.begin() + i);
 			}
 		}
