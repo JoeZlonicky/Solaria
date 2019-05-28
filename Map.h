@@ -31,7 +31,7 @@ private:
 	int backgroundTextureWidth;
 	int backgroundTextureHeight;
 	double asteroidSpawnDistance = 750;
-	double asteroidDespawnDistance = 1200;
 	unsigned int maxNumberOfAsteroids = 10;
+	double objectDespawnDistance = 1200;
 };
 

@@ -35,7 +35,7 @@ void Map::update() {
 		else {
 			double dx = asteroids.at(i).getCenterX() - player->getCenterX();
 			double dy = asteroids.at(i).getCenterY() - player->getCenterY();
-			if (sqrt(dx * dx + dy * dy) > asteroidDespawnDistance) {
+			if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
 				asteroids.at(i).free();
 				asteroids.erase(asteroids.begin() + i);
 			}
@@ -44,8 +44,14 @@ void Map::update() {
 	for (Planet& planet : planets) {
 		planet.update();
 	}
-	for (Projectile& projectile : projectiles) {
-		projectile.update();
+	for (unsigned int i = 0; i < projectiles.size(); ++i) {
+		projectiles.at(i).update();
+		double dx = projectiles.at(i).getCenterX() - player->getCenterX();
+		double dy = projectiles.at(i).getCenterY() - player->getCenterY();
+		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
+			projectiles.at(i).free();
+			projectiles.erase(projectiles.begin() + i);
+		}
 	}
 }
 
