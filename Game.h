@@ -30,7 +30,6 @@ private:
 	Camera camera;
 	Label xPositionLabel;
 	Label zPositionLabel;
-	std::vector<Projectile> projectiles;
 	bool running = true;
 
 };

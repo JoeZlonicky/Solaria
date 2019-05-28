@@ -35,7 +35,7 @@ void Game::handleEvents() {
 			player.setMouseCoords(x, y);
 		case(SDL_MOUSEBUTTONUP):
 			if (event.button.button == SDL_BUTTON_LEFT) {
-				player.fireProjectile(projectiles);
+				player.fireProjectile(map.getProjectiles());
 			}
 		case(SDL_KEYDOWN):
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
@@ -51,14 +51,9 @@ void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
 	map.update();
-	for (Projectile& projectile : projectiles) {
-		projectile.update();
-	}
 	
 	xPositionLabel.updateText("x: " + std::to_string(player.getCenterX()));
 	zPositionLabel.updateText("z: " + std::to_string(player.getCenterY()));
-	
-
 }
 
 void Game::render() {
@@ -66,9 +61,6 @@ void Game::render() {
 	camera.update(&player);
 
 	display.draw(&map, &camera);
-	for (Projectile projectile : projectiles) {
-		display.draw(&projectile, &camera);
-	}
 	display.draw(&player, &camera);
 	
 	display.draw(&xPositionLabel);
@@ -79,9 +71,6 @@ void Game::render() {
 }
 
 void Game::free() {
-	for (Projectile &projectile : projectiles) {
-		projectile.free();
-	}
 	player.free();
 	map.free();
 	display.free();

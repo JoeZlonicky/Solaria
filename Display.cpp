@@ -76,11 +76,15 @@ void Display::draw(Map* map, Camera* camera) {
 			SDL_RenderCopy(renderer, map->getBackgroundTexture(), NULL, &rect);
 		}
 	}
-	for (Planet& planet : map->getPlanets()) {
+	
+	for (Planet& planet : *map->getPlanets()) {
 		draw(&planet, camera);
 	}
-	for (Asteroid& asteroid : map->getAsteroids()) {
+	for (Asteroid& asteroid : *map->getAsteroids()) {
 		draw(&asteroid, camera);
+	}
+	for (Projectile& projectile : *map->getProjectiles()) {
+		draw(&projectile, camera);
 	}
 	
 }

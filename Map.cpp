@@ -29,6 +29,7 @@ void Map::update() {
 				asteroids.push_back(Asteroid(newSize, x, y));
 				asteroids.push_back(Asteroid(newSize, x, y));
 			}
+			asteroids.at(i).free();
 			asteroids.erase(asteroids.begin() + i);
 		}
 		else {
@@ -42,6 +43,9 @@ void Map::update() {
 	for (Planet& planet : planets) {
 		planet.update();
 	}
+	for (Projectile& projectile : projectiles) {
+		projectile.update();
+	}
 }
 
 void Map::free() {
@@ -53,14 +57,21 @@ void Map::free() {
 	for (Planet& planet : planets) {
 		planet.free();
 	}
+	for (Projectile& projectile : projectiles) {
+		projectile.free();
+	}
 }
 
-std::vector<Asteroid> Map::getAsteroids() {
-	return asteroids;
+std::vector<Asteroid>* Map::getAsteroids() {
+	return &asteroids;
 }
 
-std::vector<Planet> Map::getPlanets() {
-	return planets;
+std::vector<Planet>* Map::getPlanets() {
+	return &planets;
+}
+
+std::vector<Projectile>* Map::getProjectiles() {
+	return &projectiles;
 }
 
 SDL_Texture* Map::getBackgroundTexture() {

@@ -27,11 +27,11 @@ void Player::update(){
 	}
 }
 
-void Player::fireProjectile(std::vector<Projectile>& projectiles){
+void Player::fireProjectile(std::vector<Projectile>* projectiles){
 	Projectile projectile = Projectile("assets/projectile.png", rotation);
 	projectile.setCenter(getCenterX(), getCenterY());
 	projectile.setRotation(rotation);
-	projectiles.push_back(projectile);
+	projectiles->push_back(projectile);
 }
 
 void Player::playerMove(){
