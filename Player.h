@@ -15,6 +15,7 @@ public:
 
 	void fireProjectile(std::vector<Projectile>& projectiles);
 
+	void playerMove();
 	void calculateRotation(Display* display);
 	void setMouseCoords(int _xMouse, int _yMouse);
 	double getAngle();

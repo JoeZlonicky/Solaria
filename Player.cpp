@@ -9,20 +9,18 @@ void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
-		double x, y;
 		setVelocity(maxSpeed, maxSpeed);
-		x = getXVelocity() * (cos((rotation - 90) * 0.0174532925));
-		y = getYVelocity() * (sin((rotation - 90) * 0.0174532925));
-
-		move(x, y);
+		playerMove();
+	}
+	else if (currentKeyStates[SDL_SCANCODE_S]) {
+		if (getXVelocity() >= 0 && getYVelocity() >= 0.01) {
+			reduceVelocity(0.075, 0.075);
+			playerMove();
+		}
 	}
 	else if(getXVelocity() >= 0 && getYVelocity() >= 0.01){
 		reduceVelocity(0.05, 0.05);
-		double x, y;
-		x = getXVelocity() * (cos((rotation - 90) * 0.0174532925));
-		y = getYVelocity() * (sin((rotation - 90) * 0.0174532925));
-
-		move(x, y);
+		playerMove();
 	}
 	else{
 		setVelocity(0.0, 0.0);
@@ -32,6 +30,14 @@ void Player::update(){
 void Player::fireProjectile(std::vector<Projectile>& projectiles){
 	Projectile projectile = Projectile("assets/enemy.png", rotation, x, y);
 	projectiles.push_back(projectile);
+}
+
+void Player::playerMove(){
+	double x, y;
+	x = getXVelocity() * (cos((rotation - 90) * 0.0174532925));
+	y = getYVelocity() * (sin((rotation - 90) * 0.0174532925));
+
+	move(x, y);
 }
 
 void Player::calculateRotation(Display* display){
