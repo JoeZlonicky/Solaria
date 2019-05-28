@@ -66,10 +66,11 @@ void Game::render() {
 	camera.update(&player);
 
 	display.draw(&map, &camera);
-	display.draw(&player, &camera);
 	for (Projectile projectile : projectiles) {
 		display.draw(&projectile, &camera);
 	}
+	display.draw(&player, &camera);
+	
 	display.draw(&xPositionLabel);
 	display.draw(&zPositionLabel);
 	display.drawCursor();
