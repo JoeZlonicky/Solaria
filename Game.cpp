@@ -5,25 +5,20 @@
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
 		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28) {
+		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player) {
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
 		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28) {
+		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player) {
 	setup();
 }
 
 void Game::setup() {
 	player.setCenter(0, 0);
-	asteroids.push_back(Asteroid(0, 0));
 	xPositionLabel.setPosition(10, 6);
 	zPositionLabel.setPosition(10, 32);
-	planets.push_back(Planet("assets/sun.png", 0, 0));
-	planets.push_back(Planet("assets/rockPlanet.png", 0.00005, 400));
-	planets.push_back(Planet("assets/greenPlanet.png", 0.0001, 800));
-	planets.push_back(Planet("assets/redPlanet.png", 0.000075, 1200));
 	camera.setMap(&map);
 }
 
@@ -46,11 +41,6 @@ void Game::handleEvents() {
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
 			}
-			else if (event.key.keysym.sym == SDLK_SPACE) {
-				if (asteroids.size() > 0) {
-					asteroids.at(0).hit();
-				}
-			}
 		default:
 			break;
 		}
@@ -60,24 +50,9 @@ void Game::handleEvents() {
 void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
-	for (int i = 0; i < asteroids.size(); ++i) {
-		asteroids.at(i).update();
-		if (asteroids.at(i).shouldDestroy()) {
-			if (asteroids.at(i).breaksSmaller()) {
-				AsteroidSize newSize = AsteroidSize(asteroids.at(i).getSize() - 1);
-				double x = asteroids.at(i).getX();
-				double y = asteroids.at(i).getY();
-				asteroids.push_back(Asteroid(newSize, x, y));
-				asteroids.push_back(Asteroid(newSize, x, y));
-			}
-			asteroids.erase(asteroids.begin() + i);
-		}
-	}
+	map.update();
 	for (Projectile& projectile : projectiles) {
 		projectile.update();
-	}
-	for (Planet &planet : planets) {
-		planet.update();
 	}
 	
 	xPositionLabel.updateText("x: " + std::to_string(player.getCenterX()));
@@ -91,13 +66,7 @@ void Game::render() {
 	camera.update(&player);
 
 	display.draw(&map, &camera);
-	for (Planet planet : planets) {
-		display.draw(&planet, &camera);
-	}
 	display.draw(&player, &camera);
-	for (Asteroid& asteroid : asteroids) {
-		display.draw(&asteroid, &camera);
-	}
 	for (Projectile projectile : projectiles) {
 		display.draw(&projectile, &camera);
 	}
@@ -109,12 +78,6 @@ void Game::render() {
 }
 
 void Game::free() {
-	for (Asteroid& asteroid : asteroids) {
-		asteroid.free();
-	}
-	for (Planet &planet : planets) {
-		planet.free();
-	}
 	for (Projectile &projectile : projectiles) {
 		projectile.free();
 	}

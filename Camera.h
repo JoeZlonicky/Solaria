@@ -4,6 +4,7 @@
 #include "Map.h"
 
 class Display;
+class Map;
 
 class Camera {
 public:

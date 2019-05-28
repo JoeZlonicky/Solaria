@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 void RandomGenerator::init() {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 }
 
 int RandomGenerator::randint(int min, int max) {

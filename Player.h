@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "Display.h"
 
+class Display;
 
 class Player : public Sprite {
 

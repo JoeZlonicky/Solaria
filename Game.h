@@ -30,9 +30,7 @@ private:
 	Camera camera;
 	Label xPositionLabel;
 	Label zPositionLabel;
-	std::vector<Planet> planets;
 	std::vector<Projectile> projectiles;
-	std::vector<Asteroid> asteroids;
 	bool running = true;
 
 };

@@ -2,10 +2,16 @@
 #include <SDL_image.h>
 #include "AssetLoader.h"
 
-Display::Display(std::string title, bool fullscreen) {
-	int* dimensions = getScreenDimensions();
-	width = dimensions[0];
-	height = dimensions[1];
+Display::Display(std::string title, bool fullscreen) : starting_tick(0) {
+	SDL_DisplayMode displayMode;
+	int width = 0, height= 0;
+	if (SDL_GetCurrentDisplayMode(0, &displayMode) != 0) {
+		printf("Failed to get display mode. Error: %s\n", SDL_GetError());
+	}
+	else {
+		width = displayMode.w;
+		height = displayMode.h;
+	}
 
 	int fullscreenFlag = 0;
 	if (fullscreen) {
@@ -22,7 +28,7 @@ Display::Display(std::string title, bool fullscreen) {
 	cursorTexture = AssetLoader::LoadTexture("assets/crosshair.png");
 }
 
-Display::Display(std::string title, int width, int height) : width(width), height(height) {
+Display::Display(std::string title, int width, int height) : width(width), height(height), starting_tick(0) {
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		width, height, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
@@ -42,19 +48,6 @@ void Display::createRenderer() {
 	AssetLoader::init(renderer);
 }
 
-int* Display::getScreenDimensions() {
-	SDL_DisplayMode displayMode;
-	int dimensions[2];
-	if (SDL_GetCurrentDisplayMode(0, &displayMode) != 0) {
-		printf("Failed to get display mode. Error: %s\n", SDL_GetError());
-	}
-	else {
-		dimensions[0] = displayMode.w;
-		dimensions[1] = displayMode.h;
-	}
-	return dimensions;
-}
-
 void Display::clear() {
 	SDL_SetRenderDrawColor(renderer, clearR, clearG, clearB, 255);
 	SDL_RenderClear(renderer);
@@ -72,16 +65,22 @@ void Display::draw(Sprite* sprite, Camera* camera) {
 }
 
 void Display::draw(Map* map, Camera* camera) {
-	int textureWidth = map->getTextureWidth();
-	int textureHeight = map->getTextureHeight();
+	int textureWidth = map->getBackgroundTextureWidth();
+	int textureHeight = map->getBackgroundTextureHeight();
 	int cameraX = -(int)camera->getX() % textureWidth;
 	int cameraY = -(int)camera->getY() % textureHeight;
 	SDL_Rect rect;
 	for(int x = cameraX - width; x < width; x += textureWidth) {
 		for (int y = cameraY - height; y < height; y += textureHeight) {
 			rect = { x, y, textureWidth, textureHeight };
-			SDL_RenderCopy(renderer, map->getTexture(), NULL, &rect);
+			SDL_RenderCopy(renderer, map->getBackgroundTexture(), NULL, &rect);
 		}
+	}
+	for (Planet& planet : map->getPlanets()) {
+		draw(&planet, camera);
+	}
+	for (Asteroid& asteroid : map->getAsteroids()) {
+		draw(&asteroid, camera);
 	}
 	
 }
@@ -124,7 +123,7 @@ int Display::getHeight() {
 
 void Display::update() {
 	SDL_RenderPresent(renderer);
-	if ((1000 / fps) > SDL_GetTicks() - starting_tick) {
+	if ((unsigned)(1000 / fps) > SDL_GetTicks() - starting_tick) {
 		SDL_Delay(1000 / fps - (SDL_GetTicks() - starting_tick));
 	}
 	starting_tick = SDL_GetTicks();

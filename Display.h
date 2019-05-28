@@ -29,7 +29,6 @@ public:
 
 private:
 	void createRenderer();
-	int* getScreenDimensions();
 	Uint32 starting_tick;
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;

@@ -10,8 +10,8 @@ void Camera::update(Sprite* target) {
 }
 
 SDL_Rect Camera::apply(SDL_Rect rect) {
-	int newX = display->getWidth() / 2 + rect.x - x;
-	int newY = display->getHeight() / 2 + rect.y - y;
+	int newX = (int)(display->getWidth() / 2 + rect.x - x);
+	int newY = (int)(display->getHeight() / 2 + rect.y - y);
 	SDL_Rect newRect = { newX, newY, rect.w, rect.h };
 	return newRect;
 }
