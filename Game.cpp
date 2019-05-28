@@ -17,6 +17,7 @@ Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
 
 void Game::setup() {
 	player.setCenter(0, 0);
+	asteroids.push_back(Asteroid(0, 0));
 	xPositionLabel.setPosition(10, 6);
 	zPositionLabel.setPosition(10, 32);
 	planets.push_back(Planet("assets/sun.png", 0, 0));
@@ -45,6 +46,11 @@ void Game::handleEvents() {
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
 			}
+			else if (event.key.keysym.sym == SDLK_SPACE) {
+				if (asteroids.size() > 0) {
+					asteroids.at(0).hit();
+				}
+			}
 		default:
 			break;
 		}
@@ -55,10 +61,16 @@ void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
 	for (int i = 0; i < asteroids.size(); ++i) {
-		//asteroids.at(i).update();
+		asteroids.at(i).update();
 		if (asteroids.at(i).shouldDestroy()) {
-			//asteroids.at(i).destroy(&asteroids);
-			asteroids.erase(asteroids.begin());
+			if (asteroids.at(i).breaksSmaller()) {
+				AsteroidSize newSize = AsteroidSize(asteroids.at(i).getSize() - 1);
+				double x = asteroids.at(i).getX();
+				double y = asteroids.at(i).getY();
+				asteroids.push_back(Asteroid(newSize, x, y));
+				asteroids.push_back(Asteroid(newSize, x, y));
+			}
+			asteroids.erase(asteroids.begin() + i);
 		}
 	}
 	for (Projectile& projectile : projectiles) {
@@ -83,7 +95,7 @@ void Game::render() {
 		display.draw(&planet, &camera);
 	}
 	display.draw(&player, &camera);
-	for (Asteroid asteroid : asteroids) {
+	for (Asteroid& asteroid : asteroids) {
 		display.draw(&asteroid, &camera);
 	}
 	for (Projectile projectile : projectiles) {
