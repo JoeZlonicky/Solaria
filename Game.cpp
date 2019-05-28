@@ -54,14 +54,23 @@ void Game::handleEvents() {
 void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
-	for (Planet &planet : planets) {
-		planet.update();
+	for (int i = 0; i < asteroids.size(); ++i) {
+		//asteroids.at(i).update();
+		if (asteroids.at(i).shouldDestroy()) {
+			//asteroids.at(i).destroy(&asteroids);
+			asteroids.erase(asteroids.begin());
+		}
 	}
-	xPositionLabel.updateText("x: " + std::to_string(player.getCenterX()));
-	zPositionLabel.updateText("z: " + std::to_string(player.getCenterY()));
 	for (Projectile& projectile : projectiles) {
 		projectile.update();
 	}
+	for (Planet &planet : planets) {
+		planet.update();
+	}
+	
+	xPositionLabel.updateText("x: " + std::to_string(player.getCenterX()));
+	zPositionLabel.updateText("z: " + std::to_string(player.getCenterY()));
+	
 
 }
 

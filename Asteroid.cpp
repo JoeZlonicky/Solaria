@@ -3,7 +3,14 @@
 #include <math.h>
 #include <algorithm>
 
-Asteroid::Asteroid(int x, int y) : Asteroid(randomSize(), x ,y) {
+Asteroid::Asteroid(double x, double y) : Asteroid(randomSize(), x ,y) {
+}
+
+Asteroid::Asteroid(AsteroidSize size, double x, double y) : size(size), Sprite(getFilePath(size), x, y) {
+	rotation = RandomGenerator::randint(0, 359);
+	double speed = RandomGenerator::randint(MIN_SPEED, MAX_SPEED);
+	xVelocity = sin(rotation) * speed;
+	yVelocity = cos(rotation) * speed;
 }
 
 void Asteroid::hit() {
@@ -15,23 +22,16 @@ void Asteroid::update() {
 	y += yVelocity;
 }
 
-AsteroidSize Asteroid::getSize() {
-	return size;
+void Asteroid::destroy(std::vector<Asteroid>* asteroids) {
+	if (size > SMALL) {
+		AsteroidSize smallerSize = AsteroidSize(size - 1);
+		asteroids->push_back(Asteroid(smallerSize, x, y));
+		asteroids->push_back(Asteroid(smallerSize, x, y));
+	}
 }
 
 bool Asteroid::shouldDestroy() {
 	return destory;
-}
-
-bool Asteroid::breaksSmaller() {
-	return size > SMALL;
-}
-
-Asteroid::Asteroid(AsteroidSize size, int x, int y) : size(size), Sprite(getFilePath(size), (double)x, (double)y) {
-	rotation = RandomGenerator::randint(0, 359);
-	double speed = RandomGenerator::randint(MIN_SPEED, MAX_SPEED);
-	xVelocity = sin(rotation) * speed;
-	yVelocity = cos(rotation) * speed;
 }
 
 const AsteroidSize Asteroid::randomSize() {

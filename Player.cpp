@@ -7,7 +7,6 @@ Player::Player() : Sprite("assets/player.png", x, y) {
 
 void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-	SDL_Event test_event;
 
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
 		double x, y;
