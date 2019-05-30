@@ -5,18 +5,23 @@
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
 		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player) {
+		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player), healthBar("assets/healthBar.png"),
+		healthContainer("assets/healthContainer.png") {
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
 		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player) {
+		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player), healthBar("assets/healthBar.png"),
+		healthContainer("assets/healthContainer.png") {
 	setup();
 }
 
 void Game::setup() {
 	player.setCenter(0, 0);
+	healthBar.setX((double)display.getWidth() - healthBar.getWidth() - 8);
+	healthBar.setY(8);
+	healthContainer.setX((double)display.getWidth() - healthContainer.getWidth());
 	xPositionLabel.setPosition(10, 6);
 	zPositionLabel.setPosition(10, 32);
 	camera.setMap(&map);
@@ -65,6 +70,8 @@ void Game::render() {
 	
 	display.draw(&xPositionLabel);
 	display.draw(&zPositionLabel);
+	display.draw(&healthContainer);
+	display.draw(&healthBar);
 	display.drawCursor();
 
 	display.update();
@@ -73,6 +80,7 @@ void Game::render() {
 void Game::free() {
 	player.free();
 	map.free();
+	healthBar.free();
 	display.free();
 	SDL_Quit();
 }

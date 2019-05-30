@@ -60,7 +60,10 @@ void Display::setClearColor(Uint8 r, Uint8 g, Uint8 b) {
 }
 
 void Display::draw(Sprite* sprite, Camera* camera) {
-	SDL_Rect rect = camera->apply(sprite->getRect());
+	SDL_Rect rect = sprite->getRect();
+	if (camera != nullptr) {
+		rect = camera->apply(rect);
+	}
 	SDL_RenderCopyEx(renderer, sprite->getTexture(), NULL, &rect, sprite->getRotation(), NULL, sprite->getFlip());
 }
 

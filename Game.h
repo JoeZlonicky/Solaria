@@ -30,6 +30,8 @@ private:
 	Camera camera;
 	Label xPositionLabel;
 	Label zPositionLabel;
+	Sprite healthBar;
+	Sprite healthContainer;
 	bool running = true;
 
 };
