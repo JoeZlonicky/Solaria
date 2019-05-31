@@ -29,14 +29,12 @@ void Map::update() {
 				asteroids.push_back(Asteroid(newSize, x, y));
 				asteroids.push_back(Asteroid(newSize, x, y));
 			}
-			asteroids.at(i).free();
 			asteroids.erase(asteroids.begin() + i);
 		}
 		else {
 			double dx = asteroids.at(i).getCenterX() - player->getCenterX();
 			double dy = asteroids.at(i).getCenterY() - player->getCenterY();
 			if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
-				asteroids.at(i).free();
 				asteroids.erase(asteroids.begin() + i);
 			}
 		}
@@ -49,23 +47,8 @@ void Map::update() {
 		double dx = projectiles.at(i).getCenterX() - player->getCenterX();
 		double dy = projectiles.at(i).getCenterY() - player->getCenterY();
 		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
-			projectiles.at(i).free();
 			projectiles.erase(projectiles.begin() + i);
 		}
-	}
-}
-
-void Map::free() {
-	SDL_DestroyTexture(backgroundTexture);
-	backgroundTexture = nullptr;
-	for (Asteroid& asteroid : asteroids) {
-		asteroid.free();
-	}
-	for (Planet& planet : planets) {
-		planet.free();
-	}
-	for (Projectile& projectile : projectiles) {
-		projectile.free();
 	}
 }
 

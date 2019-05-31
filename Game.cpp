@@ -78,9 +78,7 @@ void Game::render() {
 }
 
 void Game::free() {
-	player.free();
-	map.free();
-	healthBar.free();
+	AssetLoader::free();
 	display.free();
 	SDL_Quit();
 }

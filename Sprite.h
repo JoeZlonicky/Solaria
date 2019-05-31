@@ -21,7 +21,6 @@ public:
 	void setFlip(SDL_RendererFlip flip);
 	void rotate(double rotation);
 	void reduceVelocity(double _xVelocity, double _yVelocity);
-	void free();
 	double getX();
 	double getCenterX();
 	double getY();

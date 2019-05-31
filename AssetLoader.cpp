@@ -2,18 +2,29 @@
 #include "Game.h"
 
 SDL_Renderer* AssetLoader::renderer = nullptr;
+std::map<std::string, SDL_Texture*> AssetLoader::loadedTextures;
 
 void AssetLoader::init(SDL_Renderer* _renderer) {
 	AssetLoader::renderer = _renderer;
 }
 
 SDL_Texture* AssetLoader::LoadTexture(std::string path) {
-	SDL_Surface* tmpSurface = IMG_Load(path.c_str());
-	SDL_Texture* texture = LoadTexture(tmpSurface);
-	if (texture == NULL) {
-		printf("Failed to load texture %s. Error: %s\n", path.c_str(), IMG_GetError());
+	SDL_Texture* texture;
+	if (loadedTextures.count(path) > 0) {
+		texture = loadedTextures[path];
 	}
-	SDL_FreeSurface(tmpSurface);
+	else {
+		SDL_Surface* tmpSurface = IMG_Load(path.c_str());
+		texture = LoadTexture(tmpSurface);
+		if (texture == NULL) {
+			printf("Failed to load texture %s. Error: %s\n", path.c_str(), IMG_GetError());
+		}
+		else {
+			loadedTextures[path] = texture;
+			printf("Loading texture: %s\n", path.c_str());
+		}
+		SDL_FreeSurface(tmpSurface);
+	}
 	return texture;
 }
 
@@ -31,4 +42,11 @@ TTF_Font* AssetLoader::loadFont(std::string path, int size) {
 		printf("Failed to open font from %s. Error: %s\n", path.c_str(), TTF_GetError());
 	}
 	return font;
+}
+
+void AssetLoader::free() {
+	std::map<std::string, SDL_Texture*>::iterator it;
+	for (it = loadedTextures.begin(); it != loadedTextures.end(); ++it) {
+		SDL_DestroyTexture(it->second);
+	}
 }

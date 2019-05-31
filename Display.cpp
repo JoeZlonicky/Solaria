@@ -2,7 +2,7 @@
 #include <SDL_image.h>
 #include "AssetLoader.h"
 
-Display::Display(std::string title, bool fullscreen) : starting_tick(0) {
+Display::Display(std::string title, bool fullscreen) : lastTick(0) {
 	SDL_DisplayMode displayMode;
 	int width = 0, height= 0;
 	if (SDL_GetCurrentDisplayMode(0, &displayMode) != 0) {
@@ -28,7 +28,7 @@ Display::Display(std::string title, bool fullscreen) : starting_tick(0) {
 	cursorTexture = AssetLoader::LoadTexture("assets/crosshair.png");
 }
 
-Display::Display(std::string title, int width, int height) : width(width), height(height), starting_tick(0) {
+Display::Display(std::string title, int width, int height) : width(width), height(height), lastTick(0) {
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		width, height, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
@@ -130,10 +130,20 @@ int Display::getHeight() {
 
 void Display::update() {
 	SDL_RenderPresent(renderer);
-	if ((unsigned)(1000 / fps) > SDL_GetTicks() - starting_tick) {
-		SDL_Delay(1000 / fps - (SDL_GetTicks() - starting_tick));
+	Uint32 deltaTick = SDL_GetTicks() - lastTick;
+	Uint32 expectedTick = 1000 / fps;
+	fpsTracker += deltaTick;
+	if (deltaTick < expectedTick) {
+		SDL_Delay(expectedTick - deltaTick);
+		fpsTracker += expectedTick - deltaTick;
 	}
-	starting_tick = SDL_GetTicks();
+	lastTick = SDL_GetTicks();
+	++frameCount;
+	while (fpsTracker > 1000) {
+		printf("%f\n", (double)frameCount / fpsTracker * 1000);
+		fpsTracker -= 1000;
+		frameCount = 0;
+	}
 }
 
 void Display::free() {

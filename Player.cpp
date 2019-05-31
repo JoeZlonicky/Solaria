@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Player::Player() : Sprite("assets/player.png", x, y) {
-	maxSpeed = 5;
+	maxSpeed = 2.5;
 }
 
 void Player::update(){

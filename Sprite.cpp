@@ -74,11 +74,6 @@ void Sprite::reduceVelocity(double _xVelocity, double _yVelocity){
 	yVelocity -= _yVelocity;
 }
 
-void Sprite::free() {
-	SDL_DestroyTexture(texture);
-	texture = nullptr;
-}
-
 double Sprite::getX() {
 	return x;
 }

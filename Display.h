@@ -29,16 +29,18 @@ public:
 
 private:
 	void createRenderer();
-	Uint32 starting_tick;
+	Uint32 lastTick = 0;
+	Uint32 fpsTracker = 0;
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* cursorTexture = nullptr;
 	int cursorSize = 16;
-	int fps = 60;
+	int fps = 120;
 	bool fullscreen = false;
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;
 	Uint8 clearB = 0;
 	int width = 0;
 	int height = 0;
+	int frameCount = 0;
 };
