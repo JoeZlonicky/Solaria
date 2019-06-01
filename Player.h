@@ -21,7 +21,7 @@ public:
 	double getAngle();
 
 private:
-	double maxSpeed;
+	const double speed = 2;
 	int xMouse = 0, yMouse = 0;
 	double angle_deg = 0.0;
 

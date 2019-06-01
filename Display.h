@@ -5,13 +5,15 @@
 #include "Label.h"
 #include "Map.h"
 #include "Camera.h"
+#include "SpaceUI.h"
 
 class Camera;
+class SpaceUI;
 
 class Display {
 public:
 	Display(std::string title, bool fullscreen);
-	Display(std::string title, int width, int height);
+	Display(std::string title, int screenWidth, int screenHeight);
 
 	void clear();
 	void update();
@@ -29,13 +31,18 @@ public:
 
 private:
 	void createRenderer();
-	Uint32 lastTick = 0;
-	Uint32 fpsTracker = 0;
+
+	const int cursorSize = 16;
+	const int fps = 120;
+	const int resolutionWidth = 1920;
+	const int resolutionHeight = 1080;
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* cursorTexture = nullptr;
-	int cursorSize = 16;
-	int fps = 120;
+
+	Uint32 lastTick = 0;
+	Uint32 fpsTracker = 0;
+	
 	bool fullscreen = false;
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;

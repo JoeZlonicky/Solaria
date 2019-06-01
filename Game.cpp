@@ -4,26 +4,17 @@
 
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
-		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player), healthBar("assets/healthBar.png"),
-		healthContainer("assets/healthContainer.png") {
+		camera(&display), map(&player), spaceUI(&display) {
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
-		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player), healthBar("assets/healthBar.png"),
-		healthContainer("assets/healthContainer.png") {
+		camera(&display), map(&player), spaceUI(&display) {
 	setup();
 }
 
 void Game::setup() {
 	player.setCenter(0, 0);
-	healthBar.setX((double)display.getWidth() - healthBar.getWidth() - 8);
-	healthBar.setY(8);
-	healthContainer.setX((double)display.getWidth() - healthContainer.getWidth());
-	xPositionLabel.setPosition(10, 6);
-	zPositionLabel.setPosition(10, 32);
 	camera.setMap(&map);
 }
 
@@ -56,9 +47,7 @@ void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
 	map.update();
-	
-	xPositionLabel.updateText("x: " + std::to_string(player.getCenterX()));
-	zPositionLabel.updateText("z: " + std::to_string(player.getCenterY()));
+	spaceUI.update(&player);
 }
 
 void Game::render() {
@@ -68,10 +57,7 @@ void Game::render() {
 	display.draw(&map, &camera);
 	display.draw(&player, &camera);
 	
-	display.draw(&xPositionLabel);
-	display.draw(&zPositionLabel);
-	display.draw(&healthContainer);
-	display.draw(&healthBar);
+	spaceUI.draw(&display);
 	display.drawCursor();
 
 	display.update();
@@ -81,6 +67,8 @@ void Game::free() {
 	AssetLoader::free();
 	display.free();
 	SDL_Quit();
+	TTF_Quit();
+	IMG_Quit();
 }
 
 bool Game::isRunning() {

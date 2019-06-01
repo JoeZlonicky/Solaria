@@ -21,7 +21,6 @@ SDL_Texture* AssetLoader::LoadTexture(std::string path) {
 		}
 		else {
 			loadedTextures[path] = texture;
-			printf("Loading texture: %s\n", path.c_str());
 		}
 		SDL_FreeSurface(tmpSurface);
 	}

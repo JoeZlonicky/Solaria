@@ -12,7 +12,7 @@ public:
 	Map(Player* player);
 
 	void update();
-	void free();
+
 	std::vector<Asteroid>* getAsteroids();
 	std::vector<Planet>* getPlanets();
 	std::vector<Projectile>* getProjectiles();
@@ -23,6 +23,10 @@ public:
 private:
 	void spawnAsteroid();
 
+	const double asteroidSpawnDistance = 750;
+	const unsigned int maxNumberOfAsteroids = 10;
+	const double objectDespawnDistance = 1200;
+
 	std::vector<Asteroid> asteroids;
 	std::vector<Planet> planets;
 	std::vector<Projectile> projectiles;
@@ -30,8 +34,6 @@ private:
 	Player* player;
 	int backgroundTextureWidth;
 	int backgroundTextureHeight;
-	double asteroidSpawnDistance = 750;
-	unsigned int maxNumberOfAsteroids = 10;
-	double objectDespawnDistance = 1200;
+	
 };
 

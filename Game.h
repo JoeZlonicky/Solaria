@@ -9,6 +9,7 @@
 #include "Planet.h"
 #include "Projectile.h"
 #include "Asteroid.h"
+#include "SpaceUI.h"
 
 class Game {
 public:
@@ -16,22 +17,19 @@ public:
 	Game(std::string title, bool fullscreen);
 
 	void setup();
-	bool isRunning();
-
 	void handleEvents();
 	void update();
 	void render();
 	void free();
+
+	bool isRunning();
 
 private:
 	Display display;
 	Player player;
 	Map map;
 	Camera camera;
-	Label xPositionLabel;
-	Label zPositionLabel;
-	Sprite healthBar;
-	Sprite healthContainer;
+	SpaceUI spaceUI;
 	bool running = true;
 
 };

@@ -2,14 +2,13 @@
 #include "Game.h"
 
 Player::Player() : Sprite("assets/player.png", x, y) {
-	maxSpeed = 2.5;
 }
 
 void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
-		setVelocity(maxSpeed, maxSpeed);
+		setVelocity(speed, speed);
 		playerMove();
 	}
 	else if (currentKeyStates[SDL_SCANCODE_S]) {
