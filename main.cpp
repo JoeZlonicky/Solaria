@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	Game game("Solaria", 1280, 720);
+	Game game("Solaria", true);
 
 	while (game.isRunning()) {
 		game.handleEvents();
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 
 bool init() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		printf("SDL Failed to initalize everything! SDL Error: %s\n", SDL_GetError());
+		printf("SDL Failed to initalize everything. Error: %s\n", SDL_GetError());
 		return false;
 	}
 	if (TTF_Init() == -1) {

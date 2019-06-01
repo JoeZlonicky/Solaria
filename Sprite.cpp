@@ -26,6 +26,19 @@ void Sprite::move(double moveX, double moveY){
 	y += moveY;
 }
 
+void Sprite::setX(double x) {
+	this->x = x;
+}
+
+void Sprite::setY(double y) {
+	this->y = y;
+}
+
+void Sprite::setPosition(double x, double y) {
+	setX(x);
+	setY(y);
+}
+
 void Sprite::setCenterX(double x) {
 	this->x = x - width / 2;
 }
@@ -59,11 +72,6 @@ void Sprite::rotate(double rotation) {
 void Sprite::reduceVelocity(double _xVelocity, double _yVelocity){
 	xVelocity -= _xVelocity;
 	yVelocity -= _yVelocity;
-}
-
-void Sprite::free() {
-	SDL_DestroyTexture(texture);
-	texture = nullptr;
 }
 
 double Sprite::getX() {

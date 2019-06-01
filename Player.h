@@ -13,7 +13,7 @@ public:
 
 	void update();
 
-	void fireProjectile(std::vector<Projectile>& projectiles);
+	void fireProjectile(std::vector<Projectile>* projectiles);
 
 	void playerMove();
 	void calculateRotation(Display* display);
@@ -21,7 +21,7 @@ public:
 	double getAngle();
 
 private:
-	double maxSpeed;
+	const double speed = 2;
 	int xMouse = 0, yMouse = 0;
 	double angle_deg = 0.0;
 

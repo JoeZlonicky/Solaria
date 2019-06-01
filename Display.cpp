@@ -2,41 +2,41 @@
 #include <SDL_image.h>
 #include "AssetLoader.h"
 
-Display::Display(std::string title, bool fullscreen) : starting_tick(0) {
+Display::Display(std::string title, bool fullscreen) : lastTick(0) {
 	SDL_DisplayMode displayMode;
-	int width = 0, height= 0;
 	if (SDL_GetCurrentDisplayMode(0, &displayMode) != 0) {
 		printf("Failed to get display mode. Error: %s\n", SDL_GetError());
 	}
-	else {
-		width = displayMode.w;
-		height = displayMode.h;
-	}
-
+	windowWidth = displayMode.w;
+	windowHeight = displayMode.h;
 	int fullscreenFlag = 0;
 	if (fullscreen) {
 		fullscreenFlag = SDL_WINDOW_FULLSCREEN;
 	}
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		width, height, SDL_WINDOW_SHOWN | fullscreenFlag);
+		displayMode.w, displayMode.h, SDL_WINDOW_SHOWN | fullscreenFlag);
 	if (window == NULL) {
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
 	setIcon();
 	SDL_ShowCursor(SDL_DISABLE);
 	createRenderer();
+	SDL_RenderSetLogicalSize(renderer, resolutionWidth, resolutionHeight);
 	cursorTexture = AssetLoader::LoadTexture("assets/crosshair.png");
 }
 
-Display::Display(std::string title, int width, int height) : width(width), height(height), starting_tick(0) {
+Display::Display(std::string title, int windowWidth, int windowHeight) : lastTick(0) {
+	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		width, height, SDL_WINDOW_SHOWN);
+		windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
 	setIcon();
 	SDL_ShowCursor(SDL_DISABLE);
 	createRenderer();
+	SDL_RenderSetLogicalSize(renderer, resolutionWidth, resolutionHeight);
 	cursorTexture = AssetLoader::LoadTexture("assets/crosshair.png");
 }
 
@@ -60,7 +60,10 @@ void Display::setClearColor(Uint8 r, Uint8 g, Uint8 b) {
 }
 
 void Display::draw(Sprite* sprite, Camera* camera) {
-	SDL_Rect rect = camera->apply(sprite->getRect());
+	SDL_Rect rect = sprite->getRect();
+	if (camera != nullptr) {
+		rect = camera->apply(rect);
+	}
 	SDL_RenderCopyEx(renderer, sprite->getTexture(), NULL, &rect, sprite->getRotation(), NULL, sprite->getFlip());
 }
 
@@ -70,17 +73,21 @@ void Display::draw(Map* map, Camera* camera) {
 	int cameraX = -(int)camera->getX() % textureWidth;
 	int cameraY = -(int)camera->getY() % textureHeight;
 	SDL_Rect rect;
-	for(int x = cameraX - width; x < width; x += textureWidth) {
-		for (int y = cameraY - height; y < height; y += textureHeight) {
+	for(int x = cameraX - resolutionWidth; x < resolutionWidth; x += textureWidth) {
+		for (int y = cameraY - resolutionHeight; y < resolutionHeight; y += textureHeight) {
 			rect = { x, y, textureWidth, textureHeight };
 			SDL_RenderCopy(renderer, map->getBackgroundTexture(), NULL, &rect);
 		}
 	}
-	for (Planet& planet : map->getPlanets()) {
+	
+	for (Planet& planet : *map->getPlanets()) {
 		draw(&planet, camera);
 	}
-	for (Asteroid& asteroid : map->getAsteroids()) {
+	for (Asteroid& asteroid : *map->getAsteroids()) {
 		draw(&asteroid, camera);
+	}
+	for (Projectile& projectile : *map->getProjectiles()) {
+		draw(&projectile, camera);
 	}
 	
 }
@@ -92,7 +99,9 @@ void Display::draw(Label* label) {
 void Display::drawCursor() {
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
-	SDL_Rect rect = { mouseX - cursorSize / 2, mouseY - cursorSize / 2, cursorSize, cursorSize };
+	double scaleX = resolutionWidth / windowWidth;
+	double scaleY = resolutionHeight / windowHeight;
+	SDL_Rect rect = { (int)(mouseX * scaleX - cursorSize / 2), (int)(mouseY * scaleY- cursorSize / 2), cursorSize, cursorSize };
 	SDL_RenderCopy(renderer, cursorTexture, NULL, &rect);
 }
 
@@ -114,19 +123,38 @@ SDL_Window* Display::getWindow()
 }
 
 int Display::getWidth() {
-	return width;
+	return resolutionWidth;
 }
 
 int Display::getHeight() {
-	return height;
+	return resolutionHeight;
+}
+
+int Display::getWindowWidth() {
+	return windowWidth;
+}
+
+int Display::getWindowHeight() {
+	return windowHeight;
 }
 
 void Display::update() {
 	SDL_RenderPresent(renderer);
-	if ((unsigned)(1000 / fps) > SDL_GetTicks() - starting_tick) {
-		SDL_Delay(1000 / fps - (SDL_GetTicks() - starting_tick));
+
+	Uint32 deltaTick = SDL_GetTicks() - lastTick;
+	Uint32 expectedTick = 1000 / fps;
+	fpsTracker += deltaTick;
+	if (deltaTick < expectedTick) {
+		SDL_Delay(expectedTick - deltaTick);
+		fpsTracker += expectedTick - deltaTick;
 	}
-	starting_tick = SDL_GetTicks();
+	lastTick = SDL_GetTicks();
+	++frameCount;
+	while (fpsTracker > 1000) {
+		printf("FPS: %.0f\n", (double)frameCount / fpsTracker * 1000);
+		fpsTracker -= 1000;
+		frameCount = 0;
+	}
 }
 
 void Display::free() {

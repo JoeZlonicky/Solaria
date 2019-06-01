@@ -4,21 +4,17 @@
 
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
-		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player) {
+		camera(&display), map(&player), spaceUI(&display) {
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
-		camera(&display), xPositionLabel("0", "assets/upheavtt.ttf", 28),
-		zPositionLabel("0", "assets/upheavtt.ttf", 28), map(&player) {
+		camera(&display), map(&player), spaceUI(&display) {
 	setup();
 }
 
 void Game::setup() {
 	player.setCenter(0, 0);
-	xPositionLabel.setPosition(10, 6);
-	zPositionLabel.setPosition(10, 32);
 	camera.setMap(&map);
 }
 
@@ -26,26 +22,27 @@ void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
 		switch (event.type) {
-			case(SDL_QUIT):
-				running = false;
-				break;
-			case(SDL_MOUSEMOTION):
-				int x, y;
-				SDL_GetMouseState(&x, &y);
-				player.setMouseCoords(x, y);
-				break;
-			case(SDL_MOUSEBUTTONUP):
-				if (event.button.button == SDL_BUTTON_LEFT) {
-					player.fireProjectile(projectiles);
-					break;
-				}
-			case(SDL_KEYDOWN):
-				if (event.key.keysym.sym == SDLK_ESCAPE) {
-					running = false;
-				}
-			default:
-				break;
+		case(SDL_QUIT):
+			running = false;
+			break;
+		case(SDL_MOUSEMOTION):
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			player.setMouseCoords(x, y);
+			break;
+		case(SDL_MOUSEBUTTONDOWN):
+			if (event.button.button == SDL_BUTTON_LEFT) {
+				player.fireProjectile(map.getProjectiles());
 			}
+			break;
+		case(SDL_KEYDOWN):
+			if (event.key.keysym.sym == SDLK_ESCAPE) {
+				running = false;
+			}
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -53,14 +50,7 @@ void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
 	map.update();
-	for (Projectile& projectile : projectiles) {
-		projectile.update();
-	}
-	
-	xPositionLabel.updateText("x: " + std::to_string(player.getCenterX()));
-	zPositionLabel.updateText("z: " + std::to_string(player.getCenterY()));
-	
-
+	spaceUI.update(&player);
 }
 
 void Game::render() {
@@ -68,26 +58,20 @@ void Game::render() {
 	camera.update(&player);
 
 	display.draw(&map, &camera);
-	for (Projectile projectile : projectiles) {
-		display.draw(&projectile, &camera);
-	}
 	display.draw(&player, &camera);
 	
-	display.draw(&xPositionLabel);
-	display.draw(&zPositionLabel);
+	spaceUI.draw(&display);
 	display.drawCursor();
 
 	display.update();
 }
 
 void Game::free() {
-	for (Projectile &projectile : projectiles) {
-		projectile.free();
-	}
-	player.free();
-	map.free();
+	AssetLoader::free();
 	display.free();
 	SDL_Quit();
+	TTF_Quit();
+	IMG_Quit();
 }
 
 bool Game::isRunning() {

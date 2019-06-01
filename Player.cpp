@@ -2,14 +2,13 @@
 #include "Game.h"
 
 Player::Player() : Sprite("assets/player.png", x, y) {
-	maxSpeed = 5;
 }
 
 void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
-		setVelocity(maxSpeed, maxSpeed);
+		setVelocity(speed, speed);
 		playerMove();
 	}
 	else if (currentKeyStates[SDL_SCANCODE_S]) {
@@ -27,11 +26,11 @@ void Player::update(){
 	}
 }
 
-void Player::fireProjectile(std::vector<Projectile>& projectiles){
+void Player::fireProjectile(std::vector<Projectile>* projectiles){
 	Projectile projectile = Projectile("assets/projectile.png", rotation);
 	projectile.setCenter(getCenterX(), getCenterY());
 	projectile.setRotation(rotation);
-	projectiles.push_back(projectile);
+	projectiles->push_back(projectile);
 }
 
 void Player::playerMove(){
@@ -43,8 +42,8 @@ void Player::playerMove(){
 }
 
 void Player::calculateRotation(Display* display){
-	double delta_y = ((double)display->getHeight() / 2) - yMouse;
-	double delta_x = ((double)display->getWidth() / 2) - xMouse;
+	double delta_y = ((double)display->getWindowHeight() / 2) - yMouse;
+	double delta_x = ((double)display->getWindowWidth() / 2) - xMouse;
 	rotation = (atan2(delta_y, delta_x) * 180.0000) / 3.1416 - 90;
 }
 

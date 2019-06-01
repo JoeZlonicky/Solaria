@@ -8,9 +8,9 @@ Map::Map(Player* player) {
 	SDL_QueryTexture(backgroundTexture, NULL, NULL, &backgroundTextureWidth, &backgroundTextureHeight);
 
 	planets.push_back(Planet("assets/sun.png", 0, 0));
-	planets.push_back(Planet("assets/rockPlanet.png", 0.00005, 400));
-	planets.push_back(Planet("assets/greenPlanet.png", 0.0001, 800));
-	planets.push_back(Planet("assets/redPlanet.png", 0.000075, 1200));
+	planets.push_back(Planet("assets/rockPlanet.png", 0.00005, 1200));
+	planets.push_back(Planet("assets/greenPlanet.png", 0.0001, 2000));
+	planets.push_back(Planet("assets/redPlanet.png", 0.000075, 2800));
 
 	this->player = player;
 }
@@ -34,7 +34,7 @@ void Map::update() {
 		else {
 			double dx = asteroids.at(i).getCenterX() - player->getCenterX();
 			double dy = asteroids.at(i).getCenterY() - player->getCenterY();
-			if (sqrt(dx * dx + dy * dy) > asteroidDespawnDistance) {
+			if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
 				asteroids.erase(asteroids.begin() + i);
 			}
 		}
@@ -42,25 +42,26 @@ void Map::update() {
 	for (Planet& planet : planets) {
 		planet.update();
 	}
-}
-
-void Map::free() {
-	SDL_DestroyTexture(backgroundTexture);
-	backgroundTexture = nullptr;
-	for (Asteroid& asteroid : asteroids) {
-		asteroid.free();
-	}
-	for (Planet& planet : planets) {
-		planet.free();
+	for (unsigned int i = 0; i < projectiles.size(); ++i) {
+		projectiles.at(i).update();
+		double dx = projectiles.at(i).getCenterX() - player->getCenterX();
+		double dy = projectiles.at(i).getCenterY() - player->getCenterY();
+		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
+			projectiles.erase(projectiles.begin() + i);
+		}
 	}
 }
 
-std::vector<Asteroid> Map::getAsteroids() {
-	return asteroids;
+std::vector<Asteroid>* Map::getAsteroids() {
+	return &asteroids;
 }
 
-std::vector<Planet> Map::getPlanets() {
-	return planets;
+std::vector<Planet>* Map::getPlanets() {
+	return &planets;
+}
+
+std::vector<Projectile>* Map::getProjectiles() {
+	return &projectiles;
 }
 
 SDL_Texture* Map::getBackgroundTexture() {
