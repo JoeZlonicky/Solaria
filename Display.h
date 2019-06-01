@@ -13,7 +13,7 @@ class SpaceUI;
 class Display {
 public:
 	Display(std::string title, bool fullscreen);
-	Display(std::string title, int screenWidth, int screenHeight);
+	Display(std::string title, int windowWidth, int windowHeight);
 
 	void clear();
 	void update();
@@ -28,11 +28,13 @@ public:
 	SDL_Window* getWindow();
 	int getWidth();
 	int getHeight();
+	int getWindowWidth();
+	int getWindowHeight();
 
 private:
 	void createRenderer();
 
-	const int cursorSize = 16;
+	const int cursorSize = 20;
 	const int fps = 120;
 	const int resolutionWidth = 1920;
 	const int resolutionHeight = 1080;
@@ -47,7 +49,7 @@ private:
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;
 	Uint8 clearB = 0;
-	int width = 0;
-	int height = 0;
+	int windowWidth = 0;
+	int windowHeight = 0;
 	int frameCount = 0;
 };

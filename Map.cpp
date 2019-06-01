@@ -8,9 +8,9 @@ Map::Map(Player* player) {
 	SDL_QueryTexture(backgroundTexture, NULL, NULL, &backgroundTextureWidth, &backgroundTextureHeight);
 
 	planets.push_back(Planet("assets/sun.png", 0, 0));
-	planets.push_back(Planet("assets/testPlanet.png", 0.00005, 400));
-	planets.push_back(Planet("assets/greenPlanet.png", 0.0001, 800));
-	planets.push_back(Planet("assets/redPlanet.png", 0.000075, 1200));
+	planets.push_back(Planet("assets/rockPlanet.png", 0.00005, 1200));
+	planets.push_back(Planet("assets/greenPlanet.png", 0.0001, 2000));
+	planets.push_back(Planet("assets/redPlanet.png", 0.000075, 2800));
 
 	this->player = player;
 }

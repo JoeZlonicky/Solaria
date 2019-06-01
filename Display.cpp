@@ -7,7 +7,8 @@ Display::Display(std::string title, bool fullscreen) : lastTick(0) {
 	if (SDL_GetCurrentDisplayMode(0, &displayMode) != 0) {
 		printf("Failed to get display mode. Error: %s\n", SDL_GetError());
 	}
-
+	windowWidth = displayMode.w;
+	windowHeight = displayMode.h;
 	int fullscreenFlag = 0;
 	if (fullscreen) {
 		fullscreenFlag = SDL_WINDOW_FULLSCREEN;
@@ -24,9 +25,11 @@ Display::Display(std::string title, bool fullscreen) : lastTick(0) {
 	cursorTexture = AssetLoader::LoadTexture("assets/crosshair.png");
 }
 
-Display::Display(std::string title, int screenWidth, int screenHeight) : lastTick(0) {
+Display::Display(std::string title, int windowWidth, int windowHeight) : lastTick(0) {
+	this->windowWidth = windowWidth;
+	this->windowHeight = windowHeight;
 	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		screenWidth, screenHeight, SDL_WINDOW_SHOWN);
+		windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
 		printf("Failed to create window. Error: %s\n", SDL_GetError());
 	}
@@ -96,7 +99,9 @@ void Display::draw(Label* label) {
 void Display::drawCursor() {
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
-	SDL_Rect rect = { mouseX - cursorSize / 2, mouseY - cursorSize / 2, cursorSize, cursorSize };
+	double scaleX = resolutionWidth / windowWidth;
+	double scaleY = resolutionHeight / windowHeight;
+	SDL_Rect rect = { mouseX * scaleX - cursorSize / 2, mouseY * scaleY- cursorSize / 2, cursorSize, cursorSize };
 	SDL_RenderCopy(renderer, cursorTexture, NULL, &rect);
 }
 
@@ -123,6 +128,14 @@ int Display::getWidth() {
 
 int Display::getHeight() {
 	return resolutionHeight;
+}
+
+int Display::getWindowWidth() {
+	return windowWidth;
+}
+
+int Display::getWindowHeight() {
+	return windowHeight;
 }
 
 void Display::update() {
