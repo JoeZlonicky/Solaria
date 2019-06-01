@@ -12,8 +12,12 @@ SpaceUI::SpaceUI(Display* display) : xPositionLabel("0", "assets/upheavtt.ttf", 
 }
 
 void SpaceUI::update(Player* player) {
-	xPositionLabel.updateText("x: " + std::to_string(player->getCenterX()));
-	zPositionLabel.updateText("z: " + std::to_string(player->getCenterY()));
+	stream.str("");
+	stream << std::fixed << std::setprecision(2) << player->getCenterX();
+	xPositionLabel.updateText("x: " + stream.str());
+	stream.str("");
+	stream << std::fixed << std::setprecision(2) << player->getCenterY();
+	zPositionLabel.updateText("z: " + stream.str());
 }
 
 void SpaceUI::draw(Display* display) {

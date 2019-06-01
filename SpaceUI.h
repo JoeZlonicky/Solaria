@@ -1,8 +1,11 @@
 #pragma once
+#include <iomanip>
+#include <sstream>
 #include "Label.h"
 #include "Sprite.h"
 #include "Display.h"
 #include "Player.h"
+
 
 class Player;
 
@@ -25,5 +28,6 @@ private:
 	Label zPositionLabel;
 	Sprite healthBar;
 	Sprite healthContainer;
+	std::stringstream stream;
 };
 
