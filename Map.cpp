@@ -16,11 +16,9 @@ Map::Map(Player* player) {
 }
 
 void Map::update() {
-	/*
 	while (asteroids.size() < maxNumberOfAsteroids) {
 		spawnAsteroid();
 	}
-	*/
 	for (unsigned int i = 0; i < asteroids.size(); ++i) {
 		asteroids.at(i).update();
 		if (asteroids.at(i).shouldDestroy()) {

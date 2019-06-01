@@ -29,14 +29,17 @@ void Game::handleEvents() {
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			player.setMouseCoords(x, y);
-		case(SDL_MOUSEBUTTONUP):
+			break;
+		case(SDL_MOUSEBUTTONDOWN):
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				player.fireProjectile(map.getProjectiles());
 			}
+			break;
 		case(SDL_KEYDOWN):
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
 			}
+			break;
 		default:
 			break;
 		}

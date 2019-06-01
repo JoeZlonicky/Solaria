@@ -101,7 +101,7 @@ void Display::drawCursor() {
 	SDL_GetMouseState(&mouseX, &mouseY);
 	double scaleX = resolutionWidth / windowWidth;
 	double scaleY = resolutionHeight / windowHeight;
-	SDL_Rect rect = { mouseX * scaleX - cursorSize / 2, mouseY * scaleY- cursorSize / 2, cursorSize, cursorSize };
+	SDL_Rect rect = { (int)(mouseX * scaleX - cursorSize / 2), (int)(mouseY * scaleY- cursorSize / 2), cursorSize, cursorSize };
 	SDL_RenderCopy(renderer, cursorTexture, NULL, &rect);
 }
 
