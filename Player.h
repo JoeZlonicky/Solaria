@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "Projectile.h"
+#include "GrenadeProjectile.h"
 #include "Sprite.h"
 #include "Display.h"
 
