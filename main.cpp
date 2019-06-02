@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	Game game("Solaria", true);
+	Game game("Solaria", 1280, 720);
 
 	while (game.isRunning()) {
 		game.handleEvents();

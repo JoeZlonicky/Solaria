@@ -21,6 +21,7 @@ public:
 	void setFlip(SDL_RendererFlip flip);
 	void rotate(double rotation);
 	void reduceVelocity(double _xVelocity, double _yVelocity);
+	bool collides(Sprite other);
 	double getX();
 	double getCenterX();
 	double getY();

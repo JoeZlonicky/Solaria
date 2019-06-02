@@ -74,6 +74,10 @@ void Sprite::reduceVelocity(double _xVelocity, double _yVelocity){
 	yVelocity -= _yVelocity;
 }
 
+bool Sprite::collides(Sprite other) {
+	return false;
+}
+
 double Sprite::getX() {
 	return x;
 }

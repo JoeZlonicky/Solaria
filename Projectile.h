@@ -1,12 +1,11 @@
 #pragma once
 #include "Sprite.h"
 
-class Projectile : public Sprite
-{
+class Projectile : public Sprite {
 public:
 	Projectile(std::string filePath, double rot, double x = 0, double y = 0);
 
-	void update();
+	virtual void update();
 
 private:
 	double maxSpeed = 0.0;
