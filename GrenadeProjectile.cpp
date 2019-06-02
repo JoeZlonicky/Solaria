@@ -33,6 +33,5 @@ void GrenadeProjectile::spawnShrapnel(double x, double y) {
 		projectile->setRotation(rotation);
 		rotation += 45.0;
 		proj->push_back(projectile);
-		printf("Rotation: %f Projectile Rotation: %f\n", rotation, projectile->getRotation());
 	}
 }
