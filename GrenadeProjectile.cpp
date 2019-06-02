@@ -1,8 +1,9 @@
 #include "GrenadeProjectile.h"
 
-GrenadeProjectile::GrenadeProjectile(std::string filePath, double rot) : Projectile(filePath, rot) {
+GrenadeProjectile::GrenadeProjectile(std::string filePath, double rot, std::vector<Projectile*>* projectiles) : Projectile(filePath, rot) {
 	playerRotation = rot;
 	setVelocity(maxSpeed, maxSpeed);
+	proj = projectiles;
 }
 
 void GrenadeProjectile::update(){
@@ -16,6 +17,22 @@ void GrenadeProjectile::update(){
 		
 	}
 	else {
-		printf("Explode!");
+		if (!isExploded) {
+			spawnShrapnel(getCenterX(), getCenterY());
+			isExploded = true;
+		}
+	}
+}
+
+void GrenadeProjectile::spawnShrapnel(double x, double y) {
+	double rotation = 0.0;
+	for (int i = 0; i < 8; i++)
+	{
+		Projectile* projectile = new Projectile("assets/projectile.png", rotation);
+		projectile->setCenter(x, y);
+		projectile->setRotation(rotation);
+		rotation += 45.0;
+		proj->push_back(projectile);
+		printf("Rotation: %f Projectile Rotation: %f\n", rotation, projectile->getRotation());
 	}
 }
