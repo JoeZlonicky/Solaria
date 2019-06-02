@@ -99,8 +99,9 @@ void Display::draw(Label* label) {
 void Display::drawCursor() {
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
-	double scaleX = resolutionWidth / windowWidth;
-	double scaleY = resolutionHeight / windowHeight;
+	
+	double scaleX = (double)resolutionWidth / windowWidth;
+	double scaleY = (double)resolutionHeight / windowHeight;
 	SDL_Rect rect = { (int)(mouseX * scaleX - cursorSize / 2), (int)(mouseY * scaleY- cursorSize / 2), cursorSize, cursorSize };
 	SDL_RenderCopy(renderer, cursorTexture, NULL, &rect);
 }
