@@ -1,0 +1,7 @@
+﻿1>------ Build started: Project: Solaria, Configuration: Debug Win32 ------
+1>Display.cpp
+1>Game.cpp
+1>SpaceUI.cpp
+1>Generating Code...
+1>Solaria.vcxproj -> C:\Users\Matthew\source\repos\Solaria\Debug\Solaria.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

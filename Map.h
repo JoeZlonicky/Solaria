@@ -15,7 +15,7 @@ public:
 
 	std::vector<Asteroid>* getAsteroids();
 	std::vector<Planet>* getPlanets();
-	std::vector<Projectile>* getProjectiles();
+	std::vector<Projectile*>* getProjectiles();
 	SDL_Texture* getBackgroundTexture();
 	int getBackgroundTextureWidth();
 	int getBackgroundTextureHeight();
@@ -29,7 +29,7 @@ private:
 
 	std::vector<Asteroid> asteroids;
 	std::vector<Planet> planets;
-	std::vector<Projectile> projectiles;
+	std::vector<Projectile*> projectiles;
 	SDL_Texture* backgroundTexture = nullptr;
 	Player* player;
 	int backgroundTextureWidth;

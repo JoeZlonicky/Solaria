@@ -43,9 +43,9 @@ void Map::update() {
 		planet.update();
 	}
 	for (unsigned int i = 0; i < projectiles.size(); ++i) {
-		projectiles.at(i).update();
-		double dx = projectiles.at(i).getCenterX() - player->getCenterX();
-		double dy = projectiles.at(i).getCenterY() - player->getCenterY();
+		projectiles.at(i)->update();
+		double dx = projectiles.at(i)->getCenterX() - player->getCenterX();
+		double dy = projectiles.at(i)->getCenterY() - player->getCenterY();
 		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
 			projectiles.erase(projectiles.begin() + i);
 		}
@@ -60,7 +60,7 @@ std::vector<Planet>* Map::getPlanets() {
 	return &planets;
 }
 
-std::vector<Projectile>* Map::getProjectiles() {
+std::vector<Projectile*>* Map::getProjectiles() {
 	return &projectiles;
 }
 

@@ -14,7 +14,7 @@ public:
 
 	void update();
 
-	void fireProjectile(std::vector<Projectile>* projectiles);
+	void fireProjectile(std::vector<Projectile*>* projectiles);
 
 	void playerMove();
 	void calculateRotation(Display* display);
