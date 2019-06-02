@@ -36,6 +36,7 @@ public:
 	SDL_RendererFlip getFlip();
 
 protected:
+	bool SATedge(double x1, double y1, double x2, double y2, double x3, double y3, Sprite other);
 	SDL_Texture* texture = nullptr;
 	int width = 0;
 	int height = 0;
