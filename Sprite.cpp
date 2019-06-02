@@ -75,7 +75,19 @@ void Sprite::reduceVelocity(double _xVelocity, double _yVelocity){
 }
 
 bool Sprite::collides(Sprite other) {
-	return false;
+	if (SATedge(x, y, x + width, y, x + width, y + height, other)) {
+		return false;
+	}
+	if (SATedge(x, y, x, y + height, x + width, y + height, other)) {
+		return false;
+	}
+	if (SATedge(x + width, y + height, x + width, y, x, y, other)) {
+		return false;
+	}
+	if (SATedge(x + width, y + height, x, y + height, x, y, other)) {
+		return false;
+	}
+	return true;
 }
 
 double Sprite::getX() {
@@ -134,10 +146,21 @@ bool Sprite::SATedge(double x1, double y1, double x2, double y2, double x3, doub
 	double tempY = y2 - y1;
 	double vecX = -tempY;
 	double vecY = tempX;
-	bool side;
+	bool side = false;
 	if (vecX * (x3 - x1) + vecY * (y3 - y1) >= 0) {
 		side = true;
 	}
-	//if (side == (vecX * (other.x - x1) + ))
-	return false;
+	if (side == (vecX * (other.x - x1) + vecY * (other.y - y1) >= 0)) {
+		return false;
+	}
+	if (side == (vecX * (other.x + other.width - x1) + vecY * (other.y - y1) >= 0)) {
+		return false;
+	}
+	if (side == (vecX * (other.x - x1) + vecY * (other.y + other.height - y1) >= 0)) {
+		return false;
+	}
+	if (side == (vecX * (other.x + other.width - x1) + vecY * (other.y + other.height - y1) >= 0)) {
+		return false;
+	}
+	return true;
 }

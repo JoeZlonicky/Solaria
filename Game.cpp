@@ -49,6 +49,12 @@ void Game::handleEvents() {
 void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
+	printf("Checking collision\n");
+	for (Planet planet : *(map.getPlanets())) {
+		if (player.collides(planet)) {
+			printf("Colliding with planet!\n");
+		}
+	}
 	map.update();
 	spaceUI.update(&player);
 }
