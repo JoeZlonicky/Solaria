@@ -27,7 +27,7 @@ void Player::update(){
 }
 
 void Player::fireProjectile(std::vector<Projectile*>* projectiles){
-	GrenadeProjectile* projectile = new GrenadeProjectile("assets/bomb.png", rotation, projectiles);
+	Projectile* projectile = new Projectile("assets/bomb.png", rotation);
 	projectile->setCenter(getCenterX(), getCenterY());
 	projectile->setRotation(rotation);
 	projectiles->push_back(projectile);

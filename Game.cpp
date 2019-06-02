@@ -49,15 +49,6 @@ void Game::handleEvents() {
 void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
-	printf("Checking collision\n");
-	for (Projectile* projectile : *(map.getProjectiles())) {
-		for (Asteroid& asteroid : *(map.getAsteroids())) {
-			if (projectile->collides(asteroid)) {
-				printf("Asteorid hit\n");
-				asteroid.hit();
-			}
-		}
-	}
 	map.update();
 	spaceUI.update(&player);
 }

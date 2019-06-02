@@ -20,6 +20,7 @@ Asteroid::Asteroid(const Asteroid& ast) : Asteroid(ast.size, ast.x, ast.y) {
 	yVelocity = ast.yVelocity;
 	width = ast.width;
 	height = ast.height;
+	destory = ast.destory;
 }
 
 Asteroid& Asteroid::operator=(const Asteroid& ast) {
@@ -32,6 +33,7 @@ Asteroid& Asteroid::operator=(const Asteroid& ast) {
 	yVelocity = ast.yVelocity;
 	width = ast.width;
 	height = ast.height;
+	destory = ast.destory;
 	return *this;
 }
 
@@ -40,6 +42,7 @@ AsteroidSize Asteroid::getSize() {
 }
 
 void Asteroid::hit() {
+	printf("Object hit\n");
 	destory = true;
 }
 

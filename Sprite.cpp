@@ -147,19 +147,20 @@ bool Sprite::SATedge(double x1, double y1, double x2, double y2, double x3, doub
 	double vecX = -tempY;
 	double vecY = tempX;
 	bool side = false;
-	if (vecX * (x3 - x1) + vecY * (y3 - y1) >= 0) {
+	if ((vecX * (x3 - x1) + vecY * (y3 - y1)) >= 0) {
 		side = true;
 	}
-	if (side == (vecX * (other.x - x1) + vecY * (other.y - y1) >= 0)) {
+
+	if (side == ((vecX * (other.x - x1) + vecY * (other.y - y1)) >= 0)) {
 		return false;
 	}
-	if (side == (vecX * (other.x + other.width - x1) + vecY * (other.y - y1) >= 0)) {
+	if (side == ((vecX * (other.x + other.width - x1) + vecY * (other.y - y1)) >= 0)) {
 		return false;
 	}
-	if (side == (vecX * (other.x - x1) + vecY * (other.y + other.height - y1) >= 0)) {
+	if (side == ((vecX * (other.x - x1) + vecY * (other.y + other.height - y1)) >= 0)) {
 		return false;
 	}
-	if (side == (vecX * (other.x + other.width - x1) + vecY * (other.y + other.height - y1) >= 0)) {
+	if (side == ((vecX * (other.x + other.width - x1) + vecY * (other.y + other.height - y1)) >= 0)) {
 		return false;
 	}
 	return true;
