@@ -7,7 +7,7 @@ public:
 	void update();
 
 private:
-	double maxSpeed = 5.0;
+	double maxSpeed = 10.0;
 	double playerRotation;
 };
 
