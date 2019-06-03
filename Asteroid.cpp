@@ -16,8 +16,9 @@ Asteroid::Asteroid(AsteroidType type, double x, double y) : type(type), Sprite(g
 Asteroid::Asteroid(const Asteroid& ast) : Asteroid(ast.type, ast.position.x, ast.position.y) {
 	rotation = ast.rotation;
 	texture = ast.texture;
-	velocity = ast.velocity;
 	size = ast.size;
+	velocity = ast.velocity;
+	type = ast.type;
 	destory = ast.destory;
 }
 
@@ -27,7 +28,7 @@ Asteroid& Asteroid::operator=(const Asteroid& ast) {
 	size = ast.size;
 	texture = ast.texture;
 	velocity = ast.velocity;
-	size = ast.size;
+	type = ast.type;
 	destory = ast.destory;
 	return *this;
 }
