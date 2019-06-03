@@ -2,23 +2,19 @@
 
 GrenadeProjectile::GrenadeProjectile(std::string filePath, double rot, std::vector<Projectile*>* projectiles) : Projectile(filePath, rot) {
 	playerRotation = rot;
-	setVelocity(maxSpeed, maxSpeed);
+	velocity = Vector(maxSpeed, maxSpeed);
 	proj = projectiles;
 }
 
 void GrenadeProjectile::update(){
-	double moveX, moveY;
-	if (getXVelocity() >= 0 && getYVelocity() >= 0.01) {
+	if (velocity.x >= 0 && velocity.y >= 0.01) {
 		reduceVelocity(0.075, 0.075);
-		moveX = getXVelocity() * (cos((playerRotation - 90) * 0.0174532925));
-		moveY = getYVelocity() * (sin((playerRotation - 90) * 0.0174532925));
-
-		move(moveX, moveY);
-		
+		position.x += velocity.x * (cos((playerRotation - 90) * 0.0174532925));
+		position.y += velocity.y * (sin((playerRotation - 90) * 0.0174532925));
 	}
 	else {
 		if (!isExploded) {
-			spawnShrapnel(getCenterX(), getCenterY());
+			spawnShrapnel(getCenter().x, getCenter().y);
 			isExploded = true;
 		}
 	}

@@ -24,7 +24,7 @@ private:
 	void spawnAsteroid();
 
 	const double asteroidSpawnDistance = 1200;
-	const unsigned int maxNumberOfAsteroids = 30;
+	const unsigned int maxNumberOfAsteroids = 3;
 	const double objectDespawnDistance = 1600;
 
 	std::vector<Asteroid> asteroids;

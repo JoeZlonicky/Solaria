@@ -23,9 +23,9 @@ void Map::update() {
 		asteroids.at(i).update();
 		if (asteroids.at(i).shouldDestroy()) {
 			if (asteroids.at(i).breaksSmaller()) {
-				AsteroidSize newSize = AsteroidSize(asteroids.at(i).getSize() - 1);
-				double x = asteroids.at(i).getX();
-				double y = asteroids.at(i).getY();
+				AsteroidType newSize = AsteroidType(asteroids.at(i).getType() - 1);
+				double x = asteroids.at(i).getPosition().x;
+				double y = asteroids.at(i).getPosition().y;
 				asteroids.push_back(Asteroid(newSize, x, y));
 				asteroids.push_back(Asteroid(newSize, x, y));
 			}
@@ -33,8 +33,8 @@ void Map::update() {
 		}
 
 		else {
-			double dx = asteroids.at(i).getCenterX() - player->getCenterX();
-			double dy = asteroids.at(i).getCenterY() - player->getCenterY();
+			double dx = asteroids.at(i).getCenter().x - player->getCenter().x;
+			double dy = asteroids.at(i).getCenter().y - player->getCenter().y;
 			if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
 				asteroids.erase(asteroids.begin() + i);
 			}
@@ -45,8 +45,8 @@ void Map::update() {
 	}
 	for (unsigned int i = 0; i < projectiles.size(); ++i) {
 		projectiles.at(i)->update();
-		double dx = projectiles.at(i)->getCenterX() - player->getCenterX();
-		double dy = projectiles.at(i)->getCenterY() - player->getCenterY();
+		double dx = projectiles.at(i)->getCenter().x - player->getCenter().x;
+		double dy = projectiles.at(i)->getCenter().y - player->getCenter().y;
 		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
 			projectiles.erase(projectiles.begin() + i);
 		}
@@ -89,8 +89,8 @@ int Map::getBackgroundTextureHeight() {
 
 void Map::spawnAsteroid() {
 	double angle = RandomGenerator::randint(0, 355) * 3.14159 / 180;
-	double x = cos(angle) * asteroidSpawnDistance + player->getCenterX();
-	double y = sin(angle) * asteroidSpawnDistance + player->getCenterY();
+	double x = cos(angle) * asteroidSpawnDistance + player->getCenter().x;
+	double y = sin(angle) * asteroidSpawnDistance + player->getCenter().y;
 	Asteroid newAsteroid = Asteroid();
 	newAsteroid.setCenter(x, y);
 	asteroids.push_back(newAsteroid);

@@ -6,39 +6,34 @@
 Asteroid::Asteroid(double x, double y) : Asteroid(randomSize(), x ,y) {
 }
 
-Asteroid::Asteroid(AsteroidSize size, double x, double y) : size(size), Sprite(getFilePath(size), x, y) {
+Asteroid::Asteroid(AsteroidType type, double x, double y) : type(type), Sprite(getFilePath(type), x, y) {
 	rotation = RandomGenerator::randint(0, 355);
 	double speed = RandomGenerator::randint(MIN_SPEED, MAX_SPEED);
-	xVelocity = sin(rotation) * speed;
-	yVelocity = cos(rotation) * speed;
+	velocity.x = sin(rotation) * speed;
+	velocity.y = cos(rotation) * speed;
 }
 
-Asteroid::Asteroid(const Asteroid& ast) : Asteroid(ast.size, ast.x, ast.y) {
+Asteroid::Asteroid(const Asteroid& ast) : Asteroid(ast.type, ast.position.x, ast.position.y) {
 	rotation = ast.rotation;
 	texture = ast.texture;
-	xVelocity = ast.xVelocity;
-	yVelocity = ast.yVelocity;
-	width = ast.width;
-	height = ast.height;
+	velocity = ast.velocity;
+	size = ast.size;
 	destory = ast.destory;
 }
 
 Asteroid& Asteroid::operator=(const Asteroid& ast) {
-	x = ast.x;
-	y = ast.y;
+	position = ast.position;
 	rotation = ast.rotation;
 	size = ast.size;
 	texture = ast.texture;
-	xVelocity = ast.xVelocity;
-	yVelocity = ast.yVelocity;
-	width = ast.width;
-	height = ast.height;
+	velocity = ast.velocity;
+	size = ast.size;
 	destory = ast.destory;
 	return *this;
 }
 
-AsteroidSize Asteroid::getSize() {
-	return size;
+AsteroidType Asteroid::getType() {
+	return type;
 }
 
 void Asteroid::hit() {
@@ -47,13 +42,13 @@ void Asteroid::hit() {
 }
 
 void Asteroid::update() {
-	x += xVelocity;
-	y += yVelocity;
+	position.x += velocity.x;
+	position.y += velocity.y;
 }
 
 void Asteroid::destroy(std::vector<Asteroid>* asteroids) {
-	if (size > SMALL) {
-		AsteroidSize smallerSize = AsteroidSize(size - 1);
+	if (type > SMALL) {
+		AsteroidType smallerSize = AsteroidType(type - 1);
 	}
 }
 
@@ -62,11 +57,11 @@ bool Asteroid::shouldDestroy() {
 }
 
 bool Asteroid::breaksSmaller() {
-	return size > SMALL;
+	return type > SMALL;
 }
 
-AsteroidSize Asteroid::randomSize() {
-	return AsteroidSize(RandomGenerator::randint(SMALL, LARGE));
+AsteroidType Asteroid::randomSize() {
+	return AsteroidType(RandomGenerator::randint(SMALL, LARGE));
 }
 
 std::string Asteroid::getFilePath(int size) {

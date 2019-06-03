@@ -141,6 +141,7 @@
     <ClCompile Include="SpaceUI.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="SpaceUI.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="AssetLoader.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

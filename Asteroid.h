@@ -3,7 +3,7 @@
 #include <vector>
 #include "Sprite.h"
 
-enum AsteroidSize {
+enum AsteroidType {
 	SMALL,
 	MEDIUM,
 	LARGE
@@ -12,10 +12,12 @@ enum AsteroidSize {
 class Asteroid : public Sprite {
 public:
 	Asteroid(double x = 0, double y = 0);
-	Asteroid(AsteroidSize size, double x = 0, double y = 0);
+	Asteroid(AsteroidType type, double x = 0, double y = 0);
+
 	Asteroid(const Asteroid& ast);
 	Asteroid& operator=(const Asteroid& ast);
-	AsteroidSize getSize();
+
+	AsteroidType getType();
 	void hit();
 	void update();
 	void destroy(std::vector<Asteroid>* asteroids);
@@ -23,10 +25,10 @@ public:
 	bool breaksSmaller();
 
 private:
-	AsteroidSize randomSize();
+	AsteroidType randomSize();
 	std::string getFilePath(int size);
 	
-	AsteroidSize size;
+	AsteroidType type;
 	bool destory = false;
 	
 	const int MIN_SPEED = 1;

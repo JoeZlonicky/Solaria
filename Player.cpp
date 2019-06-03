@@ -1,44 +1,43 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player() : Sprite("assets/player.png", x, y) {
+Player::Player() : Sprite("assets/player.png") {
 }
 
 void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
-		setVelocity(speed, speed);
+		velocity = Vector(speed, speed);
 		playerMove();
 	}
 	else if (currentKeyStates[SDL_SCANCODE_S]) {
-		if (getXVelocity() >= 0 && getYVelocity() >= 0.01) {
+		if (velocity.x >= 0 && velocity.y >= 0.01) {
 			reduceVelocity(0.075, 0.075);
 			playerMove();
 		}
 	}
-	else if(getXVelocity() >= 0 && getYVelocity() >= 0.01){
+	else if(velocity.x >= 0 && velocity.y >= 0.01){
 		reduceVelocity(0.05, 0.05);
 		playerMove();
 	}
 	else{
-		setVelocity(0.0, 0.0);
+		velocity = Vector(0.0, 0.0);
 	}
 }
 
 void Player::fireProjectile(std::vector<Projectile*>* projectiles){
 	Projectile* projectile = new Projectile("assets/bomb.png", rotation);
-	projectile->setCenter(getCenterX(), getCenterY());
+	projectile->setCenter(getCenter().x, getCenter().y);
 	projectile->setRotation(rotation);
 	projectiles->push_back(projectile);
 }
 
 void Player::playerMove(){
-	double x, y;
-	x = getXVelocity() * (cos((rotation - 90) * 0.0174532925));
-	y = getYVelocity() * (sin((rotation - 90) * 0.0174532925));
+	position.x += velocity.x * (cos((rotation - 90) * 0.0174532925));
+	position.y += velocity.y * (sin((rotation - 90) * 0.0174532925));
 
-	move(x, y);
+	
 }
 
 void Player::calculateRotation(Display* display){

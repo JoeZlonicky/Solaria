@@ -5,8 +5,8 @@ Camera::Camera(Display* display) {
 }
 
 void Camera::update(Sprite* target) {
-	x = target->getCenterX();
-	y = target->getCenterY();
+	x = target->getCenter().x;
+	y = target->getCenter().y;
 }
 
 SDL_Rect Camera::apply(SDL_Rect rect) {

@@ -4,19 +4,19 @@ SpaceUI::SpaceUI(Display* display) : xPositionLabel("0", "assets/upheavtt.ttf", 
 		zPositionLabel("0", "assets/upheavtt.ttf", positionFontSize), healthBar("assets/healthBar.png"), 
 		healthContainer("assets/healthContainer.png") {
 	this->display = display;
-	healthBar.setX((double)display->getWidth() - healthBar.getWidth() - healthBarRight);
+	healthBar.setX((double)display->getWidth() - healthBar.getSize().x - healthBarRight);
 	healthBar.setY(healthBarTop);
-	healthContainer.setX((double)display->getWidth() - healthContainer.getWidth());
+	healthContainer.setX((double)display->getWidth() - healthContainer.getSize().x);
 	xPositionLabel.setPosition(positionLeft, positionXTop);
 	zPositionLabel.setPosition(positionLeft, positionZTop);
 }
 
 void SpaceUI::update(Player* player) {
 	stream.str("");
-	stream << std::fixed << std::setprecision(2) << player->getCenterX();
+	stream << std::fixed << std::setprecision(2) << player->getCenter().x;
 	xPositionLabel.updateText("x: " + stream.str());
 	stream.str("");
-	stream << std::fixed << std::setprecision(2) << player->getCenterY();
+	stream << std::fixed << std::setprecision(2) << player->getCenter().y;
 	zPositionLabel.updateText("z: " + stream.str());
 }
 
