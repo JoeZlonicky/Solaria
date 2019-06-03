@@ -59,7 +59,11 @@ void Sprite::reduceVelocity(double x, double y) {
 
 bool Sprite::collides(Sprite other) {
 	//Vector* points = getPoints();
-
+	
+	double farthestPossible = Vector(size.x / 2, size.y / 2).getLength() + Vector(other.size.x / 2, other.size.y / 2).getLength();
+	if ((getCenter() - other.getCenter()).getLength() > farthestPossible) {
+		return false;
+	}
 	std::vector<Vector> points = getPoints();
 
 	if (SATedge(points.at(0), points.at(1), points.at(2), other)) {
