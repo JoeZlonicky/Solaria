@@ -38,7 +38,6 @@ AsteroidType Asteroid::getType() {
 }
 
 void Asteroid::hit() {
-	printf("Object hit\n");
 	destory = true;
 }
 

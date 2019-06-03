@@ -114,24 +114,29 @@ std::vector<Vector> Sprite::getPoints() {
 	double rotationRad = rotation * 3.14159 / 180;
 
 	std::vector<Vector> points;
-	points.push_back(Vector(position.x, position.y));
-	points.push_back(Vector(position.x + size.x, position.y));
-	points.push_back(Vector(position.x + size.x, position.y + size.y));
-	points.push_back(Vector(position.x, position.y + size.y));
-	/*
 
-	Vector p1(position.x * cos(rotationRad) + position.y * sin(rotationRad),
-		-position.x * sin(rotationRad) + position.y * cos(rotationRad));
+	double x = position.x;
+	double y = position.y;
+	double w = size.x;
+	double h = size.y;
 
-	Vector p2((position.x + size.x) * cos(rotationRad) + position.y * sin(rotationRad),
-		-(position.x + size.x) * sin(rotationRad) + position.y * cos(rotationRad));
+	Vector p1(x + -w / 2 * cos(rotationRad) - h / 2 * sin(rotationRad) + w / 2,
+		y + h / 2 * cos(rotationRad) - w / 2 * sin(rotationRad) + h / 2);
 
-	Vector p3((position.x + size.x) * cos(rotationRad) + (position.y + size.y) * sin(rotationRad),
-		-(position.x + size.x) * sin(rotationRad) + (position.y + size.y) * cos(rotationRad));
+	Vector p2(x + w / 2 * cos(rotationRad) - h / 2 * sin(rotationRad) + w / 2,
+		y + h / 2 * cos(rotationRad) + w / 2 * sin(rotationRad) + h / 2);
 
-	Vector p4(position.x * cos(rotationRad) + (position.y + size.y) * sin(rotationRad),
-		-position.x * sin(rotationRad) + (position.y + size.y) * cos(rotationRad));
-		*/
+	Vector p3(x + w / 2 * cos(rotationRad) + h / 2 * sin(rotationRad) + w / 2,
+		y + -h / 2 * cos(rotationRad) + w / 2 * sin(rotationRad) + h / 2);
+
+	Vector p4(x + -w / 2 * cos(rotationRad) + h / 2 * sin(rotationRad) + w / 2,
+		y + -h / 2 * cos(rotationRad) - w / 2 * sin(rotationRad) + h / 2);
+
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	points.push_back(p4);
+
 	return points;
 }
 
