@@ -4,12 +4,12 @@
 
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
-		camera(&display), map(&player), spaceUI(&display) {
+		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/icon.png", 100, 100, 100, 1.75, 10.0, &player) {
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
-		camera(&display), map(&player), spaceUI(&display) {
+		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/icon.png", 100, 100, 100, 1.75, 10.0, &player){
 	setup();
 }
 
@@ -32,7 +32,10 @@ void Game::handleEvents() {
 			break;
 		case(SDL_MOUSEBUTTONDOWN):
 			if (event.button.button == SDL_BUTTON_LEFT) {
-				player.fireProjectile(map.getProjectiles());
+				player.fireProjectile(map.getProjectiles(), 1);
+			}
+			else if (event.button.button == SDL_BUTTON_RIGHT) {
+				player.fireProjectile(map.getProjectiles(), 3);
 			}
 			break;
 		case(SDL_KEYDOWN):
@@ -49,6 +52,7 @@ void Game::handleEvents() {
 void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
+	enemyMotherShip.update();
 	map.update();
 	spaceUI.hidePlanetName();
 	for (Planet planet : *map.getPlanets()) {
@@ -65,6 +69,8 @@ void Game::render() {
 
 	display.draw(&map, &camera);
 	display.draw(&player, &camera);
+
+	display.draw(&enemyMotherShip, &camera);
 	
 	spaceUI.draw(&display);
 	display.drawCursor();

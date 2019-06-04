@@ -10,6 +10,8 @@
 #include "Projectile.h"
 #include "Asteroid.h"
 #include "SpaceUI.h"
+#include "Game.h"
+#include "EnemyMotherShip.h"
 
 class Game {
 public:
@@ -27,6 +29,7 @@ public:
 private:
 	Display display;
 	Player player;
+	EnemyMotherShip enemyMotherShip;
 	Map map;
 	Camera camera;
 	SpaceUI spaceUI;

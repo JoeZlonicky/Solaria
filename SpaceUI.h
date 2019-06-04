@@ -20,7 +20,7 @@ public:
 	void hidePlanetName();
 
 private:
-	const int positionFontSize = 32;
+	const int positionFontSize = 48;
 	const int positionLeft = 10;
 	const int positionXTop = 4;
 	const int positionZTop = 28;
@@ -39,4 +39,3 @@ private:
 	std::stringstream stream;
 	bool showPlanetName = false;
 };
-

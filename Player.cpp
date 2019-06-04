@@ -7,6 +7,16 @@ Player::Player() : Sprite("assets/player.png") {
 void Player::update(){
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
+	if(currentAmmo <= 0) {
+		if (reloadTimer < 1000) {
+			reloadTimer += 1;
+		}
+		else {
+			reload();
+			reloadTimer = 0;
+		}
+	}
+	
 ;	if (currentKeyStates[SDL_SCANCODE_W]) {
 		velocity = Vector(speed, speed);
 		playerMove();
@@ -24,14 +34,32 @@ void Player::update(){
 	else{
 		velocity = Vector(0.0, 0.0);
 	}
+
 }
 
-void Player::fireProjectile(std::vector<Projectile*>* projectiles){
-	Projectile* projectile = new Projectile("assets/projectile.png", rotation);
-	projectile->setCenter(getCenter().x, getCenter().y);
-	projectile->setRotation(rotation);
-	projectiles->push_back(projectile);
+void Player::fireProjectile(std::vector<Projectile*>* projectiles, int mouseID){
+	if(currentAmmo > 0){
+		if (mouseID == 1) {
+		leftMouseProjectile = new GrenadeProjectile("assets/bomb.png", rotation, projectiles);
+		leftMouseProjectile->setCenter(getCenter().x, getCenter().y);
+		leftMouseProjectile->setRotation(rotation);
+		projectiles->push_back(leftMouseProjectile);
+		}
+		else if (mouseID == 3) {
+			rightMouseProjectile = new Projectile("assets/projectile.png", rotation);
+			rightMouseProjectile->setCenter(getCenter().x, getCenter().y);
+			rightMouseProjectile->setRotation(rotation);
+			projectiles->push_back(rightMouseProjectile);
+		}
+		currentAmmo -= 1;
+	}
 }
+
+void Player::reload(){
+	currentAmmo = maxAmmo;
+}
+
+
 
 void Player::playerMove(){
 	position.x += velocity.x * (cos((rotation - 90) * 0.0174532925));

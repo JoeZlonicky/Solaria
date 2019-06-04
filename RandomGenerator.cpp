@@ -9,3 +9,7 @@ void RandomGenerator::init() {
 int RandomGenerator::randint(int min, int max) {
 	return min + rand() % ((max + 1) - min);
 }
+
+double RandomGenerator::randdouble(double min, double max) {
+	return (max - min) * ((double)rand() / (double)RAND_MAX) + min;
+}

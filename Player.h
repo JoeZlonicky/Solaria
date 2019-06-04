@@ -14,7 +14,8 @@ public:
 
 	void update();
 
-	void fireProjectile(std::vector<Projectile*>* projectiles);
+	void fireProjectile(std::vector<Projectile*>* projectiles, int mouseID);
+	void reload();
 
 	void playerMove();
 	void calculateRotation(Display* display);
@@ -25,6 +26,12 @@ private:
 	const double speed = 2;
 	int xMouse = 0, yMouse = 0;
 	double angle_deg = 0.0;
+	Projectile* leftMouseProjectile = nullptr;
+	Projectile* rightMouseProjectile = nullptr;
+	int currentAmmo = 10;
+	int maxAmmo = 10;
+
+	int reloadTimer = 0;
 
 };
 
