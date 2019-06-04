@@ -7,6 +7,10 @@ GrenadeProjectile::GrenadeProjectile(std::string filePath, double rot, std::vect
 }
 
 void GrenadeProjectile::update(){
+	move();
+}
+
+void GrenadeProjectile::move() {
 	if (velocity.x >= 0 && velocity.y >= 0.01) {
 		reduceVelocity(0.075, 0.075);
 		position.x += velocity.x * (cos((playerRotation - 90) * 0.0174532925));

@@ -9,6 +9,8 @@ public:
 	void update();
 	void spawnShrapnel(double x, double y);
 
+	void move();
+
 private:
 	double maxSpeed = 10.0;
 	double playerRotation;

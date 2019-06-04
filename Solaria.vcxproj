@@ -129,6 +129,7 @@
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="EnemyMotherShip.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GrenadeProjectile.cpp" />
     <ClCompile Include="Label.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="EnemyMotherShip.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GrenadeProjectile.h" />
     <ClInclude Include="Label.h" />

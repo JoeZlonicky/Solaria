@@ -7,6 +7,8 @@ public:
 
 	virtual void update();
 
+	virtual void move();
+
 private:
 	double maxSpeed = 0.0;
 	double playerRotation;
