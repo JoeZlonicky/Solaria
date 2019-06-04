@@ -67,6 +67,20 @@ void Display::draw(Sprite* sprite, Camera* camera) {
 	SDL_RenderCopyEx(renderer, sprite->getTexture(), NULL, &rect, sprite->getRotation(), NULL, sprite->getFlip());
 }
 
+void Display::drawCollider(Sprite* sprite, Camera* camera) {
+	std::vector<Vector> points = sprite->getPoints();
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	if (camera != nullptr) {
+		for (Vector& vec : points) {
+			vec = camera->apply(vec);
+		}
+	}
+	SDL_RenderDrawLine(renderer, points[0].x, points[0].y, points[1].x, points[1].y);
+	SDL_RenderDrawLine(renderer, points[1].x, points[1].y, points[2].x, points[2].y);
+	SDL_RenderDrawLine(renderer, points[2].x, points[2].y, points[3].x, points[3].y);
+	SDL_RenderDrawLine(renderer, points[3].x, points[3].y, points[0].x, points[0].y);
+}
+
 void Display::draw(Map* map, Camera* camera) {
 	int textureWidth = map->getBackgroundTextureWidth();
 	int textureHeight = map->getBackgroundTextureHeight();
@@ -90,10 +104,6 @@ void Display::draw(Map* map, Camera* camera) {
 		draw(projectile, camera);
 	}
 	
-}
-
-void Display::draw(Label* label) {
-	SDL_RenderCopy(renderer, label->getTexture(), NULL, &label->getRect());
 }
 
 void Display::drawCursor() {

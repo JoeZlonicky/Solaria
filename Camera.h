@@ -12,6 +12,7 @@ public:
 
 	void update(Sprite* target);
 	SDL_Rect apply(SDL_Rect rect);
+	Vector apply(Vector vec);
 	void setMap(Map* map);
 	double getX();
 	double getY();

@@ -20,8 +20,8 @@ public:
 	void free();
 	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void draw(Sprite* sprite, Camera* camera = nullptr);
+	void drawCollider(Sprite* sprite, Camera* camera = nullptr);
 	void draw(Map* map, Camera* camera);
-	void draw(Label* label);
 	void drawCursor();
 	void setIcon();
 	SDL_Renderer* getRenderer();

@@ -29,9 +29,10 @@ public:
 	SDL_Rect getRect();
 	SDL_Texture* getTexture();
 	SDL_RendererFlip getFlip();
+	std::vector<Vector> getPoints();
 
 protected:
-	std::vector<Vector> getPoints();
+	
 	bool SATedge(Vector p1, Vector p2, Vector p3, Sprite other);
 	SDL_Texture* texture = nullptr;
 	Vector size;

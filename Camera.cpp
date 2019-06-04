@@ -16,6 +16,10 @@ SDL_Rect Camera::apply(SDL_Rect rect) {
 	return newRect;
 }
 
+Vector Camera::apply(Vector vec) {
+	return Vector(display->getWidth() / 2 + vec.x - x, display->getHeight() / 2 + vec.y - y);
+}
+
 void Camera::setMap(Map* map) {
 	this->map = map;
 }
