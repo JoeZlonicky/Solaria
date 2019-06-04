@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include <vector>
 #include "Vector.h"
 
 class Sprite {
@@ -30,7 +31,7 @@ public:
 	SDL_RendererFlip getFlip();
 
 protected:
-	Vector* getPoints();
+	std::vector<Vector> getPoints();
 	bool SATedge(Vector p1, Vector p2, Vector p3, Sprite other);
 	SDL_Texture* texture = nullptr;
 	Vector size;

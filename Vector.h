@@ -4,6 +4,9 @@ struct Vector {
 	Vector();
 	Vector(double x, double y);
 
+	Vector operator-(Vector other);
+	double getLength();
+
 	double x;
 	double y;
 };

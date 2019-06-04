@@ -17,10 +17,10 @@ public:
 	void draw(Display* display);
 
 private:
-	const int positionFontSize = 32;
+	const int positionFontSize = 48;
 	const int positionLeft = 10;
 	const int positionXTop = 4;
-	const int positionZTop = 28;
+	const int positionZTop = 40;
 	const int healthBarRight = 8;
 	const int healthBarTop = 8;
 	Display* display;
