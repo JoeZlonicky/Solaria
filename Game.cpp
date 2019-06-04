@@ -50,6 +50,12 @@ void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
 	map.update();
+	spaceUI.hidePlanetName();
+	for (Planet planet : *map.getPlanets()) {
+		if (planet.collides(player)) {
+			spaceUI.displayPlanetName(planet.getName());
+		}
+	}
 	spaceUI.update(&player);
 }
 

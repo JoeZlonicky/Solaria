@@ -1,7 +1,7 @@
 #include "Label.h"
 #include "AssetLoader.h"
 
-Label::Label(std::string text, std::string fontPath, int fontSize, Uint8 r, Uint8 g, Uint8 b, int x, int y) : text(text), fontPath(fontPath), fontSize(fontSize), color({ r, g, b }), x(x), y(y) {
+Label::Label(std::string text, std::string fontPath, int fontSize, Uint8 r, Uint8 g, Uint8 b, int x, int y) : Sprite(nullptr, x, y), text(text), fontPath(fontPath), fontSize(fontSize), color({ r, g, b }) {
 	updateFont();
 	updateTexture();
 }
@@ -21,42 +21,6 @@ void Label::updateColor(Uint8 r, Uint8 g, Uint8 b) {
 	updateTexture();
 }
 
-void Label::setX(int x) {
-	this->x = x;
-}
-
-void Label::setY(int y) {
-	this->y = y;
-}
-
-void Label::setPosition(int x, int y) {
-	setX(x);
-	setY(y);
-}
-
-SDL_Rect Label::getRect() {
-	return { x, y, width, height };
-}
-
-SDL_Texture* Label::getTexture() {
-	return texture;
-}
-
-int Label::getWidth() {
-	return width;
-}
-
-int Label::getHeight() {
-	return height;
-}
-
-void Label::free() {
-	SDL_DestroyTexture(texture);
-	texture = NULL;
-	TTF_CloseFont(font);
-	font = NULL;
-}
-
 void Label::updateFont() {
 	TTF_CloseFont(font);
 	font = AssetLoader::loadFont(fontPath, fontSize);
@@ -73,5 +37,7 @@ void Label::updateTexture() {
 		printf("Failed to create texture from surface. Error: %s\n", SDL_GetError());
 	}
 	SDL_FreeSurface(surface);
-	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+	int w, h;
+	SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+	size = Vector(w, h);
 }

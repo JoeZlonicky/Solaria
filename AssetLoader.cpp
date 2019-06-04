@@ -3,6 +3,7 @@
 
 SDL_Renderer* AssetLoader::renderer = nullptr;
 std::map<std::string, SDL_Texture*> AssetLoader::loadedTextures;
+std::map<std::pair<std::string, int>, TTF_Font*> AssetLoader::loadedFonts;
 
 void AssetLoader::init(SDL_Renderer* _renderer) {
 	AssetLoader::renderer = _renderer;
@@ -36,16 +37,28 @@ SDL_Texture* AssetLoader::LoadTexture(SDL_Surface* surface) {
 }
 
 TTF_Font* AssetLoader::loadFont(std::string path, int size) {
+	std::pair<std::string, int> key(path, size);
+	if (loadedFonts.count(key) > 0) {
+		return loadedFonts[key];
+	}
 	TTF_Font* font = TTF_OpenFont(path.c_str(), size);
 	if (font == NULL) {
 		printf("Failed to open font from %s. Error: %s\n", path.c_str(), TTF_GetError());
+	}
+	else {
+		loadedFonts[key] = font;
 	}
 	return font;
 }
 
 void AssetLoader::free() {
-	std::map<std::string, SDL_Texture*>::iterator it;
-	for (it = loadedTextures.begin(); it != loadedTextures.end(); ++it) {
-		SDL_DestroyTexture(it->second);
+	std::map<std::string, SDL_Texture*>::iterator textureIt;
+	for (textureIt = loadedTextures.begin(); textureIt != loadedTextures.end(); ++textureIt) {
+		SDL_DestroyTexture(textureIt->second);
+	}
+
+	std::map<std::pair<std::string, int>, TTF_Font*>::iterator fontIt;
+	for (fontIt = loadedFonts.begin(); fontIt != loadedFonts.end(); ++fontIt) {
+		TTF_CloseFont(fontIt->second);
 	}
 }
