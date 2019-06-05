@@ -58,26 +58,66 @@ void Sprite::reduceVelocity(double x, double y) {
 }
 
 bool Sprite::collides(Sprite other) {
-	//Vector* points = getPoints();
-	
 	double farthestPossible = Vector(size.x / 2, size.y / 2).getLength() + Vector(other.size.x / 2, other.size.y / 2).getLength();
 	if ((getCenter() - other.getCenter()).getLength() > farthestPossible) {
 		return false;
 	}
+	printf("Doing SAT\n");
 	std::vector<Vector> points = getPoints();
+	std::vector<Vector> otherPoints = other.getPoints();
+	Vector axi[8];
+	for (int i = 0; i < 4; ++i) {
+		int next = i + 1;
+		if (next > 3) next = 0;
+		Vector vec(points[i].x - points[next].x, points[i].y - points[next].y);
+		axi[i] = Vector(vec.y, -vec.x);
+		printf("Perpendicular vector: %f, %f\n", axi[i].x, axi[i].y);
+	}
 
-	if (SATedge(points.at(0), points.at(1), points.at(2), other)) {
-		return false;
+	for (int i = 0; i < 4; ++i) {
+		int next = i + 1;
+		if (next > 3) next = 0;
+		Vector vec(otherPoints[i].x - otherPoints[next].x, otherPoints[i].y - otherPoints[next].y);
+		axi[i + 4] = Vector(vec.y, -vec.x);
 	}
-	if (SATedge(points.at(0), points.at(3), points.at(2), other)) {
-		return false;
+
+	for (int i = 0; i < 8; ++i) {
+		double minProj = axi[i].x * points[0].x + axi[i].x * points[0].y + axi[i].y * points[0].x + axi[i].y * points[0].y;
+		double maxProj = minProj;
+		for (int k = 0; k < 4; ++k) {
+			double dot = axi[i].x * points[k].x + axi[i].x * points[k].y + axi[i].y * points[k].x + axi[i].y * points[k].y;
+			if (dot < minProj) {
+				minProj = dot;
+			}
+			else if (dot > maxProj) {
+				maxProj = dot;
+			}
+		}
+		double otherMinProj = axi[i].x * otherPoints[0].x + axi[i].x * otherPoints[0].y + axi[i].y * otherPoints[0].x + axi[i].y * otherPoints[0].y;
+		double otherMaxProj = otherMinProj;
+		for (int k = 0; k < 4; ++k) {
+			double dot = axi[i].x * otherPoints[k].x + axi[i].x * otherPoints[k].y + axi[i].y * otherPoints[k].x + axi[i].y * otherPoints[k].y;
+			if (dot < otherMinProj) {
+				otherMinProj = dot;
+			}
+			else if (dot > otherMaxProj) {
+				otherMaxProj = dot;
+			}
+		}
+		if (!((minProj >= otherMinProj && minProj <= otherMaxProj) || (maxProj >= otherMinProj && maxProj <= otherMaxProj))) {
+			return false;
+		}
 	}
-	if (SATedge(points.at(2), points.at(1), points.at(0), other)) {
-		return false;
-	}
-	if (SATedge(points.at(2), points.at(3), points.at(0), other)) {
-		return false;
-	}
+
+	// get normals
+	// get normals of other
+	// for axis in normals:
+	//   get projection
+	//   get projection of other
+	//   if projections overlap, return false
+	// repeat for other normals
+	// return true
+	printf("Collides\n");
 	return true;
 }
 

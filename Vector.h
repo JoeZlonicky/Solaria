@@ -6,6 +6,7 @@ struct Vector {
 
 	Vector operator-(Vector other);
 	double getLength();
+	Vector getNormalized();
 
 	double x;
 	double y;

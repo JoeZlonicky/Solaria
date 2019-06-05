@@ -17,3 +17,7 @@ Vector Vector::operator-(Vector other) {
 double Vector::getLength() {
 	return sqrt(x * x + y * y);
 }
+
+Vector Vector::getNormalized() {
+	return Vector(x / getLength(), y / getLength());
+}

@@ -56,7 +56,7 @@ void Game::update() {
 	map.update();
 	spaceUI.hidePlanetName();
 	for (Planet planet : *map.getPlanets()) {
-		if (planet.collides(player)) {
+		if (player.collides(planet)) {
 			spaceUI.displayPlanetName(planet.getName());
 		}
 	}
