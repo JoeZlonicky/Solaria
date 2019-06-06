@@ -6,17 +6,17 @@ Label::Label(std::string text, std::string fontPath, int fontSize, Uint8 r, Uint
 	updateTexture();
 }
 
-void Label::updateText(std::string text) {
+void Label::setText(std::string text) {
 	this->text = text;
 	updateTexture();
 }
 
-void Label::updateFontSize(int size) {
+void Label::setFontSize(int size) {
 	fontSize = size;
 	updateFont();
 }
 
-void Label::updateColor(Uint8 r, Uint8 g, Uint8 b) {
+void Label::setColor(Uint8 r, Uint8 g, Uint8 b) {
 	color = { r, g, b };
 	updateTexture();
 }

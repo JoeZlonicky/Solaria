@@ -17,6 +17,7 @@ public:
 	void setCenter(double x, double y);
 	void setRotation(double rotation);
 	void setFlip(SDL_RendererFlip flip);
+	void setAlpha(Uint8 a);
 	void rotate(double rotation);
 	void reduceVelocity(double x, double y);
 	bool collides(Sprite other);
@@ -26,6 +27,7 @@ public:
 	Vector getVelocity();
 	Vector getSize();
 	double getRotation();
+	Uint8 getAlpha();
 	SDL_Rect getRect();
 	SDL_Texture* getTexture();
 	SDL_RendererFlip getFlip();
@@ -41,5 +43,6 @@ protected:
 	Vector acceleration;
 	double rotation = 0;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	Uint8 alpha = 255;
 };
 

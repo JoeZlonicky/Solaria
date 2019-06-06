@@ -29,6 +29,8 @@ private:
 	const int healthBarRight = 8;
 	const int healthBarTop = 8;
 
+	const double planetDisplayAlphaIncrease = 2;
+
 	Display* display;
 	Label xPositionLabel;
 	Label zPositionLabel;
@@ -38,4 +40,5 @@ private:
 
 	std::stringstream stream;
 	bool showPlanetName = false;
+	double planetDisplayAlpha = 0;
 };

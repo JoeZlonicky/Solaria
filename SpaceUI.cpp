@@ -15,24 +15,37 @@ SpaceUI::SpaceUI(Display* display) : xPositionLabel("0", "assets/upheavtt.ttf", 
 void SpaceUI::update(Player* player) {
 	stream.str("");
 	stream << std::fixed << std::setprecision(2) << player->getCenter().x;
-	xPositionLabel.updateText("x: " + stream.str());
+	xPositionLabel.setText("x: " + stream.str());
 	stream.str("");
 	stream << std::fixed << std::setprecision(2) << player->getCenter().y;
-	zPositionLabel.updateText("z: " + stream.str());
+	zPositionLabel.setText("z: " + stream.str());
+
+	if (showPlanetName) {
+		planetDisplayAlpha += planetDisplayAlphaIncrease;
+		if (planetDisplayAlpha > 255) {
+			planetDisplayAlpha = 255;
+		}
+		planetNameLabel.setAlpha((int)planetDisplayAlpha);
+	}
+	else {
+		planetDisplayAlpha -= planetDisplayAlphaIncrease;
+		if (planetDisplayAlpha < 0) {
+			planetDisplayAlpha = 0;
+		}
+		planetNameLabel.setAlpha((int)planetDisplayAlpha);
+	}
 }
 
 void SpaceUI::draw(Display* display) {
 	display->draw(&xPositionLabel);
 	display->draw(&zPositionLabel);
-	if (showPlanetName) {
-		display->draw(&planetNameLabel);
-	}
+	display->draw(&planetNameLabel);
 	display->draw(&healthContainer);
 	display->draw(&healthBar);
 }
 
 void SpaceUI::displayPlanetName(std::string name) {
-	planetNameLabel.updateText(name);
+	planetNameLabel.setText(name);
 	planetNameLabel.setCenter((double)display->getWidth() / 2, (double)display->getHeight() - planetNameBottomOffset);
 	showPlanetName = true;
 }

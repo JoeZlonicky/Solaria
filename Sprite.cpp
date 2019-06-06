@@ -48,6 +48,11 @@ void Sprite::setFlip(SDL_RendererFlip flip) {
 	this->flip = flip;
 }
 
+void Sprite::setAlpha(Uint8 a) {
+	alpha = a;
+	SDL_SetTextureAlphaMod(texture, a);
+}
+
 void Sprite::rotate(double rotation) {
 	this->rotation += rotation;
 }
@@ -129,6 +134,10 @@ Vector Sprite::getSize() {
 
 double Sprite::getRotation() {
 	return rotation;
+}
+
+Uint8 Sprite::getAlpha() {
+	return alpha;
 }
 
 SDL_Rect Sprite::getRect() {

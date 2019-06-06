@@ -75,10 +75,10 @@ void Display::drawCollider(Sprite* sprite, Camera* camera) {
 			vec = camera->apply(vec);
 		}
 	}
-	SDL_RenderDrawLine(renderer, points[0].x, points[0].y, points[1].x, points[1].y);
-	SDL_RenderDrawLine(renderer, points[1].x, points[1].y, points[2].x, points[2].y);
-	SDL_RenderDrawLine(renderer, points[2].x, points[2].y, points[3].x, points[3].y);
-	SDL_RenderDrawLine(renderer, points[3].x, points[3].y, points[0].x, points[0].y);
+	SDL_RenderDrawLine(renderer, (int)points[0].x, (int)points[0].y, (int)points[1].x, (int)points[1].y);
+	SDL_RenderDrawLine(renderer, (int)points[1].x, (int)points[1].y, (int)points[2].x, (int)points[2].y);
+	SDL_RenderDrawLine(renderer, (int)points[2].x, (int)points[2].y, (int)points[3].x, (int)points[3].y);
+	SDL_RenderDrawLine(renderer, (int)points[3].x, (int)points[3].y, (int)points[0].x, (int)points[0].y);
 }
 
 void Display::draw(Map* map, Camera* camera) {
