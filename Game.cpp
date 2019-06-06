@@ -4,12 +4,12 @@
 
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
-		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/icon.png", 100, 100, 100, 1.75, 10.0, &player) {
+		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player) {
 	setup();
 }
 
 Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
-		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/icon.png", 100, 100, 100, 1.75, 10.0, &player){
+		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player){
 	setup();
 }
 
