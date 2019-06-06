@@ -69,10 +69,6 @@ void Game::render() {
 
 	display.draw(&map, &camera);
 	display.draw(&player, &camera);
-	display.drawCollider(&player, &camera);
-	for (Planet planet : *map.getPlanets()) {
-		display.drawCollider(&planet, &camera);
-	}
 
 	display.draw(&enemyMotherShip, &camera);
 	

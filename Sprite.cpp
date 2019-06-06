@@ -62,7 +62,7 @@ bool Sprite::collides(Sprite other) {
 	if ((getCenter() - other.getCenter()).getLength() > farthestPossible) {
 		return false;
 	}
-	printf("Doing SAT\n");
+
 	std::vector<Vector> points = getPoints();
 	std::vector<Vector> otherPoints = other.getPoints();
 	Vector axi[8];
@@ -70,54 +70,44 @@ bool Sprite::collides(Sprite other) {
 		int next = i + 1;
 		if (next > 3) next = 0;
 		Vector vec(points[i].x - points[next].x, points[i].y - points[next].y);
-		axi[i] = Vector(vec.y, -vec.x);
-		printf("Perpendicular vector: %f, %f\n", axi[i].x, axi[i].y);
+		axi[i] = Vector(vec.y, -vec.x).getNormalized();
 	}
 
 	for (int i = 0; i < 4; ++i) {
 		int next = i + 1;
 		if (next > 3) next = 0;
 		Vector vec(otherPoints[i].x - otherPoints[next].x, otherPoints[i].y - otherPoints[next].y);
-		axi[i + 4] = Vector(vec.y, -vec.x);
+		axi[i + 4] = Vector(vec.y, -vec.x).getNormalized();
 	}
 
 	for (int i = 0; i < 8; ++i) {
-		double minProj = axi[i].x * points[0].x + axi[i].x * points[0].y + axi[i].y * points[0].x + axi[i].y * points[0].y;
+		double minProj = axi[i].x * points[0].x + axi[i].y * points[0].y;
 		double maxProj = minProj;
 		for (int k = 0; k < 4; ++k) {
-			double dot = axi[i].x * points[k].x + axi[i].x * points[k].y + axi[i].y * points[k].x + axi[i].y * points[k].y;
+			double dot = axi[i].x * points[k].x + axi[i].y * points[k].y;
 			if (dot < minProj) {
 				minProj = dot;
 			}
-			else if (dot > maxProj) {
+			if (dot > maxProj) {
 				maxProj = dot;
 			}
 		}
-		double otherMinProj = axi[i].x * otherPoints[0].x + axi[i].x * otherPoints[0].y + axi[i].y * otherPoints[0].x + axi[i].y * otherPoints[0].y;
+		double otherMinProj = axi[i].x * otherPoints[0].x + axi[i].y * otherPoints[0].y;
 		double otherMaxProj = otherMinProj;
 		for (int k = 0; k < 4; ++k) {
-			double dot = axi[i].x * otherPoints[k].x + axi[i].x * otherPoints[k].y + axi[i].y * otherPoints[k].x + axi[i].y * otherPoints[k].y;
+			double dot = axi[i].x * otherPoints[k].x + axi[i].y * otherPoints[k].y;
 			if (dot < otherMinProj) {
 				otherMinProj = dot;
 			}
-			else if (dot > otherMaxProj) {
+			if (dot > otherMaxProj) {
 				otherMaxProj = dot;
 			}
 		}
-		if (!((minProj >= otherMinProj && minProj <= otherMaxProj) || (maxProj >= otherMinProj && maxProj <= otherMaxProj))) {
+		if (minProj > otherMaxProj || maxProj < otherMinProj) {
 			return false;
 		}
 	}
 
-	// get normals
-	// get normals of other
-	// for axis in normals:
-	//   get projection
-	//   get projection of other
-	//   if projections overlap, return false
-	// repeat for other normals
-	// return true
-	printf("Collides\n");
 	return true;
 }
 
