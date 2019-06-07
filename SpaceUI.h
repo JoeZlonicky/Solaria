@@ -23,7 +23,7 @@ private:
 	const int positionFontSize = 48;
 	const int positionLeft = 10;
 	const int positionXTop = 4;
-	const int positionZTop = 28;
+	const int positionZTop = 36;
 	const int planetNameFontSize = 100;
 	const int planetNameBottomOffset = 100;
 	const int healthBarRight = 8;
