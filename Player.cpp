@@ -1,5 +1,6 @@
 #include "Player.h"
-#include "Game.h"
+
+#include "GrenadeProjectile.h"
 
 Player::Player() : Sprite("assets/player.png") {
 }

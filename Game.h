@@ -1,16 +1,13 @@
 #pragma once
 #include <string>
 #include <vector>
+
 #include "Display.h"
 #include "Player.h"
 #include "Map.h"
 #include "Camera.h"
-#include "Label.h"
-#include "Planet.h"
-#include "Projectile.h"
-#include "Asteroid.h"
+#include "UI.h"
 #include "SpaceUI.h"
-#include "Game.h"
 #include "EnemyMotherShip.h"
 
 class Game {
@@ -33,6 +30,7 @@ private:
 	Map map;
 	Camera camera;
 	SpaceUI spaceUI;
+	SpaceUI* pausedUI = nullptr;
 	bool running = true;
-
+	bool paused = false;
 };

@@ -1,20 +1,20 @@
 #pragma once
 #include <iomanip>
 #include <sstream>
-#include "Label.h"
-#include "Sprite.h"
+
+#include "UI.h"
 #include "Display.h"
 #include "Player.h"
+#include "Label.h"
+#include "Sprite.h"
 
 
-class Player;
-
-class SpaceUI {
+class SpaceUI : public UI {
 public:
 	SpaceUI(Display* display);
 
 	void update(Player* player);
-	void draw(Display* display);
+	void draw();
 
 	void displayPlanetName(std::string name);
 	void hidePlanetName();
@@ -31,7 +31,6 @@ private:
 
 	const double planetDisplayAlphaIncrease = 2;
 
-	Display* display;
 	Label xPositionLabel;
 	Label zPositionLabel;
 	Label planetNameLabel;

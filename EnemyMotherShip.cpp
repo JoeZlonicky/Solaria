@@ -1,5 +1,7 @@
 #include "EnemyMotherShip.h"
 
+#include "RandomGenerator.h"
+
 EnemyMotherShip::EnemyMotherShip(std::string filePath, double x, double y, double _health, double _movementSpeed, double _enemySpawnTime, Player* _player) : Sprite(filePath, x, y){
 	health = _health;
 	movementSpeed = _movementSpeed;

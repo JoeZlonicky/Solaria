@@ -21,10 +21,14 @@ void Game::setup() {
 void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
-		switch (event.type) {
-		case(SDL_QUIT):
+		if (event.type == SDL_QUIT) {
 			running = false;
-			break;
+		}
+		else if (paused && pausedUI != nullptr) {
+			pausedUI->handleEvent(event);
+			continue;
+		}
+		switch (event.type) {
 		case(SDL_MOUSEMOTION):
 			int x, y;
 			SDL_GetMouseState(&x, &y);
@@ -50,6 +54,10 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+	if (paused && pausedUI != nullptr) {
+		pausedUI->update(&player);
+		return;
+	}
 	player.update();
 	player.calculateRotation(&display);
 	enemyMotherShip.update();
@@ -72,8 +80,12 @@ void Game::render() {
 
 	display.draw(&enemyMotherShip, &camera);
 	
-	spaceUI.draw(&display);
+	spaceUI.draw();
 	display.drawCursor();
+
+	if (paused && pausedUI != nullptr) {
+
+	}
 
 	display.update();
 }

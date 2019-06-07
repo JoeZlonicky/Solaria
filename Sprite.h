@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <string>
 #include <vector>
+
 #include "Vector.h"
 
 class Sprite {

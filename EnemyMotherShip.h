@@ -1,7 +1,6 @@
 #pragma once
-#include "Player.h"
 #include "Sprite.h"
-#include "RandomGenerator.h"
+#include "Player.h"
 
 class EnemyMotherShip : public Sprite{
 public:

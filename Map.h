@@ -1,11 +1,14 @@
 #pragma once
-#include <SDL.h>
 #include <vector>
+#include <SDL.h>
+
 #include "Asteroid.h"
 #include "Planet.h"
 #include "Player.h"
+#include "Projectile.h"
 
 class Player;
+class Camera;
 
 class Map {
 public:
