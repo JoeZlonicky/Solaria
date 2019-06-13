@@ -43,6 +43,12 @@ void Map::update() {
 	for (Planet& planet : planets) {
 		planet.update();
 	}
+
+	for (unsigned int i = 0; i < enemyFighters.size(); ++i)
+	{
+		enemyFighters.at(i)->update();
+	}
+
 	for (unsigned int i = 0; i < projectiles.size(); ++i) {
 		projectiles.at(i)->update();
 		double dx = projectiles.at(i)->getCenter().x - player->getCenter().x;
@@ -73,6 +79,11 @@ std::vector<Planet>* Map::getPlanets() {
 
 std::vector<Projectile*>* Map::getProjectiles() {
 	return &projectiles;
+}
+
+std::vector<EnemyFighter*>* Map::getEnemyFighters()
+{
+	return &enemyFighters;
 }
 
 SDL_Texture* Map::getBackgroundTexture() {

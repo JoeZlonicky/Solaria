@@ -52,7 +52,7 @@ void Game::handleEvents() {
 void Game::update() {
 	player.update();
 	player.calculateRotation(&display);
-	enemyMotherShip.update();
+	enemyMotherShip.update(map.getEnemyFighters());
 	map.update();
 	spaceUI.hidePlanetName();
 	for (Planet planet : *map.getPlanets()) {
@@ -71,6 +71,7 @@ void Game::render() {
 	display.draw(&player, &camera);
 
 	display.draw(&enemyMotherShip, &camera);
+
 	
 	spaceUI.draw(&display);
 	display.drawCursor();
