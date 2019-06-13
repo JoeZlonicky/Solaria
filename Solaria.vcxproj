@@ -136,6 +136,7 @@
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapUI.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="SpaceUI.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +157,7 @@
     <ClInclude Include="GrenadeProjectile.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapUI.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
@@ -162,6 +165,7 @@
     <ClInclude Include="SpaceUI.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="AssetLoader.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,9 +1,8 @@
 #include "SpaceUI.h"
 
-SpaceUI::SpaceUI(Display* display) : xPositionLabel("0", "assets/upheavtt.ttf", positionFontSize), 
+SpaceUI::SpaceUI(Display* display) : UI(display), xPositionLabel("0", "assets/upheavtt.ttf", positionFontSize), 
 		zPositionLabel("0", "assets/upheavtt.ttf", positionFontSize), planetNameLabel("Planet name", "assets/upheavtt.ttf", planetNameFontSize), 
 		healthBar("assets/healthBar.png"), healthContainer("assets/healthContainer.png") {
-	this->display = display;
 	healthBar.setX((double)display->getWidth() - healthBar.getSize().x - healthBarRight);
 	healthBar.setY(healthBarTop);
 	healthContainer.setX((double)display->getWidth() - healthContainer.getSize().x);
@@ -36,7 +35,7 @@ void SpaceUI::update(Player* player) {
 	}
 }
 
-void SpaceUI::draw(Display* display) {
+void SpaceUI::draw() {
 	display->draw(&xPositionLabel);
 	display->draw(&zPositionLabel);
 	display->draw(&planetNameLabel);

@@ -1,14 +1,10 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+
 #include "Sprite.h"
-#include "Label.h"
 #include "Map.h"
 #include "Camera.h"
-#include "SpaceUI.h"
-
-class Camera;
-class SpaceUI;
 
 class Display {
 public:

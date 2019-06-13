@@ -1,9 +1,9 @@
 #pragma once
-#include "Projectile.h"
 #include <vector>
 
+#include "Projectile.h"
 
-class GrenadeProjectile : public Projectile{
+class GrenadeProjectile : public Projectile {
 public:
 	GrenadeProjectile(std::string filePath, double rot, std::vector<Projectile*>* projectiles);
 	void update();

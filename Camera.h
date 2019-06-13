@@ -1,6 +1,8 @@
 #pragma once
-#include "Sprite.h"
 #include "Display.h"
+#include "SDL.h"
+#include "Sprite.h"
+#include "Vector.h"
 #include "Map.h"
 
 class Display;

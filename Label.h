@@ -1,6 +1,8 @@
 #pragma once
+#include <SDL.h>
 #include <SDL_ttf.h>
 #include <string>
+
 #include "Sprite.h"
 
 class Label : public Sprite {
