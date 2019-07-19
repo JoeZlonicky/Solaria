@@ -24,3 +24,7 @@ void EnemyFighter::update(){
 	}
 	
 }
+
+void EnemyFighter::takeDamage(int damageAmount){
+	health -= damageAmount;
+}

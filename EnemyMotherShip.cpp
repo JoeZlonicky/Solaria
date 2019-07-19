@@ -9,10 +9,11 @@ EnemyMotherShip::EnemyMotherShip(std::string filePath, double x, double y, doubl
 	player = _player;
 }
 
-void EnemyMotherShip::update(std::vector<EnemyFighter*>* enemyFighters){
+void EnemyMotherShip::update(std::vector<EnemyFighter> enemyFighters){
 	
 	enemySpawnTime += 1;
 
+	
 	if (!playerInRange && movementTimer <= 0) {
 		setRotation(RandomGenerator::randdouble(0, 360));
 		movementTimer += 1;
@@ -37,9 +38,9 @@ void EnemyMotherShip::track(){
 
 }
 
-void EnemyMotherShip::spawnEnemy(std::vector<EnemyFighter*>* enemyFighters){
-	EnemyFighter* enemy = new EnemyFighter("assets/enemy.png", getPosition().x, getPosition().y, 10, 2, player);
-	enemy->setCenter(getCenter().x, getCenter().y);
-	enemy->setRotation(rotation);
-	enemyFighters->push_back(enemy);
+void EnemyMotherShip::spawnEnemy(std::vector<EnemyFighter> enemyFighters){
+	EnemyFighter enemy = EnemyFighter("assets/enemy.png", getPosition().x, getPosition().y, 10, 2, player);
+	enemy.setCenter(getCenter().x, getCenter().y);
+	enemy.setRotation(rotation);
+	enemyFighters.push_back(enemy);
 }

@@ -5,7 +5,7 @@
 
 class GrenadeProjectile : public Projectile {
 public:
-	GrenadeProjectile(std::string filePath, double rot, std::vector<Projectile*>* projectiles);
+	GrenadeProjectile(std::string filePath, double rot, std::vector<Projectile> projectiles);
 	void update();
 	void spawnShrapnel(double x, double y);
 
@@ -14,7 +14,7 @@ public:
 private:
 	double maxSpeed = 10.0;
 	double playerRotation;
-	std::vector<Projectile*>* proj = nullptr;
+	std::vector<Projectile> proj;
 	bool isExploded = false;
 };
 

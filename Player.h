@@ -4,9 +4,11 @@
 #include "Sprite.h"
 #include "Projectile.h"
 #include "Display.h"
+#include "GrenadeProjectile.h"
 
 
 class Display;
+class Projectile;
 
 class Player : public Sprite {
 
@@ -15,7 +17,7 @@ public:
 
 	void update();
 
-	void fireProjectile(std::vector<Projectile*>* projectiles, int mouseID);
+	void fireProjectile(std::vector<Projectile> projectiles, int mouseID);
 	void reload();
 
 	void playerMove();
@@ -27,8 +29,8 @@ private:
 	const double speed = 2;
 	int xMouse = 0, yMouse = 0;
 	double angle_deg = 0.0;
-	Projectile* leftMouseProjectile = nullptr;
-	Projectile* rightMouseProjectile = nullptr;
+	Projectile leftMouseProjectile;
+	Projectile rightMouseProjectile;
 	int currentAmmo = 10;
 	int maxAmmo = 10;
 
