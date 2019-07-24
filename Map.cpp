@@ -64,6 +64,14 @@ void Map::update() {
 					break;
 				}
 			}
+
+			for (EnemyFighter* enemyFighter : enemyFighters) {
+				if(projectiles.at(i)->collides(*enemyFighter)){
+					enemyFighter->takeDamage(2);
+					projectiles.erase(projectiles.begin() + i);
+					break;
+				}
+			}
 		}
 		
 	}

@@ -12,6 +12,7 @@ public:
 
 	void update();
 	void track();
+	void takeDamage(double damage);
 
 private:
 	double health;

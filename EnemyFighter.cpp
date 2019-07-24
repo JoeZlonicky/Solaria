@@ -24,3 +24,10 @@ void EnemyFighter::update(){
 	}
 	
 }
+
+void EnemyFighter::takeDamage(double damage) {
+	health -= damage;
+	if (health <= 0) {
+		printf("Fighter Dead!");
+	}
+}
