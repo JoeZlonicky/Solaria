@@ -36,10 +36,10 @@ void Game::handleEvents() {
 			break;
 		case(SDL_MOUSEBUTTONDOWN):
 			if (event.button.button == SDL_BUTTON_LEFT) {
-				player.fireProjectile(*map.getProjectiles(), 1);
+				player.fireProjectile(map.getProjectiles(), 1);
 			}
 			else if (event.button.button == SDL_BUTTON_RIGHT) {
-				player.fireProjectile(*map.getProjectiles(), 3);
+				player.fireProjectile(map.getProjectiles(), 3);
 			}
 			break;
 		case(SDL_KEYDOWN):
@@ -60,7 +60,7 @@ void Game::update() {
 	}
 	player.update();
 	player.calculateRotation(&display);
-	enemyMotherShip.update(*map.getEnemyFighters());
+	enemyMotherShip.update(map.getEnemyFighters());
 	map.update();
 	spaceUI.hidePlanetName();
 	for (Planet planet : *map.getPlanets()) {

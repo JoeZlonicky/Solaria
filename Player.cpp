@@ -1,5 +1,6 @@
 #include "Player.h"
 
+#include "GrenadeProjectile.h"
 
 Player::Player() : Sprite("assets/player.png") {
 }
@@ -37,19 +38,19 @@ void Player::update(){
 
 }
 
-void Player::fireProjectile(std::vector<Projectile> projectiles, int mouseID){
+void Player::fireProjectile(std::vector<Projectile*>* projectiles, int mouseID){
 	if(currentAmmo > 0){
 		if (mouseID == 1) {
-		leftMouseProjectile = GrenadeProjectile("assets/bomb.png", rotation, projectiles);
-		leftMouseProjectile.setCenter(getCenter().x, getCenter().y);
-		leftMouseProjectile.setRotation(rotation);
-		projectiles.push_back(leftMouseProjectile);
+		leftMouseProjectile = new GrenadeProjectile("assets/bomb.png", rotation, projectiles);
+		leftMouseProjectile->setCenter(getCenter().x, getCenter().y);
+		leftMouseProjectile->setRotation(rotation);
+		projectiles->push_back(leftMouseProjectile);
 		}
 		else if (mouseID == 3) {
-			rightMouseProjectile = Projectile("assets/projectile.png", rotation);
-			rightMouseProjectile.setCenter(getCenter().x, getCenter().y);
-			rightMouseProjectile.setRotation(rotation);
-			projectiles.push_back(rightMouseProjectile);
+			rightMouseProjectile = new Projectile("assets/projectile.png", rotation);
+			rightMouseProjectile->setCenter(getCenter().x, getCenter().y);
+			rightMouseProjectile->setRotation(rotation);
+			projectiles->push_back(rightMouseProjectile);
 		}
 		currentAmmo -= 1;
 	}

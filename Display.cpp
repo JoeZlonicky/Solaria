@@ -100,11 +100,11 @@ void Display::draw(Map* map, Camera* camera) {
 	for (Asteroid& asteroid : *map->getAsteroids()) {
 		draw(&asteroid, camera);
 	}
-	for (Projectile& projectile : *map->getProjectiles()) {
-		draw(&projectile, camera);
+	for (Projectile* projectile : *map->getProjectiles()) {
+		draw(projectile, camera);
 	}
-	for (EnemyFighter& enemyFighter : *map->getEnemyFighters()) {
-		draw(&enemyFighter, camera);
+	for (EnemyFighter* enemyFighter : *map->getEnemyFighters()) {
+		draw(enemyFighter, camera);
 	}
 	
 }
