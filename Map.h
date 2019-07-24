@@ -8,6 +8,7 @@
 
 class Player;
 class EnemyFighter;
+class Camera;
 
 class Map {
 public:
