@@ -9,9 +9,14 @@ EnemyFighter::EnemyFighter(std::string filePath, double x, double y, double _hea
 
 void EnemyFighter::update(){
 	
+	determineIfPlayerInRange();
+
 	if (!playerInRange && movementTimer <= 0) {
 		setRotation(RandomGenerator::randdouble(0, 360));
 		movementTimer += 1;
+	}
+	else if (playerInRange) {
+		track();
 	}
 	else if (movementTimer <= 500) {
 		velocity = Vector(movementSpeed, movementSpeed);
@@ -25,9 +30,26 @@ void EnemyFighter::update(){
 	
 }
 
+void EnemyFighter::track(){
+	rotation += 1;
+	double newX = cos(rotation) * player->getPosition().x;
+	double newY = sin(rotation) * player->getPosition().y;
+	setCenter(newX, newY);
+}
+
 void EnemyFighter::takeDamage(double damage) {
 	health -= damage;
 	if (health <= 0) {
 		printf("Fighter Dead!");
+	}
+}
+
+void EnemyFighter::determineIfPlayerInRange(){
+	double newX = pow((player->getPosition().x - position.x), 2);
+	double newY = pow((player->getPosition().y - position.y), 2);
+
+	double distance = sqrt(newX + newY);
+	if (distance <= 550.0) {
+		playerInRange = true;
 	}
 }

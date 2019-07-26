@@ -13,6 +13,7 @@ public:
 	void update();
 	void track();
 	void takeDamage(double damage);
+	void determineIfPlayerInRange();
 
 private:
 	double health;

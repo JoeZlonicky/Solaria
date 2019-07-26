@@ -57,25 +57,34 @@ void Map::update() {
 			projectiles.erase(projectiles.begin() + i);
 		}
 		else {
+			bool projectileDeleted = false;
 			for (Asteroid& asteroid : asteroids) {
 				if (projectiles.at(i)->collides(asteroid)) {
 					asteroid.hit();
 					projectiles.erase(projectiles.begin() + i);
+					projectileDeleted = true;
 					break;
 				}
 			}
 
+			if (projectileDeleted) {
+				break;
+			}
+
 			for (EnemyFighter* enemyFighter : enemyFighters) {
-				if(projectiles.at(i)->collides(*enemyFighter)){
+				if (projectiles.at(i)->collides(*enemyFighter)) {
 					enemyFighter->takeDamage(2);
 					projectiles.erase(projectiles.begin() + i);
+					projectileDeleted = true;
 					break;
 				}
 			}
 		}
-		
+
 	}
 }
+		
+
 
 std::vector<Asteroid>* Map::getAsteroids() {
 	return &asteroids;
