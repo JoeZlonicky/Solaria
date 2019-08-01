@@ -103,6 +103,9 @@ void Display::draw(Map* map, Camera* camera) {
 	for (Projectile* projectile : *map->getProjectiles()) {
 		draw(projectile, camera);
 	}
+	for (Projectile* enemyProjectile : *map->getEnemyProjectiles()) {
+		draw(enemyProjectile, camera);
+	}
 	for (EnemyFighter* enemyFighter : *map->getEnemyFighters()) {
 		draw(enemyFighter, camera);
 	}

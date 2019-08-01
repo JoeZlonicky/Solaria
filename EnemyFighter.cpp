@@ -10,7 +10,7 @@ EnemyFighter::EnemyFighter(std::string filePath, double x, double y, double _hea
 
 void EnemyFighter::update(std::vector<Projectile*>* projectiles){
 
-	if (determinePlayerDistance() <= 50) { 
+	if (determinePlayerDistance() <= 550) { 
 		playerInRange = true; 
 		fireTimer.startTimer();
 	

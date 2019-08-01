@@ -94,6 +94,7 @@ void Map::update() {
 		if (enemyProjectiles.at(i)->collides(*player)) {
 			enemyProjectiles.erase(enemyProjectiles.begin() + i);
 			printf("Projectile hit Player");
+			break;
 		}
 	}
 }
