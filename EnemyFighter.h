@@ -4,6 +4,7 @@
 #include "RandomGenerator.h"
 #include "Vector.h"
 #include "Timer.h"
+#include "Projectile.h"
 #include <math.h> 
 
 #define PI 3.14159265
@@ -15,8 +16,9 @@ public:
 	EnemyFighter(std::string filePath, double x, double y,
 		double _health, double _movementSpeed, Player* player);
 
-	void update();
+	void update(std::vector<Projectile*>* projectiles);
 	void track();
+	void fire(std::vector<Projectile*>* projectiles);
 	void takeDamage(double damage);
 	double determinePlayerDistance();
 
@@ -25,8 +27,9 @@ private:
 	double movementSpeed;
 	Player* player;
 	bool playerInRange = false;
-	double movementTimer = 0;
-	Timer* timer = new Timer();
+	Timer movementTimer = Timer();
+	Timer fireTimer = Timer();
+	Projectile* projectile = nullptr;
 
 };
 

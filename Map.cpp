@@ -46,7 +46,7 @@ void Map::update() {
 
 	for (unsigned int i = 0; i < enemyFighters.size(); ++i)
 	{
-		enemyFighters.at(i)->update();
+		enemyFighters.at(i)->update(&enemyProjectiles);
 	}
 
 	for (unsigned int i = 0; i < projectiles.size(); ++i) {
@@ -82,6 +82,20 @@ void Map::update() {
 		}
 
 	}
+
+	for (unsigned int i = 0; i < enemyProjectiles.size(); i++) {
+		enemyProjectiles.at(i)->update();
+		double dx = enemyProjectiles.at(i)->getCenter().x - player->getCenter().x;
+		double dy = enemyProjectiles.at(i)->getCenter().y - player->getCenter().y;
+		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
+			enemyProjectiles.erase(enemyProjectiles.begin() + i);
+		}
+
+		if (enemyProjectiles.at(i)->collides(*player)) {
+			enemyProjectiles.erase(enemyProjectiles.begin() + i);
+			printf("Projectile hit Player");
+		}
+	}
 }
 		
 
@@ -96,6 +110,11 @@ std::vector<Planet>* Map::getPlanets() {
 
 std::vector<Projectile*>* Map::getProjectiles() {
 	return &projectiles;
+}
+
+std::vector<Projectile*>* Map::getEnemyProjectiles()
+{
+	return &enemyProjectiles;
 }
 
 std::vector<EnemyFighter*>* Map::getEnemyFighters()
