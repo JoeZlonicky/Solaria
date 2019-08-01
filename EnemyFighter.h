@@ -2,6 +2,10 @@
 #include "Player.h"
 #include "Sprite.h"
 #include "RandomGenerator.h"
+#include "Vector.h"
+#include <math.h> 
+
+#define PI 3.14159265
 
 class Player;
 

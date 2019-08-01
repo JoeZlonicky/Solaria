@@ -31,10 +31,9 @@ void EnemyFighter::update(){
 }
 
 void EnemyFighter::track(){
-	rotation += 1;
-	double newX = cos(rotation) * player->getPosition().x;
-	double newY = sin(rotation) * player->getPosition().y;
-	setCenter(newX, newY);
+	Vector facingVec = player->getPosition() - getPosition();
+	rotation = (atan2(facingVec.y, facingVec.x) * 180.0000) / PI + 90;
+	
 }
 
 void EnemyFighter::takeDamage(double damage) {

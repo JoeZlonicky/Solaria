@@ -26,7 +26,7 @@ void EnemyMotherShip::update(std::vector<EnemyFighter*>* enemyFighters){
 		movementTimer = 0;
 	}
 
-	if (enemySpawnTime >= 250) {
+	if (enemySpawnTime >= 250 && enemyFighters->size() <= 0) {
 		spawnEnemy(enemyFighters);
 		enemySpawnTime = 0;
 	}
