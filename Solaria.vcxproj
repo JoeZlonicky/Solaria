@@ -144,6 +144,7 @@
     <ClCompile Include="SpaceUI.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="SpaceUI.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="AssetLoader.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

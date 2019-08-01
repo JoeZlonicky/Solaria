@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "RandomGenerator.h"
 #include "Vector.h"
+#include "Timer.h"
 #include <math.h> 
 
 #define PI 3.14159265
@@ -17,7 +18,7 @@ public:
 	void update();
 	void track();
 	void takeDamage(double damage);
-	void determineIfPlayerInRange();
+	double determinePlayerDistance();
 
 private:
 	double health;
@@ -25,6 +26,7 @@ private:
 	Player* player;
 	bool playerInRange = false;
 	double movementTimer = 0;
+	Timer* timer = new Timer();
 
 };
 

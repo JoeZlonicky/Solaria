@@ -8,32 +8,29 @@ EnemyFighter::EnemyFighter(std::string filePath, double x, double y, double _hea
 }
 
 void EnemyFighter::update(){
-	
-	determineIfPlayerInRange();
 
-	if (!playerInRange && movementTimer <= 0) {
+	timer->startTimer();
+	if (determinePlayerDistance() <= 50) { playerInRange = true; }
+
+	if (!playerInRange && timer->currentTime() >= 50000) {
 		setRotation(RandomGenerator::randdouble(0, 360));
-		movementTimer += 1;
+		timer->endTimer();
+		timer->startTimer();
 	}
 	else if (playerInRange) {
 		track();
 	}
-	else if (movementTimer <= 500) {
+	else if (timer->currentTime() <= 50000) {
 		velocity = Vector(movementSpeed, movementSpeed);
 		position.x += velocity.x * (cos((getRotation() - 90) * 0.0174532925));
 		position.y += velocity.y * (sin((getRotation() - 90) * 0.0174532925));
-		movementTimer += 1;
-	}
-	else {
-		movementTimer = 0;
 	}
 	
 }
 
 void EnemyFighter::track(){
 	Vector facingVec = player->getPosition() - getPosition();
-	rotation = (atan2(facingVec.y, facingVec.x) * 180.0000) / PI + 90;
-	
+	rotation = (atan2(facingVec.y, facingVec.x) * 180.0000) / PI + 90;	
 }
 
 void EnemyFighter::takeDamage(double damage) {
@@ -43,12 +40,11 @@ void EnemyFighter::takeDamage(double damage) {
 	}
 }
 
-void EnemyFighter::determineIfPlayerInRange(){
+double EnemyFighter::determinePlayerDistance() {
 	double newX = pow((player->getPosition().x - position.x), 2);
 	double newY = pow((player->getPosition().y - position.y), 2);
 
 	double distance = sqrt(newX + newY);
-	if (distance <= 550.0) {
-		playerInRange = true;
-	}
+	return distance;
 }
+
