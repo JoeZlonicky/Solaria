@@ -17,9 +17,8 @@ void Player::update(){
 			reloadTimer = 0;
 		}
 	}
-	
-;	if (currentKeyStates[SDL_SCANCODE_W]) {
-		velocity = Vector(speed, speed);
+	if (currentKeyStates[SDL_SCANCODE_W]) {
+		velocity = Vector(SPEED, SPEED);
 		playerMove();
 	}
 	else if (currentKeyStates[SDL_SCANCODE_S]) {
@@ -57,27 +56,23 @@ void Player::fireProjectile(std::vector<Projectile*>* projectiles, int mouseID){
 }
 
 void Player::reload(){
-	currentAmmo = maxAmmo;
+	currentAmmo = MAX_AMMO;
 }
-
-
 
 void Player::playerMove(){
 	position.x += velocity.x * (cos((rotation - 90) * 0.0174532925));
 	position.y += velocity.y * (sin((rotation - 90) * 0.0174532925));
-
-	
 }
 
 void Player::calculateRotation(Display* display){
-	double delta_y = ((double)display->getWindowHeight() / 2) - yMouse;
-	double delta_x = ((double)display->getWindowWidth() / 2) - xMouse;
+	double delta_x = ((double)display->getWindowWidth() / 2) - mousePosition.x;
+	double delta_y = ((double)display->getWindowHeight() / 2) - mousePosition.y;
 	rotation = (atan2(delta_y, delta_x) * 180.0000) / 3.1416 - 90;
 }
 
-void Player::setMouseCoords(int _xMouse, int _yMouse){
-	yMouse = _yMouse;
-	xMouse = _xMouse;
+void Player::updateMousePosition(int x, int y){
+	mousePosition.x = x;
+	mousePosition.y = y;
 }
 
 double Player::getAngle()

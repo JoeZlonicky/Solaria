@@ -6,6 +6,8 @@
 #include "Map.h"
 #include "Camera.h"
 
+class Map;
+
 class Display {
 public:
 	Display(std::string title, bool fullscreen);
@@ -14,11 +16,12 @@ public:
 	void clear();
 	void update();
 	void free();
-	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void draw(Sprite* sprite, Camera* camera = nullptr);
 	void drawCollider(Sprite* sprite, Camera* camera = nullptr);
 	void draw(Map* map, Camera* camera);
 	void drawCursor();
+
+	void setClearColor(Uint8 r, Uint8 g, Uint8 b);
 	void setIcon();
 	SDL_Renderer* getRenderer();
 	SDL_Window* getWindow();
@@ -34,13 +37,12 @@ private:
 	const int fps = 120;
 	const int resolutionWidth = 1920;
 	const int resolutionHeight = 1080;
+
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	SDL_Texture* cursorTexture = nullptr;
-
 	Uint32 lastTick = 0;
 	Uint32 fpsTracker = 0;
-	
 	bool fullscreen = false;
 	Uint8 clearR = 0;
 	Uint8 clearG = 0;

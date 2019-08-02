@@ -84,8 +84,8 @@ void Display::drawCollider(Sprite* sprite, Camera* camera) {
 void Display::draw(Map* map, Camera* camera) {
 	int textureWidth = map->getBackgroundTextureWidth();
 	int textureHeight = map->getBackgroundTextureHeight();
-	int cameraX = -(int)camera->getX() % textureWidth;
-	int cameraY = -(int)camera->getY() % textureHeight;
+	int cameraX = -(int)camera->getPosition().x % textureWidth;
+	int cameraY = -(int)camera->getPosition().y % textureHeight;
 	SDL_Rect rect;
 	for(int x = cameraX - resolutionWidth; x < resolutionWidth; x += textureWidth) {
 		for (int y = cameraY - resolutionHeight; y < resolutionHeight; y += textureHeight) {

@@ -10,6 +10,10 @@ public:
 	Sprite(SDL_Texture* texture, double x = 0, double y = 0);
 	Sprite(std::string filePath, double x = 0, double y = 0);
 
+	void rotate(double rotation);
+	void reduceVelocity(double x, double y);
+	bool collides(Sprite other);
+
 	void setX(double x);
 	void setY(double y);
 	void setPosition(double x, double y);
@@ -19,10 +23,6 @@ public:
 	void setRotation(double rotation);
 	void setFlip(SDL_RendererFlip flip);
 	void setAlpha(Uint8 a);
-	void rotate(double rotation);
-	void reduceVelocity(double x, double y);
-	bool collides(Sprite other);
-
 	Vector getPosition();
 	Vector getCenter();
 	Vector getVelocity();
@@ -35,8 +35,8 @@ public:
 	std::vector<Vector> getPoints();
 
 protected:
-	
 	bool SATedge(Vector p1, Vector p2, Vector p3, Sprite other);
+
 	SDL_Texture* texture = nullptr;
 	Vector size;
 	Vector position;

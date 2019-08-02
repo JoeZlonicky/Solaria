@@ -20,6 +20,5 @@ private:
 	Player* player;
 	bool playerInRange = false;
 	double movementTimer = 0;
-
 };
 

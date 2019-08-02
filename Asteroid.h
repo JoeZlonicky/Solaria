@@ -18,21 +18,22 @@ public:
 	Asteroid(const Asteroid& ast);
 	Asteroid& operator=(const Asteroid& ast);
 
-	AsteroidType getType();
 	void hit();
 	void update();
 	void destroy(std::vector<Asteroid>* asteroids);
-	bool shouldDestroy();
 	bool breaksSmaller();
+
+	AsteroidType getType();
+	bool shouldDestroy();
 
 private:
 	AsteroidType randomSize();
 	std::string getFilePath(int size);
 	
-	AsteroidType type;
-	bool destory = false;
-	
 	const int MIN_SPEED = 1;
 	const int MAX_SPEED = 3;
+
+	AsteroidType type;
+	bool destory = false;
 };
 

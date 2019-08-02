@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "AssetLoader.h"
 #include "RandomGenerator.h"
+#include "SDL_image.h"
 
 
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
@@ -15,7 +16,6 @@ Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
 
 void Game::setup() {
 	player.setCenter(0, 0);
-	camera.setMap(&map);
 }
 
 void Game::handleEvents() {
@@ -32,7 +32,7 @@ void Game::handleEvents() {
 		case(SDL_MOUSEMOTION):
 			int x, y;
 			SDL_GetMouseState(&x, &y);
-			player.setMouseCoords(x, y);
+			player.updateMousePosition(x, y);
 			break;
 		case(SDL_MOUSEBUTTONDOWN):
 			if (event.button.button == SDL_BUTTON_LEFT) {
@@ -92,7 +92,7 @@ void Game::render() {
 }
 
 void Game::free() {
-	AssetLoader::free();
+	AssetLoader::freeLoadedAssets();
 	display.free();
 	SDL_Quit();
 	TTF_Quit();
