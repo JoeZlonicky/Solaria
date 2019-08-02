@@ -1,7 +1,7 @@
 #include "EnemyFighter.h"
 
 EnemyFighter::EnemyFighter(std::string filePath, double x, double y, double _health, double _movementSpeed, 
-	Player* _player): Sprite(filePath, x, y){
+	Player* _player): Ship(filePath, _health, 100.0){
 	health = _health;
 	movementSpeed = _movementSpeed;
 	player = _player;
@@ -46,13 +46,6 @@ void EnemyFighter::fire(std::vector<Projectile*>* projectiles) {
 		projectiles->push_back(projectile);
 		fireTimer.endTimer();
 		fireTimer.startTimer();
-	}
-}
-
-void EnemyFighter::takeDamage(double damage) {
-	health -= damage;
-	if (health <= 0) {
-		printf("Fighter Dead!");
 	}
 }
 

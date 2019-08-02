@@ -70,14 +70,19 @@ void Map::update() {
 			if (projectileDeleted) {
 				break;
 			}
-
+			int count = 0;
 			for (EnemyFighter* enemyFighter : enemyFighters) {
 				if (projectiles.at(i)->collides(*enemyFighter)) {
-					enemyFighter->takeDamage(2);
+					enemyFighter->takeDamage(75);
 					projectiles.erase(projectiles.begin() + i);
 					projectileDeleted = true;
+					if (enemyFighter->isDestroyed()) {
+						enemyFighters.erase(enemyFighters.begin() + count);
+					}
+					
 					break;
 				}
+				count++;
 			}
 		}
 

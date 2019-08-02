@@ -2,7 +2,7 @@
 
 #include "GrenadeProjectile.h"
 
-Player::Player() : Sprite("assets/player.png") {
+Player::Player() : Ship("assets/player.png", 250, 100) {
 }
 
 void Player::update(){

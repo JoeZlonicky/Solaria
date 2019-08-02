@@ -5,13 +5,14 @@
 #include "Vector.h"
 #include "Timer.h"
 #include "Projectile.h"
+#include "Ship.h"
 #include <math.h> 
 
 #define PI 3.14159265
 
 class Player;
 
-class EnemyFighter : public Sprite{
+class EnemyFighter : public Ship{
 public:
 	EnemyFighter(std::string filePath, double x, double y,
 		double _health, double _movementSpeed, Player* player);
@@ -19,7 +20,6 @@ public:
 	void update(std::vector<Projectile*>* projectiles);
 	void track();
 	void fire(std::vector<Projectile*>* projectiles);
-	void takeDamage(double damage);
 	double determinePlayerDistance();
 
 private:

@@ -4,11 +4,12 @@
 #include "Sprite.h"
 #include "Projectile.h"
 #include "Display.h"
+#include "Ship.h"
 
 
 class Display;
 
-class Player : public Sprite {
+class Player : public Ship {
 
 public:
 	Player();

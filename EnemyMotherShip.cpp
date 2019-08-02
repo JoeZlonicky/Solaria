@@ -38,7 +38,7 @@ void EnemyMotherShip::track(){
 }
 
 void EnemyMotherShip::spawnEnemy(std::vector<EnemyFighter*>* enemyFighters){
-	EnemyFighter* enemy = new EnemyFighter("assets/enemy.png", getPosition().x, getPosition().y, 10, 2, player);
+	EnemyFighter* enemy = new EnemyFighter("assets/enemy.png", getPosition().x, getPosition().y, 75, 2, player);
 	enemy->setCenter(getCenter().x, getCenter().y);
 	enemy->setRotation(rotation);
 	enemyFighters->push_back(enemy);
