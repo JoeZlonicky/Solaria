@@ -10,9 +10,10 @@ class Map;
 
 class Display {
 public:
-	Display(std::string title, bool fullscreen);
+	Display(std::string title);
 	Display(std::string title, int windowWidth, int windowHeight);
 
+	void init(std::string title, int windowWidth, int windowHeight, int fullscreenFlag);
 	void clear();
 	void update();
 	void free();
@@ -49,5 +50,5 @@ private:
 	Uint8 clearB = 0;
 	int windowWidth = 0;
 	int windowHeight = 0;
-	int frameCount = 0;
+	unsigned int frameCount = 0;
 };

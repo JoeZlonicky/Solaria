@@ -4,20 +4,24 @@
 #include "SDL_image.h"
 
 
+// Start game with a window of specified size
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
 		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player) {
 	setup();
 }
 
-Game::Game(std::string title, bool fullscreen) : display(title, fullscreen),
+// Start game with fullscreen display
+Game::Game(std::string title) : display(title),
 		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player){
 	setup();
 }
 
+// Set intial state
 void Game::setup() {
 	player.setCenter(0, 0);
 }
 
+// Handle SDL events
 void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
@@ -53,6 +57,7 @@ void Game::handleEvents() {
 	}
 }
 
+// Update state of game
 void Game::update() {
 	if (paused && pausedUI != nullptr) {
 		pausedUI->update(&player);
@@ -71,6 +76,7 @@ void Game::update() {
 	spaceUI.update(&player);
 }
 
+// Draw game to display
 void Game::render() {
 	display.clear();
 	camera.update(&player);
@@ -91,6 +97,7 @@ void Game::render() {
 	display.update();
 }
 
+// Free all resources and exit SDL
 void Game::free() {
 	AssetLoader::freeLoadedAssets();
 	display.free();

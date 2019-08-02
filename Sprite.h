@@ -13,6 +13,8 @@ public:
 	void rotate(double rotation);
 	void reduceVelocity(double x, double y);
 	bool collides(Sprite other);
+	std::vector<Vector> getBoundingPoints();
+	bool isSeperatingAxis(Vector axis, std::vector<Vector> points, std::vector<Vector> otherPoints);
 
 	void setX(double x);
 	void setY(double y);
@@ -32,11 +34,8 @@ public:
 	SDL_Rect getRect();
 	SDL_Texture* getTexture();
 	SDL_RendererFlip getFlip();
-	std::vector<Vector> getPoints();
 
 protected:
-	bool SATedge(Vector p1, Vector p2, Vector p3, Sprite other);
-
 	SDL_Texture* texture = nullptr;
 	Vector size;
 	Vector position;

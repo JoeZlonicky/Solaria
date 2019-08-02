@@ -11,7 +11,6 @@ int main(int argc, char* argv[]) {
 	}
 
 	Game game("Solaria", 1280, 720);
-
 	while (game.isRunning()) {
 		game.handleEvents();
 		game.update();

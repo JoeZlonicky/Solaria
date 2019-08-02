@@ -14,7 +14,6 @@ public:
 	void setFontSize(int size);
 	void setColor(Uint8 r, Uint8 g, Uint8 b);
 
-
 private:
 	void updateFont();
 	void updateTexture();

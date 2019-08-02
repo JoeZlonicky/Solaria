@@ -1,5 +1,6 @@
 #include "Camera.h"
 
+// Create a camera
 Camera::Camera(Display* display) {
 	this->display = display;
 }
@@ -17,12 +18,13 @@ SDL_Rect Camera::apply(SDL_Rect rect) {
 	return newRect;
 }
 
-// Get posiiton based off camera
+// Get position based off camera
 Vector Camera::apply(Vector vec) {
 	return Vector(display->getWidth() / 2 + vec.x - position.x,
 		display->getHeight() / 2 + vec.y - position.y);
 }
 
+// Get current position of camera
 Vector Camera::getPosition() {
 	return position;
 }
