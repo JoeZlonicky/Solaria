@@ -2,6 +2,7 @@
 #include <SDL.h>
 
 #include "Display.h"
+#include "Player.h"
 
 class UI {
 public:

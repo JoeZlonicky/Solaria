@@ -2,23 +2,25 @@
 #include "AssetLoader.h"
 #include "RandomGenerator.h"
 #include "SDL_image.h"
+#include "MapUI.h"
 
 
 // Start game with a window of specified size
 Game::Game(std::string title, int displayWidth, int displayHeight) : display(title, displayWidth, displayHeight),
-		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player) {
+		camera(&display), map(&player), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player) {
 	setup();
 }
 
 // Start game with fullscreen display
 Game::Game(std::string title) : display(title),
-		camera(&display), map(&player), spaceUI(&display), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player){
+		camera(&display), map(&player), enemyMotherShip("assets/mothership.png", 100, 100, 100, 1.75, 10.0, &player){
 	setup();
 }
 
 // Set intial state
 void Game::setup() {
 	player.setCenter(0, 0);
+	ui = new SpaceUI(&display, &map);
 }
 
 // Handle SDL events
@@ -28,17 +30,15 @@ void Game::handleEvents() {
 		if (event.type == SDL_QUIT) {
 			running = false;
 		}
-		else if (paused && pausedUI != nullptr) {
-			pausedUI->handleEvent(event);
-			continue;
-		}
 		switch (event.type) {
 		case(SDL_MOUSEMOTION):
+			if (paused) continue;
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			player.updateMousePosition(x, y);
 			break;
 		case(SDL_MOUSEBUTTONDOWN):
+			if (paused) continue;
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				player.fireProjectile(map.getProjectiles(), 1);
 			}
@@ -50,6 +50,10 @@ void Game::handleEvents() {
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
 			}
+			else if (event.key.keysym.sym == SDLK_i) {
+				ui = new MapUI(&display);
+				paused = true;
+			}
 			break;
 		default:
 			break;
@@ -59,21 +63,13 @@ void Game::handleEvents() {
 
 // Update state of game
 void Game::update() {
-	if (paused && pausedUI != nullptr) {
-		pausedUI->update(&player);
-		return;
+	if (!paused) {
+		player.update();
+		player.calculateRotation(&display);
+		enemyMotherShip.update(map.getEnemyFighters());
+		map.update();
 	}
-	player.update();
-	player.calculateRotation(&display);
-	enemyMotherShip.update(map.getEnemyFighters());
-	map.update();
-	spaceUI.hidePlanetName();
-	for (Planet planet : *map.getPlanets()) {
-		if (player.collides(planet)) {
-			spaceUI.displayPlanetName(planet.getName());
-		}
-	}
-	spaceUI.update(&player);
+	ui->update(&player);
 }
 
 // Draw game to display
@@ -83,16 +79,9 @@ void Game::render() {
 
 	display.draw(&map, &camera);
 	display.draw(&player, &camera);
-
 	display.draw(&enemyMotherShip, &camera);
-
-	
-	spaceUI.draw();
+	ui->draw();
 	display.drawCursor();
-
-	if (paused && pausedUI != nullptr) {
-
-	}
 
 	display.update();
 }

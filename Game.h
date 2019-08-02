@@ -29,8 +29,7 @@ private:
 	EnemyMotherShip enemyMotherShip;
 	Map map;
 	Camera camera;
-	SpaceUI spaceUI;
-	SpaceUI* pausedUI = nullptr;
+	UI* ui = nullptr;
 	bool running = true;
 	bool paused = false;
 };

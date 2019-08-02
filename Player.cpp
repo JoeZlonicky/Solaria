@@ -79,3 +79,11 @@ double Player::getAngle()
 {
 	return angle_deg;
 }
+
+int Player::getMaxAmmo() {
+	return MAX_AMMO;
+}
+
+int Player::getCurrentAmmo() {
+	return currentAmmo;
+}

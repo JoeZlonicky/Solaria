@@ -22,6 +22,8 @@ public:
 
 	void updateMousePosition(int x, int y);
 	double getAngle();
+	int getMaxAmmo();
+	int getCurrentAmmo();
 
 private:
 	const double SPEED = 2;
