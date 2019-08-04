@@ -1,5 +1,7 @@
 #include "EnemyFighter.h"
 
+#include "RandomGenerator.h"
+
 EnemyFighter::EnemyFighter(std::string filePath, double x, double y, double _health, double _movementSpeed, 
 	Player* _player): Ship(filePath, _health, 100.0){
 	health = _health;

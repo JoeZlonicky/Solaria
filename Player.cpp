@@ -18,7 +18,7 @@ void Player::update(){
 		}
 	}
 	if (currentKeyStates[SDL_SCANCODE_W]) {
-		velocity = Vector(SPEED, SPEED);
+		velocity = Vector(speed, speed);
 		playerMove();
 	}
 	else if (currentKeyStates[SDL_SCANCODE_S]) {
@@ -56,7 +56,7 @@ void Player::fireProjectile(std::vector<Projectile*>* projectiles, int mouseID){
 }
 
 void Player::reload(){
-	currentAmmo = MAX_AMMO;
+	currentAmmo = max_ammo;
 }
 
 void Player::playerMove(){
@@ -81,7 +81,7 @@ double Player::getAngle()
 }
 
 int Player::getMaxAmmo() {
-	return MAX_AMMO;
+	return max_ammo;
 }
 
 int Player::getCurrentAmmo() {

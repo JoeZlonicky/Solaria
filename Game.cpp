@@ -2,7 +2,7 @@
 #include "AssetLoader.h"
 #include "RandomGenerator.h"
 #include "SDL_image.h"
-#include "MapUI.h"
+#include "SpaceUI.h"
 
 
 // Start game with a window of specified size
@@ -20,7 +20,7 @@ Game::Game(std::string title) : display(title),
 // Set intial state
 void Game::setup() {
 	player.setCenter(0, 0);
-	ui = new SpaceUI(&display, &map);
+	uiManager.addLayer(new SpaceUI(this));
 }
 
 // Handle SDL events
@@ -32,13 +32,13 @@ void Game::handleEvents() {
 		}
 		switch (event.type) {
 		case(SDL_MOUSEMOTION):
-			if (paused) continue;
+			if (uiManager.pauseGame()) continue;
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			player.updateMousePosition(x, y);
 			break;
 		case(SDL_MOUSEBUTTONDOWN):
-			if (paused) continue;
+			if (uiManager.pauseGame()) continue;
 			if (event.button.button == SDL_BUTTON_LEFT) {
 				player.fireProjectile(map.getProjectiles(), 1);
 			}
@@ -50,26 +50,23 @@ void Game::handleEvents() {
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
 			}
-			else if (event.key.keysym.sym == SDLK_i) {
-				ui = new MapUI(&display);
-				paused = true;
-			}
 			break;
 		default:
 			break;
 		}
+		uiManager.getFocusedLayer()->handleEvent(event);
 	}
 }
 
 // Update state of game
 void Game::update() {
-	if (!paused) {
+	if (!uiManager.pauseGame()) {
 		player.update();
 		player.calculateRotation(&display);
 		enemyMotherShip.update(map.getEnemyFighters());
 		map.update();
 	}
-	ui->update(&player);
+	uiManager.update();
 }
 
 // Draw game to display
@@ -80,7 +77,7 @@ void Game::render() {
 	display.draw(&map, &camera);
 	display.draw(&player, &camera);
 	display.draw(&enemyMotherShip, &camera);
-	ui->draw();
+	uiManager.draw();
 	display.drawCursor();
 
 	display.update();
@@ -97,4 +94,24 @@ void Game::free() {
 
 bool Game::isRunning() {
 	return running;
+}
+
+Display* Game::getDisplay() {
+	return &display;
+}
+
+Player* Game::getPlayer() {
+	return &player;
+}
+
+Map* Game::getMap() {
+	return &map;
+}
+
+Camera* Game::getCamera() {
+	return &camera;
+}
+
+UIManager* Game::getUIManager() {
+	return &uiManager;
 }

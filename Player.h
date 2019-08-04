@@ -26,8 +26,8 @@ public:
 	int getCurrentAmmo();
 
 private:
-	const double SPEED = 2;
-	const int MAX_AMMO = 10;
+	const double speed = 2;
+	const int max_ammo = 10;
 
 	Vector mousePosition;
 	double angle_deg = 0.0;

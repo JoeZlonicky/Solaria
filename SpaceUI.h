@@ -7,17 +7,21 @@
 #include "Player.h"
 #include "Label.h"
 #include "Sprite.h"
-
+#include "UIManager.h"
+#include "Game.h"
+#include "SDL.h"
 
 class SpaceUI : public UI {
 public:
-	SpaceUI(Display* display, Map* map);
+	SpaceUI(Game* game);
 
-	void update(Player* player);
-	void draw();
+	void update() override;
+	void draw() override;
+	void handleEvent(SDL_Event event) override;
 
 	void displayPlanetName(std::string name);
 	void hidePlanetName();
+	bool pausesGame();
 
 private:
 	const int positionFontSize = 48;
@@ -33,7 +37,6 @@ private:
 	const int healthBarTop = 8;
 	const double planetDisplayAlphaIncrease = 2;
 
-	Map* map = nullptr;
 	Label xPositionLabel;
 	Label zPositionLabel;
 	Label planetNameLabel;

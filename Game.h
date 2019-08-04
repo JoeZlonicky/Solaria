@@ -2,13 +2,14 @@
 #include <string>
 #include <vector>
 
+#include "UIManager.h"
 #include "Display.h"
 #include "Player.h"
 #include "Map.h"
 #include "Camera.h"
-#include "UI.h"
-#include "SpaceUI.h"
 #include "EnemyMotherShip.h"
+
+class UIManager;
 
 class Game {
 public:
@@ -22,6 +23,11 @@ public:
 	void free();
 
 	bool isRunning();
+	Display* getDisplay();
+	Player* getPlayer();
+	Map* getMap();
+	Camera* getCamera();
+	UIManager* getUIManager();
 
 private:
 	Display display;
@@ -29,7 +35,6 @@ private:
 	EnemyMotherShip enemyMotherShip;
 	Map map;
 	Camera camera;
-	UI* ui = nullptr;
+	UIManager uiManager;
 	bool running = true;
-	bool paused = false;
 };

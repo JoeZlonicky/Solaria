@@ -66,7 +66,6 @@ void Map::update() {
 					break;
 				}
 			}
-
 			if (projectileDeleted) {
 				break;
 			}
@@ -79,13 +78,11 @@ void Map::update() {
 					if (enemyFighter->isDestroyed()) {
 						enemyFighters.erase(enemyFighters.begin() + count);
 					}
-					
 					break;
 				}
 				count++;
 			}
 		}
-
 	}
 
 	for (unsigned int i = 0; i < enemyProjectiles.size(); i++) {
@@ -95,7 +92,6 @@ void Map::update() {
 		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
 			enemyProjectiles.erase(enemyProjectiles.begin() + i);
 		}
-
 		if (enemyProjectiles.at(i)->collides(*player)) {
 			enemyProjectiles.erase(enemyProjectiles.begin() + i);
 			printf("Projectile hit Player");
