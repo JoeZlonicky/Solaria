@@ -1,12 +1,10 @@
 #pragma once
+
+#include <math.h>
+#include "Ship.h"
 #include "Player.h"
-#include "Sprite.h"
-#include "RandomGenerator.h"
-#include "Vector.h"
 #include "Timer.h"
 #include "Projectile.h"
-#include "Ship.h"
-#include <math.h> 
 
 #define PI 3.14159265
 

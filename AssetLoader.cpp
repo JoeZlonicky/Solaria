@@ -1,6 +1,7 @@
 #include "AssetLoader.h"
-#include "Game.h"
+
 #include <SDL_image.h>
+#include "Game.h"
 
 SDL_Renderer* AssetLoader::renderer = nullptr;
 std::map<std::string, SDL_Texture*> AssetLoader::loadedTextures;

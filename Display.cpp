@@ -1,4 +1,5 @@
 #include "Display.h"
+
 #include <SDL_image.h>
 #include "AssetLoader.h"
 

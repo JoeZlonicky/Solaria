@@ -1,7 +1,7 @@
 #pragma once
+
 #include <SDL.h>
 #include <string>
-
 #include "Sprite.h"
 #include "Map.h"
 #include "Camera.h"

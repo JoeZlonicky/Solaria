@@ -1,8 +1,10 @@
 #include "SpaceUI.h"
 
-SpaceUI::SpaceUI(Display* display, Map* map) : UI(display), map(map), xPositionLabel("0", "assets/upheavtt.ttf", positionFontSize), 
-		zPositionLabel("0", "assets/upheavtt.ttf", positionFontSize), planetNameLabel("Planet name", "assets/upheavtt.ttf", planetNameFontSize), 
-		ammoCounter("0/0", "assets/upheavtt.ttf", ammoFontSize), healthBar("assets/healthBar.png"), healthContainer("assets/healthContainer.png") {
+SpaceUI::SpaceUI(Game* game) : UI(game), xPositionLabel("0", "assets/upheavtt.ttf", positionFontSize),
+		zPositionLabel("0", "assets/upheavtt.ttf", positionFontSize), 
+		planetNameLabel("Planet name", "assets/upheavtt.ttf", planetNameFontSize), 
+		ammoCounter("0/0", "assets/upheavtt.ttf", ammoFontSize),
+		healthBar("assets/healthBar.png"), healthContainer("assets/healthContainer.png") {
 	xPositionLabel.setPosition(positionLeft, positionXTop);
 	zPositionLabel.setPosition(positionLeft, positionZTop);
 	planetNameLabel.setCenter((double)display->getWidth() / 2, (double)display->getHeight() - planetNameBottomOffset);
@@ -11,7 +13,7 @@ SpaceUI::SpaceUI(Display* display, Map* map) : UI(display), map(map), xPositionL
 	healthContainer.setX((double)display->getWidth() - healthContainer.getSize().x);
 }
 
-void SpaceUI::update(Player* player) {
+void SpaceUI::update() {
 	hidePlanetName();
 	for (Planet planet : *(map->getPlanets())) {
 		if (player->collides(planet)) {
@@ -55,6 +57,12 @@ void SpaceUI::draw() {
 	display->draw(&healthBar);
 }
 
+void SpaceUI::handleEvent(SDL_Event event) {
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_TAB) {
+		uiManager->addLayer(new SpaceUI(game));
+	}
+}
+
 void SpaceUI::displayPlanetName(std::string name) {
 	planetNameLabel.setText(name);
 	planetNameLabel.setCenter((double)display->getWidth() / 2, (double)display->getHeight() - planetNameBottomOffset);
@@ -63,4 +71,8 @@ void SpaceUI::displayPlanetName(std::string name) {
 
 void SpaceUI::hidePlanetName() {
 	showPlanetName = false;
+}
+
+bool SpaceUI::pausesGame() {
+	return false;
 }

@@ -1,11 +1,10 @@
 #pragma once
+
 #include <SDL.h>
 #include <SDL_ttf.h>
-#include <string>
 #include <map>
-#include <utility>
 #include <string>
-
+#include <utility>
 
 namespace AssetLoader {
 	extern SDL_Renderer* renderer;
