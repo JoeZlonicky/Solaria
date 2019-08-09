@@ -8,6 +8,8 @@ public:
 
 	void startTimer();
 	void endTimer();
+	void restartTimer();
+
 	unsigned int currentTime();
 
 private:

@@ -13,11 +13,11 @@ public:
 
 
 private:
-	double MAX_HEALTH;
-	double CURRENT_HEALTH;
+	double maxHealth;
+	double currentHealth;
 	
-	double MAX_ARMOR;
-	double CURRENT_ARMOR;
+	double maxArmor;
+	double currentArmor;
 
 	bool IsDestroyed = false;
 

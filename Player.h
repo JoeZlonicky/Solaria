@@ -5,6 +5,7 @@
 #include "Projectile.h"
 #include "Display.h"
 #include "Ship.h"
+#include "Timer.h"
 
 
 class Display;
@@ -26,13 +27,13 @@ public:
 	int getCurrentAmmo();
 
 private:
-	const double SPEED = 2;
-	const int MAX_AMMO = 10;
+	const double maxSpeed = 2;
+	const int maxAmmo = 10;
 
 	Vector mousePosition;
 	double angle_deg = 0.0;
 	Projectile* leftMouseProjectile = nullptr;
 	Projectile* rightMouseProjectile = nullptr;
 	int currentAmmo = 10;
-	int reloadTimer = 0;
+	Timer reloadTimer;
 };

@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "RandomGenerator.h"
 #include "EnemyFighter.h"
+#include "Timer.h"
 
 class EnemyMotherShip : public Sprite{
 public:
@@ -16,9 +17,9 @@ public:
 private:
 	double health;
 	double movementSpeed;
-	double enemySpawnTime;
+	Timer enemySpawnTimer;
 	Player* player;
 	bool playerInRange = false;
-	double movementTimer = 0;
+	Timer movementTimer;
 };
 

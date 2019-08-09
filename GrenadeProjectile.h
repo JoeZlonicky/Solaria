@@ -5,7 +5,7 @@
 
 class GrenadeProjectile : public Projectile {
 public:
-	GrenadeProjectile(std::string filePath, double rot, std::vector<Projectile*>* projectiles);
+	GrenadeProjectile(std::string filePath, double rot, bool friendlyFire, std::vector<Projectile*>* projectiles);
 	void update();
 	void spawnShrapnel(double x, double y);
 

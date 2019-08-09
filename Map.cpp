@@ -51,6 +51,8 @@ void Map::update() {
 
 	for (unsigned int i = 0; i < projectiles.size(); ++i) {
 		projectiles.at(i)->update();
+
+		//Determine if the projectile should be destroyed based on range
 		double dx = projectiles.at(i)->getCenter().x - player->getCenter().x;
 		double dy = projectiles.at(i)->getCenter().y - player->getCenter().y;
 		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
@@ -59,6 +61,8 @@ void Map::update() {
 		else {
 			bool projectileDeleted = false;
 			for (Asteroid& asteroid : asteroids) {
+				//foreach asteroid determine if the projectile collides with it
+				//if so then call asteroid.hit() and destroy the projectile
 				if (projectiles.at(i)->collides(asteroid)) {
 					asteroid.hit();
 					projectiles.erase(projectiles.begin() + i);
@@ -66,16 +70,20 @@ void Map::update() {
 					break;
 				}
 			}
-
+			//if projectile has been destroyed then break out of the function
 			if (projectileDeleted) {
 				break;
 			}
+
+			//foreach enemy fighter determine if the projectile collides with it
+			//if so then make the enemy take damage and destroy the projectile
+			//if the enemy has been destroyed then erase it while we are here
 			int count = 0;
 			for (EnemyFighter* enemyFighter : enemyFighters) {
 				if (projectiles.at(i)->collides(*enemyFighter)) {
 					enemyFighter->takeDamage(75);
 					projectiles.erase(projectiles.begin() + i);
-					projectileDeleted = true;
+					projectileDeleted = true;   
 					if (enemyFighter->isDestroyed()) {
 						enemyFighters.erase(enemyFighters.begin() + count);
 					}
@@ -90,13 +98,17 @@ void Map::update() {
 
 	for (unsigned int i = 0; i < enemyProjectiles.size(); i++) {
 		enemyProjectiles.at(i)->update();
+
+		//Determine if the projectile should be destroyed based on range
 		double dx = enemyProjectiles.at(i)->getCenter().x - player->getCenter().x;
 		double dy = enemyProjectiles.at(i)->getCenter().y - player->getCenter().y;
 		if (sqrt(dx * dx + dy * dy) > objectDespawnDistance) {
 			enemyProjectiles.erase(enemyProjectiles.begin() + i);
 		}
 
-		if (enemyProjectiles.at(i)->collides(*player)) {
+		//foreach enemy projectile determine if it hits the player
+		//TODO make player take damage and trigger effects
+		else if (enemyProjectiles.at(i)->collides(*player)) {
 			enemyProjectiles.erase(enemyProjectiles.begin() + i);
 			printf("Projectile hit Player");
 			break;

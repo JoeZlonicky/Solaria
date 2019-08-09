@@ -3,7 +3,7 @@
 
 class Projectile : public Sprite {
 public:
-	Projectile(std::string filePath, double rot, double x = 0, double y = 0);
+	Projectile(std::string filePath, double rot, bool friendlyFire, double x = 0, double y = 0);
 
 	virtual void update();
 
@@ -12,5 +12,7 @@ public:
 private:
 	double maxSpeed = 0.0;
 	double playerRotation;
+	bool canFriendlyFire = false;
+
 };
 
